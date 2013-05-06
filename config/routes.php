@@ -32,4 +32,8 @@
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+ // Default pages route 
+	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display')); 
+	Router::parseExtensions('rss', 'json', 'xml', 'json', 'pdf','xdrs');
+	Router::connect('/oauth', array('plugin' => 'oauth', 'controller' => 'oauth_app','action'=>'index'));
+	Router::connect('/oauth/:action', array('plugin' => 'oauth', 'controller' => 'oauth_app'));

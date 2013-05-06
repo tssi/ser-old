@@ -31,4 +31,18 @@
  * @subpackage    cake.app
  */
 class AppController extends Controller {
+	var $components = array(
+			'RequestHandler',
+            'Rest.Rest' => array(
+				'catchredir' => true,
+                'debug' => 1,
+                'index' => array(
+                    'extract' => array('data'),
+                ),
+				'view' => array(
+                    'extract' => array('data'),
+                ),
+				'version'=>'1.0.0'
+            ),
+        );
 }
