@@ -1,4 +1,4 @@
-<?php echo $this->Html->css(array('ss/test'));?>
+<?php echo $this->Html->css(array('recordbook/gradeentry'));?>
 <div class="actions-container row-fluid animate">
 	 <div id="profile-navigation" class="span12 nav-marginTop">		
 		<div class="row-fluid">
@@ -81,7 +81,7 @@
 						</div>
 					</div>
 				</div>
-							<div class="pull-right text-right">
+			<div class="pull-right text-right">
 				<div class="nav-collapse collapse navbar-responsive-collapse">
 						<a href="#" class=" btn dropdown-toggle" data-toggle="dropdown"><i class='icon-cog'></i> <b class="caret"></b></a>
 						<ul class="dropdown-menu pull-left text-left">
@@ -107,7 +107,13 @@
 									</div>
 								</li>
 							</ul>
-						</li>
+					
+				</div>
+			</div>
+			<div class="pull-right text-right">
+				<div class="nav-collapse collapse navbar-responsive-collapse">
+						<a href="#" class=" btn dropdown-toggle" data-toggle="dropdown"><i class='icon-save'></i> <b class="caret"></b></a>
+						<!-- DROP DOWn -->
 					
 				</div>
 			</div>
@@ -128,80 +134,113 @@
 	</div>
 </div>
 
-
-
-<div class="sub-content-container">
-	<div class="w90 center">
+<div class="row-fluid">
+	<div class="span12">
 		<div class="row-fluid">
-			<div class="w90 center">
-						<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="RawScoreTable" model="RawScore">
-			<thead>
-				<tr>
-																								<th class="w10 text-center"><a >Name</a></th>
-														<th class="actions w5"><a >Actions</a></th>
-				</tr>
-			</thead>
-			<tbody>
-					<td><span data-field='RawScore.name'></span></td>
-		<td class="actions">
-					<div class="btn-group">
-						<div class="btn-group btn-center">
-							<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
-							<ul class="dropdown-menu">
-															 
-							  <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
-							</ul>
-						</div>
-					</div>
-						</td>
-	</tr>
-			</tbody>
+			<div class="span3">
+				<div class="wrapper">
+					<h4 class='studname'>Student Name</h4>
+				</div>
+				<ul class="classlist">
+					<?php for($i=1;$i<25;$i++): ?>
+					<li class="student">John Derick Ramilo</li>
+					<?php endfor; ?>
+				</ul>
+			</div>
+	<div class="span9 record">
+	<div class='datasheet'>
+		<div class="datahead">
+			<table class="table table-striped table-bordered  table-condensed records">
+				<thead>
+					<tr>
+						<th class="text-center"><a>Head</a></th>
+						<th class="text-center"><a>Q2</a></th>
+						<th class="text-center"><a>Q3</a></th>
+						<th class="text-center"><a>Q4</a></th>
+						<th class="text-center"><a>Q5</a></th>
+						<th class="text-center"><a>Quiz (15%)</a></th>
+						<th class="text-center"><a>HW1</a></th>
+						<th class="text-center"><a>HW2</a></th>
+						<th class="text-center"><a>HW3</a></th>
+						<th class="text-center"><a>Homework (15%)</a></th>
+						<th class="text-center"><a>Exam</a></th>
+						<th class="text-center"><a>Exam (30%)</a></th>
+						<th class="text-center"><a>Project</a></th>
+						<th class="text-center"><a>Project (40%)</a></th>
+						<th class="text-center"><a>Total (100%)</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php for($i=1;$i<25;$i++): ?>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<?php endfor; ?>
+				</tbody>
 			</table>
-			
-						</div>
+		</div>
+		<div class="datawrap">
+		<div class="databody">
+			<table class="table table-striped table-bordered  table-condensed records">
+				<thead>
+					<tr>
+						<th class="text-center"><a>Q1</a></th>
+						<th class="text-center"><a>Q2</a></th>
+						<th class="text-center"><a>Q3</a></th>
+						<th class="text-center"><a>Q4</a></th>
+						<th class="text-center"><a>Q5</a></th>
+						<th class="text-center"><a>Quiz (15%)</a></th>
+						<th class="text-center"><a>HW1</a></th>
+						<th class="text-center"><a>HW2</a></th>
+						<th class="text-center"><a>HW3</a></th>
+						<th class="text-center"><a>Homework (15%)</a></th>
+						<th class="text-center"><a>Exam</a></th>
+						<th class="text-center"><a>Exam (30%)</a></th>
+						<th class="text-center"><a>Project</a></th>
+						<th class="text-center"><a>Project (40%)</a></th>
+						<th class="text-center"><a>Total (100%)</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php for($i=1;$i<25;$i++): ?>
+					<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>8</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+					<?php endfor; ?>
+				</tbody>
+			</table>
+		</div>
 		</div>
 
 	</div>
-</div>
-<?php echo $this->Form->create('RawScore',array('name'=>'modalForm','action'=>'add','class'=>'form-horizontal', 'model'=> 'rawScores', 'canvas'=>'#RawScoreCanvasForm',
-																	'inputDefaults' => array( 	'label'=>array('class'=>'control-label'),
-																								'div'=>array('class'=>'control-group')
-																							)
-																	)
-											);?>
-
-<div id="intent-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
-  <div class="modal-header">
-     <h3 id="intent-label"><span class="intent-text">Create </span><span class="intent-object">Raw Score</span></h3>
-  </div>
-  <div class="modal-body">
-  
-
-<div class="row-fluid">
-<div class="rawScores form span12">
-
-		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('name',array('placeholder'=>'Name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+	</div>
 </div>
 </div>
-	
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary intent-save" type="submit">Save</button>
-    <button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
-  </div>
-  
-</div>
-<?php echo $this->Form->end();?>
-<!-- CANVASFORM -->
-<?php echo $this->Form->create('RawScore',array('action'=>'index',
-															'class'=>'canvasForm',
-															'id'=>'RawScoreCanvasForm',
-															'model'=> 'RawScore',
-															'canvas'=>'#RawScoreTable'
-														)
-											);?>
-<?php echo $this->Form->end();?>
-
-
-<?php echo $this->Html->script(array('ui/uiTable1.1','utils/canvasTable'),array('inline'=>false));?>

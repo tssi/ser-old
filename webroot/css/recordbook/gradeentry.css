@@ -1,0 +1,113 @@
+
+
+div.wrapper{
+	border-bottom: 1px solid #D5CACA;
+	background-image: -webkit-linear-gradient(top, #F8F8F8, #E9E9E9);
+	background-color: #F8F8F8;
+	background-image: -moz-linear-gradient(top, #F8F8F8, #E9E9E9);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#E9E9E9));
+	background-image: -webkit-linear-gradient(top, #F8F8F8, #E9E9E9);
+	background-image: -o-linear-gradient(top, #F8F8F8, #E9E9E9);
+	background-image: linear-gradient(to bottom, #F8F8F8, #E9E9E9);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F8F8F8', endColorstr='#E9E9E9', GradientType=0);
+	height: 4.2em !important;
+	min-height: 3.5em !important;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+h4.studname{
+margin: 0;
+padding-top: 0.75em;
+margin-top: 3px;
+
+
+}
+
+
+ul.classlist{
+	list-style: none;
+	text-align: left;
+	display: block;
+	margin:0 auto;
+	width:100%;
+	background-color: #f9f9f9;
+	border: 0px;
+	border-bottom: 1px dotted #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #fff;
+	max-height: 650px;
+	overflow-y:hidden;
+
+}
+ul.classlist:hover{
+		overflow-y: auto;
+}
+ul.classlist>li {
+	background-color: #fff;
+	font-size: 15px;
+	height: 1.5em;
+	padding: 2px;
+	padding-left: 10px;
+	border: 1px dotted rgb(235, 235, 235)
+	
+}
+ul.classlist>li:nth-child(odd) {
+	background-color: #f9f9f9;
+	
+}
+
+table.records, .records thead:first-child tr:first-child th:first-child{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	-webkit-border-top-left-radius: 0px;
+	border-top-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+}
+
+div.record{
+	padding: 0 !important;
+	margin: 0 !important;
+	margin-left: 1px !important;
+	margin-top: 1px !important;
+	width: 76.7% !important;
+}
+
+table.records thead th{
+	max-width: 12px;
+}
+
+div.datasheet{
+	position: relative;
+	height: 500px;
+	width: 1030px;
+	overflow-x: auto;
+	overflow-y:hidden;
+	
+}
+div.datasheet div.datahead,div.datasheet div.databody{
+	position: absolute;
+	width: 1050px !important;
+	margin-bottom: 0;
+}
+div.datasheet div.datahead{
+	z-index:3;
+	height:3.5em;
+	overflow-y:hidden;
+
+}
+div.datasheet div.datawrap{
+	position:relative;
+	top: 45px;
+	height: 500px;
+	width: 1032px;
+	overflow:hidden;
+	
+	overflow-y: auto;
+}
+div.datasheet div.datawrap div.databody{
+	position:absolute;
+	top: -3.5em;
+}
