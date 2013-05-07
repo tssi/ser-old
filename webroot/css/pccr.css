@@ -205,41 +205,6 @@ input[type="color"],
 .alert-info, .alert-info .alert-heading {
   color: #005fbf;
 }
-
-.navbar-inner {
-  background-image: -moz-linear-gradient(top, #bf0000, #7f0000);
-  background-image: -ms-linear-gradient(top, #bf0000, #7f0000);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#bf0000), to(#7f0000));
-  background-image: -webkit-linear-gradient(top, #bf0000, #7f0000);
-  background-image: -o-linear-gradient(top, #bf0000, #7f0000);
-  background-image: linear-gradient(top, #bf0000, #7f0000);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'bf0000, endColorstr='#'7f0000, GradientType=0);
-}
-
-.navbar .brand {
-  padding: 8px 20px 12px;
-  font-size: 20px;
-  color: #ffffff;
-}
-
-.navbar .divider-vertical {
-  height: 41px;
-  background-color: #bf0000;
-  border-right: 1px solid #7f0000;
-}
-
-.navbar .nav > li > a {
-  padding: 10px 10px 11px;
-  font-size: 14px;
-  color: #ffffff;
-}
-
-.navbar .nav > .active > a,
-.navbar .nav > .active > a:hover,
-.navbar .nav > .active > a:focus {
-  color: #7f0000;
-}
-
 .label,
 .badge {
   padding: 1px 3px 2px;
