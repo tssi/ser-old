@@ -4,8 +4,20 @@ class CoursesController extends AppController {
 	var $name = 'Courses';
 
 	function index() {
-		$this->Course->recursive = 0;
-		$this->set('courses', $this->paginate());
+		if($this->Rest->isActive()){
+			if(isset($_GET)){
+				$this->set('data',$this->api($_GET));
+			}
+		}else if($this->RequestHandler->isAjax()){		
+			$this->Course->recursive = 1;
+			$courses = $this->Course->find('all');
+			pr($courses);
+			echo json_encode($courses);
+			exit;
+		}else{
+			$this->Course->recursive = 0;
+			$this->set('Course', $this->paginate());
+		}
 	}
 
 	function view($id = null) {
@@ -27,9 +39,9 @@ class CoursesController extends AppController {
 			}
 		}
 		$curriculums = $this->Course->Curriculum->find('list');
-		$subjects = $this->Course->Subject->find('list');
+		$Courses = $this->Course->Course->find('list');
 		$levels = $this->Course->Level->find('list');
-		$this->set(compact('curriculums', 'subjects', 'levels'));
+		$this->set(compact('curriculums', 'Courses', 'levels'));
 	}
 
 	function edit($id = null) {
@@ -49,9 +61,9 @@ class CoursesController extends AppController {
 			$this->data = $this->Course->read(null, $id);
 		}
 		$curriculums = $this->Course->Curriculum->find('list');
-		$subjects = $this->Course->Subject->find('list');
+		$Courses = $this->Course->Course->find('list');
 		$levels = $this->Course->Level->find('list');
-		$this->set(compact('curriculums', 'subjects', 'levels'));
+		$this->set(compact('curriculums', 'Courses', 'levels'));
 	}
 
 	function delete($id = null) {
@@ -65,5 +77,56 @@ class CoursesController extends AppController {
 		}
 		$this->Session->setFlash(__('Course was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	protected function api($params){
+		$schema = $this->Course->Subject->schema();
+		$conditions = array();
+		$fields = array();
+		$group = array();
+		foreach($params as $key => $val){
+			switch($key){
+				case 'deptcode':
+					$conditions['Level.department_id']=$val;
+				break;
+				case 'fields':
+					foreach(explode(',',$val) as $f){
+						if(isset($schema[$f])){
+							array_push($fields,'Subject.'.$f);
+						}else{
+							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
+						}
+					}
+				break;
+				case 'group':
+					foreach(explode(',',$val) as $f){
+						if(isset($schema[$f])){
+							array_push($group,'Subject.'.$f);
+							if(count($fields)==0){
+								foreach($schema as $sk=>$sv){
+									array_push($fields,'Subject.'.$sk);									
+								}
+							}
+							if(!in_array('GROUP_CONCAT(Subject.id) as ids',$fields)){
+								array_push($fields,'GROUP_CONCAT( DISTINCT Subject.id) as ids');
+								array_push($fields,'GROUP_CONCAT(DISTINCT Level.id) as levels');
+							}
+						}else{
+							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
+						}
+					}
+					
+				break;
+				default:
+					if(isset($schema[$key])){
+						$conditions['Course.'.$key]=$val;
+					}else if($key!='url'){
+						return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid keyword '.$key.' supplied'));
+					}	
+				break;
+			}
+		}
+		$this->Course->recursive = 0;
+		return $this->Course->find('all',array('conditions'=>$conditions,'fields'=>$fields,'group'=>$group));
 	}
 }
