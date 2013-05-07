@@ -18,11 +18,6 @@
 													$this->Html->tag('span', 'BACK', array('class' => 'action-label')),
 													'/pages/apps',array('escape' => false,'class'=>'btn btn-medium tree-back btn-block animate' ,'id'=>'intent-back')
 													); ?> 		
-							<div class="btn-group" id="dept" data-toggle="buttons-radio">
-							  <button type="button" class="btn btn-primary">Left</button>
-							  <button type="button" class="btn btn-primary">Middle</button>
-							  <button type="button" class="btn btn-primary">Right</button>
-							</div>
 					</div>
 					<div class="span3">
 					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-plus icon-white')).
@@ -93,7 +88,7 @@
 																	)
 											);?>
 
-<div id="intent-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
+<div id="intent-modal" class="modal hide fade longModal " tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
   <div class="modal-header">
      <h3 id="intent-label"><span class="intent-text">Create </span><span class="intent-object">Template</span></h3>
   </div>
@@ -101,16 +96,21 @@
   
 
 <div class="row-fluid">
-<div class="templates form span12">
-
-		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('status',array('placeholder'=>'Status','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('scope',array('placeholder'=>'Scope','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('limit',array('placeholder'=>'Limit','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('esp',array('placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('created_by',array('placeholder'=>'Created By','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
+<div class="templates form span12 form-canvas">
+		<div class="row-fluid">
+			<div class="btn-group" id="dept" data-toggle="buttons-radio">
+			  <button type="button" class="btn btn-primary" value="PS">PS</button>
+			  <button type="button" class="btn btn-primary" value="GS">GS</button>
+			  <button type="button" class="btn btn-primary" value="HS">HS</button>
+			</div>
+			<?php  $school_yr = array('#'=>'School Year','2012'=>'2011-2012','2013'=>'2012-2013','2014'=>'2013-2014');?>
+			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+			<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','options'=>array('#'=>'Select subject'),'between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
+			<?php echo $this->Form->input('esp',array('label'=>'Effective SY:','options'=>$school_yr,'placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
+			<div id="levels"></div>
+			<?php echo $this->Form->input('name',array('placeholder'=>'Template name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
+			</div>
+		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
 				<caption class="caption-bordered">Template Details</caption>
 				<thead>
 				<tr>
