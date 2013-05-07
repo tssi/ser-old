@@ -32,6 +32,7 @@
  */
 class AppController extends Controller {
 	var $components = array(
+			'Session',
 			'RequestHandler',
             'Rest.Rest' => array(
 				'catchredir' => true,
