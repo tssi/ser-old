@@ -78,7 +78,7 @@
 				<header class="main-header animate">
 					<a href="#main-nav" class="open-menu " ><i class=" icon-reorder "></i></a>
 					<a href="#" class="close-menu "><i class="icon-reorder"></i></a>
-					<span class="simpilified-solution-header-inner ">Simplified Accounting Module</span>
+					<span class="simpilified-solution-header-inner ">Simplified Electronic Recordbook</span>
 					
 				</header>	
 			</div>
