@@ -17,7 +17,12 @@
 					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-chevron-left')).
 													$this->Html->tag('span', 'BACK', array('class' => 'action-label')),
 													'/pages/apps',array('escape' => false,'class'=>'btn btn-medium tree-back btn-block animate' ,'id'=>'intent-back')
-													); ?> 					
+													); ?> 		
+							<div class="btn-group" id="dept" data-toggle="buttons-radio">
+							  <button type="button" class="btn btn-primary">Left</button>
+							  <button type="button" class="btn btn-primary">Middle</button>
+							  <button type="button" class="btn btn-primary">Right</button>
+							</div>
 					</div>
 					<div class="span3">
 					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-plus icon-white')).
@@ -213,3 +218,4 @@
 <?php echo $this->Form->end();?>
 
 <?php echo $this->Html->script(array('ui/uiTable1.1','utils/canvasTable'),array('inline'=>false));?>
+<?php echo $this->Html->script(array('biz/templates'),array('inline'=>false));?>
