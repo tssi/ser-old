@@ -1,4 +1,6 @@
-
+.navbar a>.icon{
+	font-size:1.8em;
+}
 
 div.wrapper{
 	border-bottom: 1px solid #D5CACA;
