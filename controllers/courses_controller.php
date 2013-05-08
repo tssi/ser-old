@@ -100,7 +100,7 @@ class CoursesController extends AppController {
 					}
 				break;
 				case 'subjects':
-					$schema = $this->Course->schema();
+					//$schema = $this->Course->schema();
 					$conditions['Course.level_id']=$val;
 				break;
 				case 'group':
