@@ -4,8 +4,11 @@ $(document).ready(function(){
 	//$('#intent-create').click();
 	//populate subjects
 	$(document).on('click','#dept li',function(){
-		row.find('i').removeClass("icon-check").addClass("icon-check-empty");
-		$(this).find('i').removeClass("icon-check-empty").addClass("icon-check"); 
+		//row.find('i').removeClass("icon-check").addClass("icon-check-empty");
+		//$(this).find('i').removeClass("icon-check-empty").addClass("icon-check"); 
+		$('#dept li').find('i').removeClass('icon-check').addClass('icon-check-empty');
+		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+		//INSERT var level = $(this).find('a').attr('data-value');
 		$.getJSON('/recordbook/courses.json?subjects=G1', function(data) {
 			console.log(data);
 			var htm='';
