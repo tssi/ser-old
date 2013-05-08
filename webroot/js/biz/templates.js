@@ -1,11 +1,22 @@
 $(document).ready(function(){
 	window.databank = [];//initialize data bank
 	$('#dept').button('toggle');
-	$('#intent-create').click();
+	//$('#intent-create').click();
 	//populate subjects
-	$(document).on('click','#dept',function(){
-		var dept = $(this).find('button.active').val();
-		$.getJSON('/recordbook/courses.json?deptcode='+dept+'&fields=nomenclature,id&group=nomenclature', function(data) {
+	$(document).on('click','#dept li',function(){
+		row.find('i').removeClass("icon-check").addClass("icon-check-empty");
+		$(this).find('i').removeClass("icon-check-empty").addClass("icon-check"); 
+		$.getJSON('/recordbook/courses.json?subjects=G1', function(data) {
+			console.log(data);
+			var htm='';
+			$.each(data.data,function(i,e){
+				htm +='<li><a href="#">'+e.Subject.nomenclature+'</a></li>';
+			});
+			htm +='<li class="divider"></li>';
+			htm +='<li><a href="#"><i class="icon icon-plus"></i> Subject</a></li>';
+			$('#subjects').html(htm);
+		});
+		/* $.getJSON('/recordbook/courses.json?deptcode='+dept+'&fields=nomenclature,id&group=nomenclature', function(data) {
 			var subjects = [];
 			var htm = '<option value="#">Select subject</option>';
 			$.each(data.data,function(i,e){
@@ -14,7 +25,7 @@ $(document).ready(function(){
 			});
 			console.log(databank);
 			$('#TemplateSubjectId').html(htm);
-		});
+		}); */
 	});
 	$(document).on('change','#TemplateSubjectId',function(){
 		var subject = $(this).find('option:selected').val();

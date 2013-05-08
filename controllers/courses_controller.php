@@ -85,6 +85,7 @@ class CoursesController extends AppController {
 		$fields = array();
 		$group = array();
 		foreach($params as $key => $val){
+			//echo "eto".$key.' '.$val;
 			switch($key){
 				case 'deptcode':
 					$conditions['Level.department_id']=$val;
@@ -97,6 +98,10 @@ class CoursesController extends AppController {
 							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
 						}
 					}
+				break;
+				case 'subjects':
+					$schema = $this->Course->schema();
+					$conditions['Course.level_id']=$val;
 				break;
 				case 'group':
 					foreach(explode(',',$val) as $f){
@@ -115,7 +120,6 @@ class CoursesController extends AppController {
 							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
 						}
 					}
-					
 				break;
 				default:
 					if(isset($schema[$key])){

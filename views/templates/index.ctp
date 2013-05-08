@@ -1,38 +1,62 @@
 
-<div class="actions-container row-fluid animate">
-	 <div id="profile-navigation" class="span12 nav-marginTop">		
-		<div class="row-fluid">
-			<div class="span6">		
-				<div class="row-fluid">
-					<div class="span4 module">
-						<div class="module-wrap">
-							<div class="module-name templates">
-									 <?php echo $this->Html->link( 'Templates',
-															'javascript:void()'
-														);  ?>								
-							</div>
-						</div>
-					</div>
-					<div class="span3 upAccount">
-					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-chevron-left')).
-													$this->Html->tag('span', 'BACK', array('class' => 'action-label')),
-													'/pages/apps',array('escape' => false,'class'=>'btn btn-medium tree-back btn-block animate' ,'id'=>'intent-back')
-													); ?> 		
-					</div>
-					<div class="span3">
-					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-plus icon-white')).
-														$this->Html->tag('span', 'CREATE', array('class' => 'action-label')),
-														array('action' => 'add'), array('escape' => false,'class'=>'btn btn-medium btn-primary btn-block animate' ,'id'=>'intent-create')
-													);  ?>					</div>
-					
-				</div>
-			</div>
-			<div class="span3 pull-right">
-				 <div id="simple-root"></div> 
-			</div>
-		</div>
-	</div>
- </div>
+			<div class="navbar actions-container">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="#">Template</a>
+                  <div class="nav-collapse collapse navbar-responsive-collapse" >
+                    <ul class="nav">
+                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-filter"></i> <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="dept">
+                           <li class="nav-header">
+							Preschool
+						   </li>
+						    <li><a href="#"><i class="icon icon-check-empty"></i> Nursey</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Kinder </a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Prep</a></li>
+						   <li class="divider"></li>
+						  <li class="nav-header">
+							Grade School
+						   </li>
+						    <li><a href="#"><i class="icon icon-check"></i> Grade 1</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 2 </a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 3</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 4</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 5</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 6</a></li>
+						     <li class="divider"></li>
+						  <li class="nav-header">
+							High School
+						   </li>
+						    <li><a href="#"><i class="icon icon-check-empty"></i> Grade 7</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 8 </a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Third Year</a></li>
+                          <li><a href="#"><i class="icon icon-check-empty"></i> Fourth Year</a></li>
+                        </ul>
+                      </li>
+					   <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-book"></i> <b class="caret"></b></a>
+                        <ul class="dropdown-menu" id="subjects">
+						  
+                        </ul>
+                      </li>
+                    </ul>
+                    <ul class="nav pull-right">
+                      <li class="dropdown">
+                        <a href="#"><i class="icon icon-eye-open"></i></a>
+                      </li>
+					   <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
+                    </ul>
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+
 <div class="sub-content-container">
 	<div class="w90 center">
 		<div class="row-fluid">
@@ -98,11 +122,6 @@
 <div class="row-fluid">
 <div class="templates form span12 form-canvas">
 		<div class="row-fluid">
-			<div class="btn-group" id="dept" data-toggle="buttons-radio">
-			  <button type="button" class="btn btn-primary" value="PS">PS</button>
-			  <button type="button" class="btn btn-primary" value="GS">GS</button>
-			  <button type="button" class="btn btn-primary" value="HS">HS</button>
-			</div>
 			<?php  $school_yr = array('#'=>'School Year','2012'=>'2011-2012','2013'=>'2012-2013','2014'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 			<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','options'=>array('#'=>'Select subject'),'between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
@@ -216,6 +235,6 @@
 											);?>
 <?php $this->Form->input('template_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
 <?php echo $this->Form->end();?>
-
+<?php echo $this->Html->css('recordbook/gradeentry'); ?>
 <?php echo $this->Html->script(array('ui/uiTable1.1','utils/canvasTable'),array('inline'=>false));?>
 <?php echo $this->Html->script(array('biz/templates'),array('inline'=>false));?>
