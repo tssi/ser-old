@@ -49,6 +49,7 @@
 		<legend><?php __('Edit Template'); ?></legend>
 		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('name',array('placeholder'=>'Name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('status',array('placeholder'=>'Status','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('scope',array('placeholder'=>'Scope','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('limit',array('placeholder'=>'Limit','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>

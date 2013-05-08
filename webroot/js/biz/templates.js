@@ -1,34 +1,33 @@
+var SUBJECT;
 $(document).ready(function(){
 	window.databank = [];//initialize data bank
 	$('#dept').button('toggle');
-	//$('#intent-create').click();
 	//populate subjects
 	$(document).on('click','#dept li',function(){
-		//row.find('i').removeClass("icon-check").addClass("icon-check-empty");
-		//$(this).find('i').removeClass("icon-check-empty").addClass("icon-check"); 
 		$('#dept li').find('i').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
-		//INSERT var level = $(this).find('a').attr('data-value');
-		$.getJSON('/recordbook/courses.json?subjects=G1', function(data) {
-			console.log(data);
+		var level = $(this).find('a').attr('data-value');
+		console.log(level);
+		$.getJSON('/recordbook/courses.json?subjects='+level+'&group=nomenclature', function(data) {
 			var htm='';
 			$.each(data.data,function(i,e){
-				htm +='<li><a href="#">'+e.Subject.nomenclature+'</a></li>';
+				htm +='<li><a href="#" ids='+e[0].ids+'><i class="icon icon-check-empty"></i> '+e.Subject.nomenclature+'</a></li>';
 			});
 			htm +='<li class="divider"></li>';
 			htm +='<li><a href="#"><i class="icon icon-plus"></i> Subject</a></li>';
 			$('#subjects').html(htm);
 		});
-		/* $.getJSON('/recordbook/courses.json?deptcode='+dept+'&fields=nomenclature,id&group=nomenclature', function(data) {
-			var subjects = [];
-			var htm = '<option value="#">Select subject</option>';
-			$.each(data.data,function(i,e){
-				htm += '<option value='+databank.length+'>'+e.Subject.nomenclature+'</option>';
-				databank.push({'ids':e[0].ids.split(','),'levels':e[0].levels.split(',')});
-			});
-			console.log(databank);
-			$('#TemplateSubjectId').html(htm);
-		}); */
+	});
+	$(document).on('click','#subjects li',function(){
+		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
+		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+	});
+
+	$(document).on('click','#view-template',function(){
+		var dept = $('#dept li').find('i.icon-check');
+		SUBJECT = $('#subjects li').find('i.icon-check').parent().attr('ids');
+		
+		$(document).trigger('UpdateTable');
 	});
 	$(document).on('change','#TemplateSubjectId',function(){
 		var subject = $(this).find('option:selected').val();
@@ -42,4 +41,34 @@ $(document).ready(function(){
 		htm +='</div>';
 		$('#levels').html(htm);
 	});
+	
+	/****************************************UPDATE TABLE**********************************************/
+	$(document).bind('UpdateTable', function(e){
+		$('#TemplateTable').dataTable().fnClearTable();
+		$.getJSON('/recordbook/templates.json?subject_id='+SUBJECT, function(data){
+			$.each(data.data,function(i,o){
+				var a = $('#TemplateTable').dataTable().fnAddData([
+					//o.Template.id,
+					o.Subject.id,
+					o.Template.name,
+					o.Template.limit,
+					o.Template.esp,
+					o.Template.created_by,
+					'<div class="btn-group">'+
+						'<div class="btn-group btn-center">'+
+							'<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>'+
+							'<ul class="dropdown-menu">'+
+								'<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>'+
+								'<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details"><i class="icon-eye-open"></i> Template Details</a></li>'+
+								' <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>'+
+							'</ul>'+
+						'</div>'+
+					'</div>'
+				]);
+				var nTr = $('#TemplateTable').dataTable().fnSettings().aoData[ a[0] ].nTr;
+				$('td', nTr)[0].setAttribute( 'class', 'id text-center' );
+			});			
+		}); 
+	});
+
 });

@@ -48,6 +48,7 @@
 	<fieldset>
 		<legend><?php __('Add Template'); ?></legend>
 		<?php echo $this->Form->input('subject_id',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('name',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('status',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('scope',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('limit',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>

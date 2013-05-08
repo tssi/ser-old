@@ -5,13 +5,12 @@ class TemplatesController extends AppController {
 
 	function index() {
 		if($this->Rest->isActive()){
-			$this->set('data', $this->paginate());
-		}
-		
-		if($this->RequestHandler->isAjax()){	
+			if(isset($_GET)){
+				$this->set('data',$this->api($_GET));
+			}
+		}else if($this->RequestHandler->isAjax()){	
 			$this->Template->recursive = 1;
 			$templates = $this->Template->find('all');
-			//pr($templates);exit();
 			//Sanitize data
 			foreach($templates as $index=>$data){
 				$components = array();
@@ -54,9 +53,9 @@ class TemplatesController extends AppController {
 				$this->Session->setFlash(__('The template could not be saved. Please, try again.', true));
 			}
 		}
-		$subjects = $this->Template->Subject->find('list');
+		$Templates = $this->Template->Template->find('list');
 		$levels = $this->Template->Level->find('list');
-		$this->set(compact('subjects', 'levels'));
+		$this->set(compact('Templates', 'levels'));
 	}
 
 	function edit($id = null) {
@@ -75,9 +74,9 @@ class TemplatesController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Template->read(null, $id);
 		}
-		$subjects = $this->Template->Subject->find('list');
+		$Templates = $this->Template->Template->find('list');
 		$levels = $this->Template->Level->find('list');
-		$this->set(compact('subjects', 'levels'));
+		$this->set(compact('Templates', 'levels'));
 	}
 
 	function delete($id = null) {
@@ -91,5 +90,56 @@ class TemplatesController extends AppController {
 		}
 		$this->Session->setFlash(__('Template was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	protected function api($params){
+		$schema = $this->Template->schema();
+		//pr($schema);
+		$conditions = array();
+		$fields = array();
+		$group = array();
+		foreach($params as $key => $val){
+			switch($key){
+				case 'deptcode':
+					$conditions['Template.limit']=$val;
+					$conditions['Template.scope']='D';
+				break;
+				case 'fields':
+					foreach(explode(',',$val) as $f){
+						if(isset($schema[$f])){
+							array_push($fields,'Template.'.$f);
+						}else{
+							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
+						}
+					}
+				break;
+				case 'group':
+					foreach(explode(',',$val) as $f){
+						if(isset($schema[$f])){
+							array_push($group,'Template.'.$f);
+							if(count($fields)==0){
+								foreach($schema as $sk=>$sv){
+									array_push($fields,'Template.'.$sk);									
+								}
+							}
+							if(!in_array('GROUP_CONCAT(Template.id) as ids',$fields)){
+								array_push($fields,'GROUP_CONCAT(Template.id) as ids');
+							}
+						}else{
+							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
+						}
+					}
+					
+				break;
+				default:
+					if(isset($schema[$key])){
+						$conditions['Template.'.$key]=$val;
+					}else if($key!='url'){
+						return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid keyword '.$key.' supplied'));
+					}	
+				break;
+			}
+		}
+		$this->Template->recursive = 0;
+		return $this->Template->find('all',array('conditions'=>$conditions,'fields'=>$fields,'group'=>$group));
 	}
 }

@@ -23,20 +23,20 @@
 						  <li class="nav-header">
 							Grade School
 						   </li>
-						    <li><a href="#"><i class="icon icon-check"></i> Grade 1</a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 2 </a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 3</a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 4</a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 5</a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 6</a></li>
+						    <li><a href="#" data-value="G1"><i class="icon icon-check-empty"></i> Grade 1</a></li>
+                          <li><a href="#" data-value="G2"><i class="icon icon-check-empty"></i> Grade 2 </a></li>
+                          <li><a href="#" data-value="G3"><i class="icon icon-check-empty"></i> Grade 3</a></li>
+                          <li><a href="#" data-value="G4"><i class="icon icon-check-empty"></i> Grade 4</a></li>
+                          <li><a href="#" data-value="G5"><i class="icon icon-check-empty"></i> Grade 5</a></li>
+                          <li><a href="#" data-value="G6"><i class="icon icon-check-empty"></i> Grade 6</a></li>
 						     <li class="divider"></li>
 						  <li class="nav-header">
 							High School
 						   </li>
-						    <li><a href="#"><i class="icon icon-check-empty"></i> Grade 7</a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Grade 8 </a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Third Year</a></li>
-                          <li><a href="#"><i class="icon icon-check-empty"></i> Fourth Year</a></li>
+						    <li><a href="#" data-value="G7"><i class="icon icon-check-empty"></i> Grade 7</a></li>
+                          <li><a href="#" data-value="G8"><i class="icon icon-check-empty"></i> Grade 8 </a></li>
+                          <li><a href="#" data-value="H3"><i class="icon icon-check-empty"></i> Third Year</a></li>
+                          <li><a href="#" data-value="H4"><i class="icon icon-check-empty"></i> Fourth Year</a></li>
                         </ul>
                       </li>
 					   <li class="dropdown">
@@ -47,7 +47,7 @@
                       </li>
                     </ul>
                     <ul class="nav pull-right">
-                      <li class="dropdown">
+                      <li class="dropdown" id="view-template">
                         <a href="#"><i class="icon icon-eye-open"></i></a>
                       </li>
 					   <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
@@ -61,48 +61,46 @@
 	<div class="w90 center">
 		<div class="row-fluid">
 			<div class="w90 center">
-						<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="TemplateTable" model="Template">
-			<thead>
-				<tr>
-																								<th class="w10 text-center"><a >Subject Id</a></th>
-																				<th class="w10 text-center"><a >Status</a></th>
-																				<th class="w10 text-center"><a >Scope</a></th>
-																				<th class="w10 text-center"><a >Limit</a></th>
-																				<th class="w10 text-center"><a >Esp</a></th>
-																				<th class="w10 text-center"><a >Created By</a></th>
-														<th class="actions w5"><a >Actions</a></th>
-				</tr>
-			</thead>
-			<tbody>
-					<td>
-			<span data-field='Subject.id'></span></td>
-		<td><span data-field='Template.status'></span></td>
-		<td><span data-field='Template.scope'></span></td>
-		<td><span data-field='Template.limit'></span></td>
-		<td><span data-field='Template.esp'></span></td>
-		<td><span data-field='Template.created_by'></span></td>
-		<td class="actions">
-					<div class="btn-group">
-						<div class="btn-group btn-center">
-							<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
-							<ul class="dropdown-menu">
-									
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>
-											
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details"><i class="icon-eye-open"></i> Template Details</a></li>
-																	 
-							  <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
-							</ul>
-						</div>
-					</div>
-						</td>
-	</tr>
-			</tbody>
-			</table>
-			
-						</div>
+				<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="TemplateTable" model="Template">
+					<thead>
+						<tr>
+							<!--<th class="w5 text-center"><a >ID</a></th>-->
+							<th class="w10 text-center"><a >Subject id</a></th>
+							<th class="w25 text-center"><a >Template name</a></th>
+							<th class="w15 text-center"><a >Year/Level</a></th>
+							<th class="w15 text-center"><a >Effective School Year</a></th>
+							<th class="w25 text-center"><a >Created By</a></th>
+							<th class="actions w10"><a >Actions</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<!--<td><span data-field='Template.id'></span></td>-->
+							<td><span data-field='Subject.id'></span></td>
+							<td><span data-field='Template.name'></span></td>
+							<td><span data-field='Template.limit'></span></td>
+							<td><span data-field='Template.esp'></span></td>
+							<td><span data-field='Template.created_by'></span></td>
+							<td class="actions">
+								<div class="btn-group">
+									<div class="btn-group btn-center">
+										<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
+										<ul class="dropdown-menu">
+												
+														 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>
+														
+														 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details"><i class="icon-eye-open"></i> Template Details</a></li>
+																				 
+										  <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+										</ul>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-
 	</div>
 </div>
 <?php echo $this->Form->create('Template',array('name'=>'modalForm','action'=>'add','class'=>'form-horizontal', 'model'=> 'templates', 'canvas'=>'#TemplateCanvasForm',
@@ -124,7 +122,6 @@
 		<div class="row-fluid">
 			<?php  $school_yr = array('#'=>'School Year','2012'=>'2011-2012','2013'=>'2012-2013','2014'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-			<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','options'=>array('#'=>'Select subject'),'between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
 			<?php echo $this->Form->input('esp',array('label'=>'Effective SY:','options'=>$school_yr,'placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
 			<div id="levels"></div>
 			<?php echo $this->Form->input('name',array('placeholder'=>'Template name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
@@ -143,22 +140,22 @@
 				</thead>
 				<tbody class="hide">
 					<tr>
-								<td><span data-field='TemplateDetail.template_id'></span></td>
-		<td><span data-field='TemplateDetail.general_component_id'></span></td>
-		<td><span data-field='TemplateDetail.order_index'></span></td>
-		<td><span data-field='TemplateDetail.percentage'></span></td>
-		<td><span data-field='TemplateDetail.under'></span></td>
+						<td><span data-field='TemplateDetail.template_id'></span></td>
+						<td><span data-field='TemplateDetail.general_component_id'></span></td>
+						<td><span data-field='TemplateDetail.order_index'></span></td>
+						<td><span data-field='TemplateDetail.percentage'></span></td>
+						<td><span data-field='TemplateDetail.under'></span></td>
 						<td>
-						<div class="btn-group">
-							<div class="btn-group btn-center">
-								<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
-								<ul class="dropdown-menu">
-									  <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
-									 <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-									 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
-								</ul>
+							<div class="btn-group">
+								<div class="btn-group btn-center">
+									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										  <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
+										 <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
+										 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+									</ul>
+								</div>
 							</div>
-						</div>
 						</td>
 					</tr>
 				</tbody>
