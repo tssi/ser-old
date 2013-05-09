@@ -122,7 +122,7 @@
 		<div class="row-fluid">
 			<?php  $school_yr = array('#'=>'School Year','2012'=>'2011-2012','2013'=>'2012-2013','2014'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-			<?php echo $this->Form->input('esp',array('label'=>'Effective SY:','options'=>$school_yr,'placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
+			<?php echo $this->Form->input('sy',array('label'=>'Effective SY:','options'=>$school_yr,'placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
 			<div id="levels"></div>
 			<?php echo $this->Form->input('name',array('placeholder'=>'Template name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
 			</div>
@@ -230,7 +230,7 @@
 															'canvas'=>'#TemplateDetailTable'
 														)
 											);?>
-<?php $this->Form->input('template_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
+<?php echo $this->Form->input('template_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
 <?php echo $this->Form->end();?>
 <?php echo $this->Html->css('recordbook/gradeentry'); ?>
 <?php echo $this->Html->script(array('ui/uiTable1.1','utils/canvasTable'),array('inline'=>false));?>
