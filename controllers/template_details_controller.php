@@ -33,10 +33,27 @@ class TemplateDetailsController extends AppController {
 		if (!empty($this->data)) {
 			$this->TemplateDetail->create();
 			if ($this->TemplateDetail->save($this->data)) {
-				$this->Session->setFlash(__('The template detail has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; Saving successful';
+					$this->data['TemplateDetail']['id'] =  $this->TemplateDetail->id;
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{
+					$this->Session->setFlash(__('The template detail has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The template detail could not be saved. Please, try again.', true));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = -1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; The template detail could not be saved. Please, try again.';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{ 
+					$this->Session->setFlash(__('The template detail could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$templates = $this->TemplateDetail->Template->find('list');

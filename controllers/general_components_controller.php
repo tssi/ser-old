@@ -9,26 +9,29 @@ class GeneralComponentsController extends AppController {
 				$this->set('data',$this->api($_GET));
 			}
 		}else if($this->RequestHandler->isAjax()){	
+		//}
+		//if(1){	
 			$this->GeneralComponent->recursive = 1;
-			$subjects = $this->GeneralComponent->find('all');
+			$components = $this->GeneralComponent->find('all');
+		//	pr($components);
 			//Sanitize data
-			foreach($subjects as $index=>$data){
-				$courses = array();
-				foreach($data['Course'] as $course){
-					$courseObj = array();
+			foreach($components as $index=>$data){
+				$gradecomp = array();
+				foreach($data['GradeComponent'] as $course){
+					$gradeCompObj = array();
 					foreach( $course as $field => $value){
 						if(is_array($value)){
-							$courseObj[$field] = $value;
+							$gradeCompObj[$field] = $value;
 						}else{
-							$courseObj['Course'][$field] = $value;
+							$gradeCompObj['GradeComponent'][$field] = $value;
 							
 						}
 					}
-					array_push($courses,$courseObj);
+					array_push($gradecomp,$gradeCompObj);
 				}
-			$subjects[$index]['Course'] = $courses;
+			$components[$index]['GradeComponent'] = $gradecomp;
 			}
-			echo json_encode($subjects);
+			echo json_encode($components);
 			exit;
 		}else{
 			$this->GeneralComponent->recursive = 0;

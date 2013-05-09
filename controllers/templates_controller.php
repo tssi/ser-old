@@ -2,6 +2,7 @@
 class TemplatesController extends AppController {
 
 	var $name = 'Templates';
+	var $uses = array('Template','TemplateDetail');
 
 	function index() {
 		if($this->Rest->isActive()){
@@ -9,10 +10,18 @@ class TemplatesController extends AppController {
 				$templates = $this->api($_GET);
 			}
 		}else if($this->RequestHandler->isAjax()){	
-			$this->Template->recursive = 1;
-			$templates = $this->Template->find('all');
+			$this->Template->recursive = 2;
+			$cond = array();
+			if(!empty($this->data)){
+				foreach($this->data['Template'] as $field=>$value){
+					$cond['Template.'.$field]=$value;
+				}
+				
+			}
+			$templates  = $this->Template->find('all',array('conditions'=>$cond));
 		}else{
 			$this->Template->recursive = 0;
+			$this->set('generalComponents',$this->TemplateDetail->GeneralComponent->find('list',array('fields'=>array('GeneralComponent.id','GeneralComponent.description'))));
 			$this->set('templates', $this->paginate());
 		}
 		if($this->Rest->isActive()||$this->RequestHandler->isAjax()){
@@ -23,7 +32,7 @@ class TemplatesController extends AppController {
 					$componentObj = array();
 					foreach( $component as $field => $value){
 						if(is_array($value)){
-							$component[$field] = $value;
+							$componentObj[$field] = $value;
 						}else{
 							$componentObj['TemplateDetail'][$field] = $value;
 							
@@ -53,10 +62,27 @@ class TemplatesController extends AppController {
 		if (!empty($this->data)) {
 			$this->Template->create();
 			if ($this->Template->save($this->data)) {
-				$this->Session->setFlash(__('The template has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; Saving successful';
+					$this->data['Template']['id'] =  $this->Template->id;
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{
+					$this->Session->setFlash(__('The template has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The template could not be saved. Please, try again.', true));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = -1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; The template could not be saved. Please, try again.';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{ 
+					$this->Session->setFlash(__('The template could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$Templates = $this->Template->Template->find('list');
@@ -145,7 +171,7 @@ class TemplatesController extends AppController {
 				break;
 			}
 		}
-		$this->Template->recursive = 1;
-		return $this->Template->find('all',array('conditions'=>$conditions,'fields'=>$fields,'group'=>$group));
+		$this->Template->recursive = 2;
+		return $this->Template->find('all',array('conditions'=>$conditions,'group'=>$group));
 	}
 }
