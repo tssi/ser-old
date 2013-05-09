@@ -26,8 +26,14 @@ $(document).ready(function(){
 	$(document).on('click','#view-template',function(){
 		var dept = $('#dept li').find('i.icon-check');
 		SUBJECT = $('#subjects li').find('i.icon-check').parent().attr('ids');
-		
-		$(document).trigger('UpdateTable');
+		$('#TemplateTable').trigger('preload');
+		$.getJSON('/recordbook/templates.json?subject_id='+SUBJECT, function(response){ 
+			if(response.data.length == 0){
+				$('#TemplateTable').trigger('emptyRecord');
+			}else{
+				$('#TemplateTable').trigger('populate',{data:response.data,append:false});
+			}
+		});
 	});
 	$(document).on('change','#TemplateSubjectId',function(){
 		var subject = $(this).find('option:selected').val();
@@ -44,7 +50,6 @@ $(document).ready(function(){
 	
 	/****************************************UPDATE TABLE**********************************************/
 	$(document).bind('UpdateTable', function(e){
-		$('#TemplateTable').dataTable().fnClearTable();
 		$.getJSON('/recordbook/templates.json?subject_id='+SUBJECT, function(data){
 			$.each(data.data,function(i,o){
 				var a = $('#TemplateTable').dataTable().fnAddData([
