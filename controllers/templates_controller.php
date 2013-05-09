@@ -6,11 +6,16 @@ class TemplatesController extends AppController {
 	function index() {
 		if($this->Rest->isActive()){
 			if(isset($_GET)){
-				$this->set('data',$this->api($_GET));
+				$templates = $this->api($_GET);
 			}
 		}else if($this->RequestHandler->isAjax()){	
 			$this->Template->recursive = 1;
 			$templates = $this->Template->find('all');
+		}else{
+			$this->Template->recursive = 0;
+			$this->set('templates', $this->paginate());
+		}
+		if($this->Rest->isActive()||$this->RequestHandler->isAjax()){
 			//Sanitize data
 			foreach($templates as $index=>$data){
 				$components = array();
@@ -28,11 +33,12 @@ class TemplatesController extends AppController {
 				}
 			$templates[$index]['TemplateDetail'] = $components;
 			}
-			echo json_encode($templates);
-			exit;
-		}else{
-			$this->Template->recursive = 0;
-			$this->set('templates', $this->paginate());
+			if($this->Rest->isActive()){
+				$this->set('data',$templates);
+			}else{				
+				echo json_encode($templates);
+				exit;
+			}
 		}
 	}
 	function view($id = null) {
@@ -139,7 +145,7 @@ class TemplatesController extends AppController {
 				break;
 			}
 		}
-		$this->Template->recursive = 0;
+		$this->Template->recursive = 1;
 		return $this->Template->find('all',array('conditions'=>$conditions,'fields'=>$fields,'group'=>$group));
 	}
 }
