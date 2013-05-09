@@ -91,7 +91,7 @@
 					</div>-->
 				<?php
 					//echo $this->element('sql_dump'); 
-					echo $this->Html->script(array('jquery_ui','bootstrap','jqueryForm','navigation','intents','utils/money' ));
+					echo $this->Html->script(array('jquery_ui','bootstrap','jqueryForm','navigation','intents','utils/money','utils/util' ));
 					echo $this->Html->script(array('joyride/jquery.joyride-2.0.3'));
 					echo $this->Html->script(array('ui/uiInputNumeric'));
 
