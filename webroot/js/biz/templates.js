@@ -27,11 +27,13 @@ $(document).ready(function(){
 		var dept = $('#dept li').find('i.icon-check');
 		SUBJECT = $('#subjects li').find('i.icon-check').parent().attr('ids');
 		$('#TemplateTable').trigger('preload');
-		$.getJSON('/recordbook/templates.json?subject_id='+SUBJECT, function(response){ 
+		$.getJSON($.urlEncode('/recordbook/templates.json',{'subject_id':SUBJECT}), function(response){ 
 			if(response.data.length == 0){
 				$('#TemplateTable').trigger('emptyRecord');
 			}else{
-				$('#TemplateTable').trigger('populate',{data:response.data,append:false});
+				console.log(response.data);
+				$('#TemplateTable').trigger('populate',{'data':response.data,'append':false});
+				$('#TemplateTable').trigger('showRecord');
 			}
 		});
 	});
