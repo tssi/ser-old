@@ -4,6 +4,19 @@ class TemplateDetailsController extends AppController {
 	var $name = 'TemplateDetails';
 
 	function index() {
+		if($this->RequestHandler->isAjax()){
+			$this->TemplateDetail->recursive = 2;
+			$cond = array();
+			if(!empty($this->data)){
+				foreach($this->data['TemplateDetail'] as $field=>$value){
+					$cond['TemplateDetail.'.$field]=$value;
+				}
+				
+			}
+			$curr_data = $this->TemplateDetail->find('all',array('conditions'=>$cond));
+			echo json_encode($curr_data);
+			exit;
+		}
 		$this->TemplateDetail->recursive = 0;
 		$this->set('templateDetails', $this->paginate());
 	}
