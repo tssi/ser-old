@@ -79,7 +79,7 @@
 							<td><span data-field='Subject.id'></span></td>
 							<td><span data-field='Template.name'></span></td>
 							<td><span data-field='Template.limit'></span></td>
-							<td><span data-field='Template.esp'></span></td>
+							<td><span data-field='Template.sy_tb'></span></td>
 							<td><span data-field='Template.created_by'></span></td>
 							<td class="actions">
 								<div class="btn-group">
@@ -120,7 +120,7 @@
 <div class="row-fluid">
 <div class="templates form span12 form-canvas">
 		<div class="row-fluid">
-			<?php  $school_yr = array('#'=>'School Year','2012'=>'2011-2012','2013'=>'2012-2013','2014'=>'2013-2014');?>
+			<?php  $school_yr = array('#'=>'School Year','2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 			<?php echo $this->Form->input('sy',array('label'=>'Effective SY:','options'=>$school_yr,'placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
 			<div id="levels"></div>
