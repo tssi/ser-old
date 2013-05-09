@@ -1,6 +1,22 @@
-var SUBJECT;
+
 $(document).ready(function(){
 	window.databank = [];//initialize data bank
+	$(document).on('click','#filter-template',function(){
+		setTimeout(function(){
+			$('#action-filter').addClass('open');
+		},0);
+	});
+	$(document).on('click','.action-add',function(){
+		var TemplateId =  $('#TemplateId').val();
+		var TemplateName =  $('#TemplateName').val();
+		var modal =  $(this).attr('href');
+		var form = $(modal).parents('form:first');
+		form[0].reset();
+		$('input[role="foreign-key"]').val(TemplateId);
+		$(form).find('[name="data[Template][name]"]').val(TemplateName);
+		$(form).find('[name="data[TemplateDetail][template_id]"]').val(TemplateId);
+	});
+	
 	$('#dept').button('toggle');
 	//populate subjects
 	$(document).on('click','#dept li',function(){
@@ -16,7 +32,7 @@ $(document).ready(function(){
 			htm +='<li class="divider"></li>';
 			htm +='<li><a href="#"><i class="icon icon-plus"></i> Subject</a></li>';
 			$('#subjects').html(htm);
-		});
+		}); 
 	});
 	$(document).on('click','#subjects li',function(){
 		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
@@ -24,10 +40,14 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click','#view-template',function(){
-		var dept = $('#dept li').find('i.icon-check');
-		SUBJECT = $('#subjects li').find('i.icon-check').parent().attr('ids');
+		var level = $('#dept li').find('i.icon-check').parent().attr('data-value');
+		var subject = $('#subjects li').find('i.icon-check').parent().attr('ids');
 		$('#TemplateTable').trigger('preload');
-		$.getJSON($.urlEncode('/recordbook/templates.json',{'subject_id':SUBJECT}), function(response){ 
+		$('#TemplateScope').val('D');
+		$('#TemplateLimit').val(level);
+		$('#TemplateSubjectId').val(subject);
+		$('#TemplateCanvasForm').trigger('request_content');
+		/* $.getJSON($.urlEncode('/recordbook/templates.json',{'subject_id':SUBJECT}), function(response){ 
 			if(response.data.length == 0){
 				$('#TemplateTable').trigger('emptyRecord');
 			}else{
@@ -35,7 +55,7 @@ $(document).ready(function(){
 				$('#TemplateTable').trigger('populate',{'data':response.data,'append':false});
 				$('#TemplateTable').trigger('showRecord');
 			}
-		});
+		}); */
 	});
 	$(document).on('change','#TemplateSubjectId',function(){
 		var subject = $(this).find('option:selected').val();
@@ -49,33 +69,4 @@ $(document).ready(function(){
 		htm +='</div>';
 		$('#levels').html(htm);
 	});
-	
-	/****************************************UPDATE TABLE**********************************************/
-	$(document).bind('UpdateTable', function(e){
-		$.getJSON('/recordbook/templates.json?subject_id='+SUBJECT, function(data){
-			$.each(data.data,function(i,o){
-				var a = $('#TemplateTable').dataTable().fnAddData([
-					//o.Template.id,
-					o.Subject.id,
-					o.Template.name,
-					o.Template.limit,
-					o.Template.esp,
-					o.Template.created_by,
-					'<div class="btn-group">'+
-						'<div class="btn-group btn-center">'+
-							'<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>'+
-							'<ul class="dropdown-menu">'+
-								'<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>'+
-								'<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details"><i class="icon-eye-open"></i> Template Details</a></li>'+
-								' <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>'+
-							'</ul>'+
-						'</div>'+
-					'</div>'
-				]);
-				var nTr = $('#TemplateTable').dataTable().fnSettings().aoData[ a[0] ].nTr;
-				$('td', nTr)[0].setAttribute( 'class', 'id text-center' );
-			});			
-		}); 
-	});
-
 });
