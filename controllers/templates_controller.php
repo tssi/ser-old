@@ -120,7 +120,6 @@ class TemplatesController extends AppController {
 			if($this->RequestHandler->isAjax()){
 					$response['status'] = 1;
 					$response['msg'] = '<i class="icon-search"></i>&nbsp; Delete successful';
-					$this->data['Template']['id'] =  $this->Template->id;
 					$response['data'] = $this->data;
 					echo json_encode($response);
 					exit();

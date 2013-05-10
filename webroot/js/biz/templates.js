@@ -93,7 +93,35 @@ $(document).ready(function(){
 		$(form).find('[name="data[TemplateDetail][template_id]"]').val(temp_id);
 	});
 	
-	//Delete
+	//Delete template
+	$(document).on('click','.action-delete',function(){
+		var row =$(this).parents('tr:first');
+		var key  = row.attr('id');
+		var data = $('.RECORD').trigger('access',{'key':key});
+		var record =  window.RECORD.getActive();
+		//console.log(record);
+		var id = record.Template.id;
+		var col_count =  $('#TemplateTable.RECORD tbody td').length;
+		var model =  'templates';
+		$.ajax({
+			url:'../'+model+'/delete/'+id,
+			method:'POST',
+			dataType:'json',
+			success:function(data){
+				var row_count = row.parent().find('tr').length;
+				console.log(row_count);
+				if(row_count  == 1){
+					$('#TemplateTable.RECORD tbody').hide();
+					$('#TemplateTable.RECORD tbody td span').empty();
+					$('#TemplateTable.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"><div class="well text-center"><button class="btn  btn-medium" id="filter-template"><i class="icon icon-filter"></i> Templates</button><div class="muted">No Templates found, click to filter.</div></div></td></tr>');	
+				}else{
+					row.remove();
+				}
+			}
+		});
+	});
+	
+	//Delete template details
 	$(document).on('click','.action-delete-template-dtl',function(){
 		var row =$(this).parents('tr:first');
 		var key  = row.attr('id');
