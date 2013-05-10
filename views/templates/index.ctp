@@ -110,10 +110,8 @@
 		</div>
 	</div>
 </div>
-<?php echo $this->Form->create('Template',array('name'=>'modalForm','action'=>'add','class'=>'form-horizontal', 'model'=> 'templates', 'canvas'=>'#TemplateCanvasForm',
-																	'inputDefaults' => array( 	'label'=>array('class'=>'control-label'),
-																								'div'=>array('class'=>'control-group')
-																							)
+<?php echo $this->Form->create('Template',array('name'=>'modalForm','action'=>'add', 'model'=> 'templates', 'canvas'=>'#TemplateCanvasForm',
+													
 																	)
 											);?>
 
@@ -126,14 +124,19 @@
 <div class="templates form span12 form-canvas">
 			<?php  $school_yr = array('#'=>'School Year','2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-			<div class="control-group">
+			<div class="row-fuild">
 				<label for="TemplateSy" class="control-label">Effective SY</label>
-				<div class="controls">
-					<?php echo $this->Form->input('sy',array('label'=>false,'div'=>false,'options'=>$school_yr,'class'=>'span3'));?>
-				</div>
+				<?php echo $this->Form->input('sy',array('label'=>false,'required'=>true,'id'=>'template_sy','div'=>false,'options'=>$school_yr,'class'=>'span3'));?>
+				<?php echo $this->Form->input('limit',array('div'=>false,'placeholder'=>'level','id'=>'yrlvl','readonly'=>'readonly','class'=>'span3'));?>
+				<?php echo $this->Form->input('Subject.description',array('div'=>false,'label'=>'Subject','type'=>'text','placeholder'=>'subject','id'=>'subject_name','disabled'=>'disabled','class'=>'span3'));?>
+				<?php echo $this->Form->input('name',array('div'=>false,'required'=>true,'placeholder'=>'Template name','div'=>false,'class'=>'span3'));?>
 			</div>
-			<?php echo $this->Form->input('name',array('placeholder'=>'Template name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span3'));?>
-		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
+			<?php echo $this->Form->input('esp',array('type'=>'hidden','id'=>'sy','class'=>'span3'));?>
+			<?php echo $this->Form->input('status',array('type'=>'hidden','id'=>'subject_status','class'=>'span3'));?>
+			<?php echo $this->Form->input('scope',array('type'=>'hidden','id'=>'subject_scope','value'=>'D','class'=>'span3'));?>
+			<?php echo $this->Form->input('limit',array('type'=>'hidden','id'=>'subject_limit','class'=>'span3'));?>
+			<?php echo $this->Form->input('subject_id',array('type'=>'hidden','id'=>'subject_id','class'=>'span3'));?>
+	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
 				<caption class="caption-bordered">Template Details</caption>
 				<thead>
 				<tr>
@@ -159,7 +162,7 @@
 									<ul class="dropdown-menu">
 										  <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
 										 <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-										 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+										 <li><a href="#" class="action-delete-template-dtl"><i class="icon-remove"></i> Delete</a></li>
 									</ul>
 								</div>
 							</div>
@@ -219,7 +222,7 @@
 						<?php //pr($templates);exit();?>
 						<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('template_id',array('type'=>'hidden'));?>
-						<?php echo $this->Form->input('Template.name',array('placeholder'=>'Template','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('Template.name',array('id'=>'template_name','placeholder'=>'Template','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('general_component_id',array('options'=>array($generalComponents),'placeholder'=>'General Component Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('order_index',array('placeholder'=>'Order Index','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('percentage',array('placeholder'=>'Percentage','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>

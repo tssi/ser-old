@@ -117,8 +117,17 @@ class TemplatesController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Template->delete($id)) {
-			$this->Session->setFlash(__('Template deleted', true));
-			$this->redirect(array('action'=>'index'));
+			if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; Delete successful';
+					$this->data['Template']['id'] =  $this->Template->id;
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+			}else{
+				$this->Session->setFlash(__('Template deleted', true));
+				$this->redirect(array('action'=>'index'));
+			}
 		}
 		$this->Session->setFlash(__('Template was not deleted', true));
 		$this->redirect(array('action' => 'index'));
