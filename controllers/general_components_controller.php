@@ -9,12 +9,8 @@ class GeneralComponentsController extends AppController {
 				$this->set('data',$this->api($_GET));
 			}
 		}else if($this->RequestHandler->isAjax()){	
-		//}
-		//if(1){	
 			$this->GeneralComponent->recursive = 1;
 			$components = $this->GeneralComponent->find('all');
-		//	pr($components);
-			//Sanitize data
 			foreach($components as $index=>$data){
 				$gradecomp = array();
 				foreach($data['GradeComponent'] as $course){

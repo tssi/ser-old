@@ -4,8 +4,32 @@ class GradeComponentsController extends AppController {
 	var $name = 'GradeComponents';
 
 	function index() {
+		if($this->Rest->isActive()){
+			if(isset($_GET)){
+				$grade_components = $this->api($_GET);
+			}
+		}else if($this->RequestHandler->isAjax()){	
+			$this->GradeComponent->recursive = 2;
+			$cond = array();
+			if(!empty($this->data)){
+				foreach($this->data['GradeComponent'] as $field=>$value){
+					$cond['GradeComponent.'.$field]=$value;
+				}
+			}
+			$grade_components  = $this->GradeComponent->find('all',array('conditions'=>$cond,'limit'=>10));
+		}else{
 		$this->GradeComponent->recursive = 0;
 		$this->set('gradeComponents', $this->paginate());
+		}
+		if($this->Rest->isActive()||$this->RequestHandler->isAjax()){
+			//Sanitize data
+			if($this->Rest->isActive()){
+				$this->set('data',$grade_components);
+			}else{				
+				echo json_encode($grade_components);
+				exit;
+			}
+		}
 	}
 
 	function view($id = null) {
@@ -63,5 +87,52 @@ class GradeComponentsController extends AppController {
 		}
 		$this->Session->setFlash(__('Grade component was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	protected function api($params){
+		$schema = $this->GradeComponent->schema();
+		//pr($schema);
+		$conditions = array();
+		$fields = array();
+		$group = array();
+		foreach($params as $key => $val){
+			switch($key){
+				case 'fields':
+					foreach(explode(',',$val) as $f){
+						if(isset($schema[$f])){
+							array_push($fields,'GradeComponent.'.$f);
+						}else{
+							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
+						}
+					}
+				break;
+				case 'group':
+					foreach(explode(',',$val) as $f){
+						if(isset($schema[$f])){
+							array_push($group,'GradeComponent.'.$f);
+							if(count($fields)==0){
+								foreach($schema as $sk=>$sv){
+									array_push($fields,'GradeComponent.'.$sk);									
+								}
+							}
+							if(!in_array('GROUP_CONCAT(GradeComponent.id) as ids',$fields)){
+								array_push($fields,'GROUP_CONCAT(GradeComponent.id) as ids');
+							}
+						}else{
+							return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid field '.$f.' supplied'));
+						}
+					}
+					
+				break;
+				default:
+					if(isset($schema[$key])){
+						$conditions['GradeComponent.'.$key]=$val;
+					}else if($key!='url'){
+						return $this->Rest->abort(array('status' => '404', 'error' => 'Invalid keyword '.$key.' supplied'));
+					}	
+				break;
+			}
+		}
+		$this->GradeComponent->recursive = 1;
+		return $this->GradeComponent->find('all',array('conditions'=>$conditions,'group'=>$group));
 	}
 }

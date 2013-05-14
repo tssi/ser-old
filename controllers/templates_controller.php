@@ -40,7 +40,7 @@ class TemplatesController extends AppController {
 					}
 					array_push($components,$componentObj);
 				}
-			$templates[$index]['TemplateDetail'] = $components;
+				$templates[$index]['TemplateDetail'] = $components;
 			}
 			if($this->Rest->isActive()){
 				$this->set('data',$templates);
