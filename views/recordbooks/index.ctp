@@ -1,83 +1,97 @@
-
-<div class="actions-container row-fluid animate">
-	 <div id="profile-navigation" class="span12 nav-marginTop">		
-		<div class="row-fluid">
-			<div class="span6">		
-				<div class="row-fluid">
-					<div class="span4 module">
-						<div class="module-wrap">
-							<div class="module-name recordbooks">
-									 <?php echo $this->Html->link( 'Recordbooks',
-															'javascript:void()'
-														);  ?>								
-							</div>
-						</div>
-					</div>
-					<div class="span3 upAccount">
-					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-chevron-left')).
-													$this->Html->tag('span', 'BACK', array('class' => 'action-label')),
-													'/pages/apps',array('escape' => false,'class'=>'btn btn-medium tree-back btn-block animate' ,'id'=>'intent-back')
-													); ?> 					
-					</div>
-					<div class="span3">
-					 <?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-plus icon-white')).
-														$this->Html->tag('span', 'CREATE', array('class' => 'action-label')),
-														array('action' => 'add'), array('escape' => false,'class'=>'btn btn-medium btn-primary btn-block animate' ,'id'=>'intent-create')
-													);  ?>					</div>
-					
-				</div>
-			</div>
-			<div class="span3 pull-right">
-				 <div id="simple-root"></div> 
-			</div>
-		</div>
+<div class="navbar actions-container">
+  <div class="navbar-inner">
+	<div class="container">
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	  </a>
+	  <a class="brand" href="#">Component</a>
+	  <div class="nav-collapse collapse navbar-responsive-collapse">
+		<ul class="nav">
+		 <li class="dropdown" id="action-filter">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-filter"></i> <b class="caret"></b></a>
+			<ul class="dropdown-menu" id="sy_period">
+			   <li class="nav-header">
+				School Year
+			   </li>
+				<li class="sy"><a href="#" data-value="2012"><i class="icon icon-check-empty"></i> 2012-2013</a></li>
+			  <li class="sy"><a href="#" data-value="2013"><i class="icon icon-check-empty"></i>  2013-2014</a></li>
+			   <li class="divider"></li>
+			   <li class="nav-header">Grading Period</li>
+			 <li class="period"><a href="#" data-value="1"><i class="icon icon-check-empty"></i> First</a></li>
+			  <li class="period"><a href="#" data-value="2"><i class="icon icon-check-empty"></i>  Second</a></li>
+			  <li class="period"><a href="#" data-value="3"><i class="icon icon-check-empty"></i> Third</a></li>
+			  <li class="period"><a href="#" data-value="4"><i class="icon icon-check-empty"></i> Fourth</a></li>
+			</ul>
+		  </li>
+		  <li class="dropdown " id="action-subjects">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-book"></i> <b class="caret"></b></a>
+			<ul class="dropdown-menu" id="subjects">
+			</ul>
+		  </li>
+		</ul>
+		<ul class="nav pull-right">
+		  <li class="dropdown" id="view-loads">
+			<a href="#"><i class="icon icon-eye-open"></i></a>
+		  </li>
+		   <li><a href="#"><i class="icon icon-plus"></i></a></li>
+		</ul>
+	  </div><!-- /.nav-collapse -->
 	</div>
- </div>
+  </div><!-- /navbar-inner -->
+</div>
 <div class="sub-content-container">
 	<div class="w90 center">
 		<div class="row-fluid">
 			<div class="w90 center">
-						<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="RecordbookTable" model="Recordbook">
-			<thead>
-				<tr>
-																								<th class="w10 text-center"><a >Section Id</a></th>
-																				<th class="w10 text-center"><a >Subject Id</a></th>
-																				<th class="w10 text-center"><a >Esp</a></th>
-														<th class="actions w5"><a >Actions</a></th>
-				</tr>
-			</thead>
-			<tbody>
-					<td>
-			<span data-field='Section.name'></span></td>
-		<td>
-			<span data-field='Subject.id'></span></td>
-		<td><span data-field='Recordbook.esp'></span></td>
-		<td class="actions">
-					<div class="btn-group">
-						<div class="btn-group btn-center">
-							<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
-							<ul class="dropdown-menu">
-									
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-sections"><i class="icon-eye-open"></i> Sections</a></li>
-											
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>
-											
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-grade_components"><i class="icon-eye-open"></i> Grade Components</a></li>
-											
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-measurables"><i class="icon-eye-open"></i> Measurables</a></li>
-																	 
-							  <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
-							</ul>
-						</div>
-					</div>
-						</td>
-	</tr>
-			</tbody>
-			</table>
-			
-						</div>
+				<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="RecordbookTable" model="Recordbook">
+					<thead>
+						<tr>
+							<th class="w10 text-center"><a >Section Id</a></th>
+							<th class="w10 text-center"><a >Subject Id</a></th>
+							<th class="w10 text-center"><a >Esp</a></th>
+							<th class="actions w5"><a >Actions</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span data-field='Section.name'></span>
+							</td>
+							<td>
+								<span data-field='Subject.id'></span>
+							</td>
+							<td><span data-field='Recordbook.esp'></span></td>
+							<td class="actions">
+								<div class="btn-group">
+									<div class="btn-group btn-center">
+										<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
+										<ul class="dropdown-menu">
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-sections"><i class="icon-eye-open"></i> Sections</a></li>	
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-grade_components"><i class="icon-eye-open"></i> Grade Components</a></li>
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-measurables"><i class="icon-eye-open"></i> Measurables</a></li>			 
+											<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+										</ul>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr class="no-details">
+							<td colspan="4">
+								<div class="well text-center">
+									<button class="btn  btn-medium"  id="filter-recordbook"><i class="icon icon-filter"></i> Components</button>
+									<div class="muted">No Components found, click to filter.</div>
+								</div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>			
+			</div>
 		</div>
-
 	</div>
 </div>
 <?php echo $this->Form->create('Recordbook',array('name'=>'modalForm','action'=>'add','class'=>'form-horizontal', 'model'=> 'recordbooks', 'canvas'=>'#RecordbookCanvasForm',
@@ -140,7 +154,6 @@
 						</td>
 					</tr>
 				</tbody>
-					
 				<tfoot>
 					<tr class="no-details">
 						<td colspan="9">
@@ -228,6 +241,8 @@
 															'canvas'=>'#RecordbookTable'
 														)
 											);?>
+<?php echo $this->Form->input('subject_id',array('id'=>'load_subjects','type'=>'hidden','value'=>null)); ?>
+<?php echo $this->Form->input('esp',array('id'=>'load_esp','type'=>'hidden','value'=>null)); ?>
 <?php echo $this->Form->end();?>
 
 	<?php echo $this->Form->create('GradeComponent',array('name'=>'GradeComponentModal','action'=>'add','class'=>'form-horizontal', 'model'=> 'gradeComponents', 'canvas'=>'#GradeComponentCanvasForm',
@@ -319,5 +334,6 @@
 											);?>
 <?php $this->Form->input('recordbook_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
 <?php echo $this->Form->end();?>
-
+<?php echo $this->Html->css('recordbook/gradeentry'); ?>
 <?php echo $this->Html->script(array('ui/uiTable1.1','utils/canvasTable'),array('inline'=>false));?>
+<?php echo $this->Html->script(array('biz/recordbooks'),array('inline'=>false));?>
