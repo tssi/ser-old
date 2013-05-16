@@ -16,7 +16,7 @@ class GradeComponentsController extends AppController {
 					$cond['GradeComponent.'.$field]=$value;
 				}
 			}
-			$grade_components  = $this->GradeComponent->find('all',array('conditions'=>$cond,'limit'=>10));
+			$grade_components  = $this->GradeComponent->find('all',array('conditions'=>$cond,'limit'=>15));
 		}else{
 		$this->GradeComponent->recursive = 0;
 		$this->set('gradeComponents', $this->paginate());
@@ -42,12 +42,32 @@ class GradeComponentsController extends AppController {
 
 	function add() {
 		if (!empty($this->data)) {
-			$this->GradeComponent->create();
-			if ($this->GradeComponent->save($this->data)) {
-				$this->Session->setFlash(__('The grade component has been saved', true));
-				$this->redirect(array('action' => 'index'));
+			
+			foreach($this->data['GradeComponent'] as $i=>$d){
+				$this->data['GradeComponent'][$i]['recordbook_id']=$this->data['Recordbook']['id'];
+			}
+			if ($this->GradeComponent->saveAll($this->data['GradeComponent'])) {
+			
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<img src="../img/icons/tick.png" />&nbsp; Saving successful';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{ 
+					$this->Session->setFlash(__('The grade component has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The grade component could not be saved. Please, try again.', true));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = -1;
+					$response['msg'] = '<img src="../img/icons/exclamation.png" />&nbsp; The checklist could not be saved. Please, try again.';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{
+					$this->Session->setFlash(__('The grade component could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$recordbooks = $this->GradeComponent->Recordbook->find('list');

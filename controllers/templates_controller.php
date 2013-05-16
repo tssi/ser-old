@@ -180,6 +180,6 @@ class TemplatesController extends AppController {
 			}
 		}
 		$this->Template->recursive = 2;
-		return $this->Template->find('all',array('conditions'=>$conditions,'group'=>$group));
+		return $this->Template->find('all',array('conditions'=>$conditions,'group'=>$group,'fields'=>$fields));
 	}
 }

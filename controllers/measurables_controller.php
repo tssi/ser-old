@@ -12,8 +12,8 @@ class MeasurablesController extends AppController {
 			$this->Measurable->recursive = 2;
 			$cond = array();
 			if(!empty($this->data)){
-				foreach($this->data['GeneralComponent'] as $field=>$value){
-					$cond['GeneralComponent.'.$field]=$value;
+				foreach($this->data['Measurable'] as $field=>$value){
+					$cond['Measurable.'.$field]=$value;
 				}
 			}
 			$measurables  = $this->Measurable->find('all',array('conditions'=>$cond,'limit'=>10));
@@ -90,7 +90,6 @@ class MeasurablesController extends AppController {
 	}
 	protected function api($params){
 		$schema = $this->Measurable->schema();
-		//pr($schema);
 		$conditions = array();
 		$fields = array();
 		$group = array();

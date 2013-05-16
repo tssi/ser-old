@@ -39,6 +39,21 @@ class RecordbooksController extends AppController {
 					array_push($gradecomponents,$componentObj);
 				}
 				$recordbooks[$index]['GradeComponent'] = $gradecomponents;
+				
+				$measurables = array();
+				foreach($data['Measurable'] as $measurable){
+					$measurableObj = array();
+					foreach( $measurable as $field => $value){
+						if(is_array($value)){
+							$measurableObj[$field] = $value;
+						}else{
+							$measurableObj['Measurable'][$field] = $value;
+							
+						}
+					}
+					array_push($measurables,$measurableObj);
+				}
+				$recordbooks[$index]['Measurable'] = $measurables;
 			}
 			if($this->Rest->isActive()){
 				$this->set('data',$recordbooks);
@@ -60,11 +75,28 @@ class RecordbooksController extends AppController {
 	function add() {
 		if (!empty($this->data)) {
 			$this->Recordbook->create();
-			if ($this->Recordbook->save($this->data)) {
-				$this->Session->setFlash(__('The recordbook has been saved', true));
-				$this->redirect(array('action' => 'index'));
+			if ($this->Recordbook->save($this->data)){
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<img src="../img/icons/tick.png" />&nbsp; Saving successful';
+					$this->data['Recordbook']['id'] = $this->Recordbook->id;
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{ 
+					$this->Session->setFlash(__('The recordbook has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The recordbook could not be saved. Please, try again.', true));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = -1;
+					$response['msg'] = '<img src="../img/icons/exclamation.png" />&nbsp; The checklist could not be saved. Please, try again.';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{
+					$this->Session->setFlash(__('The recordbook could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$sections = $this->Recordbook->Section->find('list');
