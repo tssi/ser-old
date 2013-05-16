@@ -35,7 +35,7 @@
 		  <li class="dropdown" id="view-loads">
 			<a href="#"><i class="icon icon-eye-open"></i></a>
 		  </li>
-		   <li><a href="#"><i class="icon icon-plus"></i></a></li>
+		   <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
 		</ul>
 	  </div><!-- /.nav-collapse -->
 	</div>
@@ -68,8 +68,6 @@
 									<div class="btn-group btn-center">
 										<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 										<ul class="dropdown-menu">
-											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-sections"><i class="icon-eye-open"></i> Sections</a></li>	
-											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>
 											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-grade_components"><i class="icon-eye-open"></i> Grade Components</a></li>
 											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-measurables"><i class="icon-eye-open"></i> Measurables</a></li>			 
 											<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
@@ -95,118 +93,87 @@
 	</div>
 </div>
 <?php echo $this->Form->create('Recordbook',array('name'=>'modalForm','action'=>'add','class'=>'form-horizontal', 'model'=> 'recordbooks', 'canvas'=>'#RecordbookCanvasForm',
-																	'inputDefaults' => array( 	'label'=>array('class'=>'control-label'),
-																								'div'=>array('class'=>'control-group')
-																							)
 																	)
 											);?>
 
-<div id="intent-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
+<div id="intent-modal" class="modal hide fade longModal" tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
   <div class="modal-header">
      <h3 id="intent-label"><span class="intent-text">Create </span><span class="intent-object">Recordbook</span></h3>
   </div>
   <div class="modal-body">
-  
-
 <div class="row-fluid">
-<div class="recordbooks form span12">
-
-		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('section_id',array('placeholder'=>'Section Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('esp',array('placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-			<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="GradeComponentTable" model="GradeComponent">
-				<caption class="caption-bordered">Grade Components</caption>
-				<thead>
+<div class="recordbooks form span12 form-canvas">
+		<?php  $school_yr = array('#'=>'School Year','2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
+		<?php echo $this->Form->input('id',array('placeholder'=>'Id','class'=>'span11'));?>
+		<div class="row-fuild">
+			<?php echo $this->Form->input('sy',array('div'=>false,'required'=>true,'id'=>'recordbook_sy','options'=>$school_yr,'class'=>'span2'));?>
+			<?php echo $this->Form->input('Subject.nomenclature',array('label'=>'Subject','div'=>false,'id'=>'subject','class'=>'span3'));?>
+			<?php echo $this->Form->input('section_id',array('label'=>'Section','div'=>false,'id'=>'section','class'=>'span3'));?>
+		</div>
+		<?php echo $this->Form->input('esp',array('type'=>'hidden','id'=>'sy','class'=>'span3'));?>
+		<?php echo $this->Form->input('subject_id',array('type'=>'hidden','id'=>'subject_id','class'=>'span3'));?>
+		<?php echo $this->Form->input('section_id',array('type'=>'hidden','id'=>'section_id','class'=>'span3'));?>
+		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="GradeComponentTable" model="GradeComponent">
+			<caption class="caption-bordered">Grade Components</caption>
+			<thead>
 				<tr>
-						<th><?php __('Recordbook Id'); ?></th>
-		<th><?php __('General Component Id'); ?></th>
-		<th><?php __('Order Index'); ?></th>
-		<th><?php __('Under'); ?></th>
-		<th><?php __('Percentage'); ?></th>
-		<th><?php __('Ceil'); ?></th>
-		<th><?php __('Floor'); ?></th>
-		<th><?php __('Rule'); ?></th>
-					<th class="actions">Actions</th>
+					<th><?php __('General Component Id'); ?></th>
+					<th><?php __('Order Index'); ?></th>
+					<th><?php __('Under'); ?></th>
+					<th><?php __('Percentage'); ?></th>
 				</tr>
-				</thead>
-				<tbody class="hide">
-					<tr>
-								<td><span data-field='GradeComponent.recordbook_id'></span></td>
-		<td><span data-field='GradeComponent.general_component_id'></span></td>
-		<td><span data-field='GradeComponent.order_index'></span></td>
-		<td><span data-field='GradeComponent.under'></span></td>
-		<td><span data-field='GradeComponent.percentage'></span></td>
-		<td><span data-field='GradeComponent.ceil'></span></td>
-		<td><span data-field='GradeComponent.floor'></span></td>
-		<td><span data-field='GradeComponent.rule'></span></td>
-						<td>
-						<div class="btn-group">
-							<div class="btn-group btn-center">
-								<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
-								<ul class="dropdown-menu">
-									  <li><a  href="#grade-components-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
-									 <li><a  href="#grade-components-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-									 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
-								</ul>
-							</div>
+			</thead>
+			<tbody class="hide">
+				<tr>
+					<td><span data-field='GradeComponent.general_component_id'></span></td>
+					<td><span data-field='GradeComponent.order_index'></span></td>
+					<td><span data-field='GradeComponent.under'></span></td>
+					<td><span data-field='GradeComponent.percentage'></span></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr class="no-details">
+					<td colspan="9">
+						<div class="well text-center">
+							<button class="btn  btn-medium action-btn"  id="add-grade-components" href="#grade-components-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Grade Components</button>
+							<div class="muted">No Grade Components found, click to copy.</div>
 						</div>
-						</td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr class="no-details">
-						<td colspan="9">
-							<div class="well text-center">
-								<button class="btn  btn-medium"  id="add-grade-components" href="#grade-components-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Grade Components</button>
-								<div class="muted">No Grade Components found, click to add.</div>
-							</div>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
 				<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="MeasurableTable" model="Measurable">
 				<caption class="caption-bordered">Measurables</caption>
 				<thead>
 				<tr>
-						<th><?php __('Recordbook Id'); ?></th>
-		<th><?php __('General Component Id'); ?></th>
-		<th><?php __('Header'); ?></th>
-		<th><?php __('Description'); ?></th>
-		<th><?php __('Order Index'); ?></th>
-		<th><?php __('Items'); ?></th>
-		<th><?php __('Base'); ?></th>
-		<th><?php __('Ceil'); ?></th>
-		<th><?php __('Floor'); ?></th>
-		<th><?php __('Rule'); ?></th>
-		<th><?php __('Sigfig'); ?></th>
+					<th><?php __('General Component Id'); ?></th>
+					<th><?php __('Header'); ?></th>
+					<th><?php __('Description'); ?></th>
+					<th><?php __('Order Index'); ?></th>
+					<th><?php __('Items'); ?></th>
+					<th><?php __('Base'); ?></th>
 					<th class="actions">Actions</th>
 				</tr>
 				</thead>
 				<tbody class="hide">
 					<tr>
-								<td><span data-field='Measurable.recordbook_id'></span></td>
-		<td><span data-field='Measurable.general_component_id'></span></td>
-		<td><span data-field='Measurable.header'></span></td>
-		<td><span data-field='Measurable.description'></span></td>
-		<td><span data-field='Measurable.order_index'></span></td>
-		<td><span data-field='Measurable.items'></span></td>
-		<td><span data-field='Measurable.base'></span></td>
-		<td><span data-field='Measurable.ceil'></span></td>
-		<td><span data-field='Measurable.floor'></span></td>
-		<td><span data-field='Measurable.rule'></span></td>
-		<td><span data-field='Measurable.sigfig'></span></td>
+						<td><span data-field='Measurable.general_component_id'></span></td>
+						<td><span data-field='Measurable.header'></span></td>
+						<td><span data-field='Measurable.description'></span></td>
+						<td><span data-field='Measurable.order_index'></span></td>
+						<td><span data-field='Measurable.items'></span></td>
+						<td><span data-field='Measurable.base'></span></td>
 						<td>
-						<div class="btn-group">
-							<div class="btn-group btn-center">
-								<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
-								<ul class="dropdown-menu">
-									  <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
-									 <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-									 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
-								</ul>
+							<div class="btn-group">
+								<div class="btn-group btn-center">
+									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
+									<ul class="dropdown-menu">
+										  <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
+										 <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
+										 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+									</ul>
+								</div>
 							</div>
-						</div>
 						</td>
 					</tr>
 				</tbody>
@@ -260,24 +227,66 @@
   
 				<div class="row-fluid">
 					<div class="gradeComponents form span12">
-					
-							<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('recordbook_id',array('placeholder'=>'Recordbook Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('general_component_id',array('placeholder'=>'General Component Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('order_index',array('placeholder'=>'Order Index','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('under',array('placeholder'=>'Under','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('percentage',array('placeholder'=>'Percentage','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('ceil',array('placeholder'=>'Ceil','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('floor',array('placeholder'=>'Floor','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('rule',array('placeholder'=>'Rule','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<input type="text" readonly="readonly" name="data[Recordbook][id]" role="foreign-key">
+						<?php echo $this->Form->input('Template.templates',array('options'=>'','between'=>'<div class="controls">','id'=>'GradeComponentTemplates','after'=>'</div>' ,'class'=>'span4'));?>
+						<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
+							<caption class="caption-bordered">Grade Components</caption>
+							<thead>
+								<tr>
+									<th><?php __('Recordbook Id'); ?></th>
+									<th><?php __('General Component Id'); ?></th>
+									<th><?php __('Order Index'); ?></th>
+									<th><?php __('Percentage'); ?></th>
+									<th><?php __('Under'); ?></th>
+								</tr>
+							</thead>
+							<tbody class="hide">
+								<tr>
+									<td>
+										<input type="text" readonly="readonly" vname="data[GradeComponent][%][recordbook_id]" role="foreign-key">
+									</td>
+									<td data-field='TemplateDetail.general_component_id'>
+										<input type="text" readonly="readonly" vname="data[GradeComponent][%][general_component_id]">
+									</td>
+									<td data-field='TemplateDetail.order_index'>
+										<input type="text" readonly="readonly" vname="data[GradeComponent][%][order_index]">
+									</td>
+									<td data-field='TemplateDetail.percentage'>
+										<input type="text" readonly="readonly" vname="data[GradeComponent][%][percentage]">
+									</td>
+									<td data-field='TemplateDetail.under'>
+										<input type="text" readonly="readonly" vname="data[GradeComponent][%][under]">
+									</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr class="no-details">
+									<td colspan="9">
+										<div class="well text-center">
+											<button class="btn  btn-medium"  id="filter-grade-components" data-toggle="modal" data-dismiss="modal"><i class="icon icon-filter"></i> Filter Grade Components</button>
+											<div class="muted">No Grade Components found, click to filter.</div>
+										</div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
 					</div>		
 				</div>
 			</div>
 			 <div class="modal-footer">
-				<button class="btn btn-primary intent-save" type="submit">Save</button>
+				<button class="btn btn-primary intent-save" id="populate_comp" type="submit">Ok</button>
 				<button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
 			 </div>
 		</div>
+<?php echo $this->Form->end();?>
+<?php echo $this->Form->create('TemplateDetail',array('action'=>'index',
+															'class'=>'canvasForm',
+															'id'=>'TemplateDetailCanvasForm',
+															'model'=> 'TemplateDetail',
+															'canvas'=>'#TemplateDetailTable'
+														)
+											);?>
+<?php echo $this->Form->input('template_id',array('type'=>'hidden','id'=>'template-id','value'=>null,'role'=>'foreign-key')); ?>
 <?php echo $this->Form->end();?>
 <?php echo $this->Form->create('GradeComponent',array('action'=>'index',
 															'class'=>'canvasForm',
@@ -286,14 +295,15 @@
 															'canvas'=>'#GradeComponentTable'
 														)
 											);?>
-<?php $this->Form->input('recordbook_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
+<?php echo $this->Form->input('recordbook_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
 <?php echo $this->Form->end();?>
-	<?php echo $this->Form->create('Measurable',array('name'=>'MeasurableModal','action'=>'add','class'=>'form-horizontal', 'model'=> 'measurables', 'canvas'=>'#MeasurableCanvasForm',
-																	'inputDefaults' => array( 	'label'=>array('class'=>'control-label'),
-																								'div'=>array('class'=>'control-group')
-																							)
-																	)
-											);?>
+<?php echo $this->Form->create('Measurable',array('name'=>'MeasurableModal','action'=>'add','class'=>'form-horizontal', 'model'=> 'measurables', 'canvas'=>'#MeasurableCanvasForm',
+						'inputDefaults' => array( 	'label'=>array('class'=>'control-label'),
+													'div'=>array('class'=>'control-group')
+												)
+						)
+
+);?>
 
 		<div id="measurables-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
 			<div class="modal-header">
@@ -332,7 +342,7 @@
 															'canvas'=>'#MeasurableTable'
 														)
 											);?>
-<?php $this->Form->input('recordbook_id',array('type'=>'hidden','value'=>null,'role'=>'foreign-key')); ?>
+<?php echo $this->Form->input('recordbook_id',array('type'=>'hidden','id'=>'load_recordbook','value'=>null,'role'=>'foreign-key')); ?>
 <?php echo $this->Form->end();?>
 <?php echo $this->Html->css('recordbook/gradeentry'); ?>
 <?php echo $this->Html->script(array('ui/uiTable1.1','utils/canvasTable'),array('inline'=>false));?>
