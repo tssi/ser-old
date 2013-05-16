@@ -1,4 +1,26 @@
 $(document).ready(function(){
+	$(document).on('click','.canvasTable .action-btn',function(evt,args){
+		var href = $(this).attr('href');
+		var form = $(this).parents('form:first');
+		var formName = form.attr('name');
+		console.log(href,form,formName);
+		var canvasForm =  form.attr('canvas');
+		var model = $(canvasForm).attr('model');
+		var self =  $(this);
+		if(document[formName+''].checkValidity()){
+			form.ajaxSubmit({
+				dataType:'json',
+				beforeSend:function(){
+					self.attr("disabled","disabled");
+				},
+				success:function(formReturn){
+					var key =  formReturn['data'][model]['id'];
+					form.find('input[role="primary-key"]').val(key);
+					$('input[role="foreign-key"]').val(key);
+				}
+			});
+		}
+	});
 	$('.canvasForm').bind('request_content',function(evt,args){
 		var form =  $(this);
 		var model = form.attr('model');
@@ -40,14 +62,15 @@ $(document).ready(function(){
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
 		var modal =  $(this).attr('href');
-		var canvas =  '#'+$(modal).find('.canvasTable').attr('id');
-		var model =  $(canvas).attr('model');
-		var form  = $('form[canvas="'+canvas+'"]');
-		$(canvas).trigger('preload');
-		console.log(record);
-		$.each(record,function(mdl,content){
+		var canvases =  $(modal).find('.canvasTable');
+		$.each(canvases,function(a,c){
+			var canvas = '#'+($(c).attr('id'));
+			var model =  $(canvas).attr('model');
+			var form  = $('form[canvas="'+canvas+'"]');
+			$(canvas).trigger('preload');
+			console.log(record);
+			$.each(record,function(mdl,content){
 				if(mdl==model){
-					console.log(record[mdl]);
 					if(record[mdl].length){
 						RECORD.setModel(mdl);
 						$(canvas).trigger('populate', {'data':record[mdl],'append':false});
@@ -76,6 +99,7 @@ $(document).ready(function(){
 					}
 				});
 			});
+		});
 	});
 	$('.canvasTable').parents('form:first').bind('reset',function(){
 		var canvas = '#'+$(this).find('.canvasTable').attr('id');
@@ -87,7 +111,7 @@ $(document).ready(function(){
 			$(canvas).trigger('emptyRecord');
 		}
 		$(canvas).find('tbody').hide();
-		$(canvas).find('.action-btn').attr('disabled','disabled');
+		//$(canvas).find('.action-btn').attr('disabled','disabled');
 	});
 	//Initialize page
 	$('.canvasForm').trigger('request_content',{'init':true});

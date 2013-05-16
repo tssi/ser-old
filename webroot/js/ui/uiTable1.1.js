@@ -63,20 +63,19 @@ $(document).ready(function(){
 		if(!append){  //if append false
 			TABLE.trigger('clear');		
 		}
-		
 		if(!model){
-			for(var i=0;i<ToPOPU.length; i++){
-				$.each(ToPOPU[i], function(c,o){
-					$.each(o, function(ctra,obja){
+			for(var index=0;index<ToPOPU.length; index++){
+				$.each(ToPOPU[index], function(ctr,obj){
+					$.each(obj, function(ctra,obja){
 						try{
-							fieldIt(RECORD.getTemplate(),c,ctra, ToPOPU[i][c][ctra]);
+							fieldIt(RECORD.getTemplate(),ctr,ctra, ToPOPU[index][ctr][ctra],index);
 						}catch(err){
 							console.log(err);
 						}
 					});
 				});
 				var RECID = RECORD.getPrefix()+RECORD.getIndex();
-				RECORD.register(RECID,ToPOPU[i]);
+				RECORD.register(RECID,ToPOPU[index]);
 				$(RECORD.getTemplate()).clone().attr("id",RECID).appendTo(TABLE);
 				$(RECORD.getTemplate()).find('span[data-field]').html('');
 			}
@@ -85,7 +84,7 @@ $(document).ready(function(){
 			for(var i=0;i<ToPOPU.length; i++){
 				$.each(ToPOPU[i], function(c,o){
 					try{
-						fieldIt(RECORD.getTemplate(),model,c,ToPOPU[i][c]);
+						fieldIt(RECORD.getTemplate(),model,c,ToPOPU[i][c],i);
 					}catch(err){
 						console.log(err);
 					}
@@ -125,18 +124,22 @@ $(document).ready(function(){
 	});
 	$('.RECORD').trigger('init');
 	
-	function fieldIt(row,model,field,rowData){
+	function fieldIt(row,model,field,rowData,index){
 		var field = $(row).find('*[data-field="'+model+'.'+field+'"]');
 		var rowData = rowData;
 		var inputExist = field.find('input');
+	
 		var inputExist = inputExist.length;
 		var selectExist = field.find('select');
 		var selectExist = selectExist.length;
-			
-		if(this.inputExist){
+		if(inputExist){
 			field.find('input:first').val(rowData);
+			if(field.find('input:first').attr('vname')){
+				var vname = field.find('input:first').attr('vname');
+				field.find('input:first').attr('name',vname.replace('%',index));
+			}
 		}else{
-			if(this.selectExist){
+			if(selectExist){
 				field.find('select:first').val(rowData);
 			}else{
 				field.html(rowData);
