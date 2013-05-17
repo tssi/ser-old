@@ -70,7 +70,7 @@
 										<ul class="dropdown-menu">
 											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-grade_components"><i class="icon-eye-open"></i> Grade Components</a></li>
 											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-measurables"><i class="icon-eye-open"></i> Measurables</a></li>			 
-											<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+											<!--<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>-->
 										</ul>
 									</div>
 								</div>
@@ -117,16 +117,18 @@
 			<caption class="caption-bordered">Grade Components</caption>
 			<thead>
 				<tr>
-					<th><?php __('General Component Id'); ?></th>
 					<th><?php __('Order Index'); ?></th>
+					<th><?php __('General Component Id'); ?></th>
+					<th><?php __('Description'); ?></th>
 					<th><?php __('Under'); ?></th>
 					<th><?php __('Percentage'); ?></th>
 				</tr>
 			</thead>
 			<tbody class="hide">
 				<tr>
-					<td><span data-field='GradeComponent.general_component_id'></span></td>
 					<td><span data-field='GradeComponent.order_index'></span></td>
+					<td><span data-field='GradeComponent.general_component_id'></span></td>
+					<td><span data-field='GeneralComponent.description'></span></td>
 					<td><span data-field='GradeComponent.under'></span></td>
 					<td><span data-field='GradeComponent.percentage'></span></td>
 				</tr>
@@ -146,10 +148,10 @@
 				<caption class="caption-bordered">Measurables</caption>
 				<thead>
 				<tr>
+					<th><?php __('Order Index'); ?></th>
 					<th><?php __('General Component Id'); ?></th>
 					<th><?php __('Header'); ?></th>
 					<th><?php __('Description'); ?></th>
-					<th><?php __('Order Index'); ?></th>
 					<th><?php __('Items'); ?></th>
 					<th><?php __('Base'); ?></th>
 					<th class="actions">Actions</th>
@@ -157,10 +159,10 @@
 				</thead>
 				<tbody class="hide">
 					<tr>
+						<td><span data-field='Measurable.order_index'></span></td>
 						<td><span data-field='Measurable.general_component_id'></span></td>
 						<td><span data-field='Measurable.header'></span></td>
 						<td><span data-field='Measurable.description'></span></td>
-						<td><span data-field='Measurable.order_index'></span></td>
 						<td><span data-field='Measurable.items'></span></td>
 						<td><span data-field='Measurable.base'></span></td>
 						<td>
@@ -227,7 +229,7 @@
   
 				<div class="row-fluid">
 					<div class="gradeComponents form span12">
-						<input type="text" readonly="readonly" name="data[Recordbook][id]" role="foreign-key">
+						<input type="hidden" readonly="readonly" name="data[Recordbook][id]" role="foreign-key">
 						<?php echo $this->Form->input('Template.templates',array('options'=>'','between'=>'<div class="controls">','id'=>'GradeComponentTemplates','after'=>'</div>' ,'class'=>'span4'));?>
 						<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
 							<caption class="caption-bordered">Grade Components</caption>
@@ -304,7 +306,6 @@
 						)
 
 );?>
-
 		<div id="measurables-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="intent-label" aria-hidden="true">
 			<div class="modal-header">
 				<h3 id="intent-label"><span class="intent-text">Create </span><span class="intent-object">Measurable</span></h3>
@@ -312,27 +313,28 @@
 			<div class="modal-body">
   
 				<div class="row-fluid">
-					<div class="measurables form span12">
-					
-							<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('recordbook_id',array('placeholder'=>'Recordbook Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('general_component_id',array('placeholder'=>'General Component Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('header',array('placeholder'=>'Header','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('description',array('placeholder'=>'Description','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('order_index',array('placeholder'=>'Order Index','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('items',array('placeholder'=>'Items','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('base',array('placeholder'=>'Base','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('ceil',array('placeholder'=>'Ceil','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('floor',array('placeholder'=>'Floor','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('rule',array('placeholder'=>'Rule','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('sigfig',array('placeholder'=>'Sigfig','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+					<div class="measurables form span12 form-canvas">
+						<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('general_component_id',array('placeholder'=>'General Component Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('header',array('placeholder'=>'Header','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('description',array('placeholder'=>'Description','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('order_index',array('placeholder'=>'Order Index','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('items',array('placeholder'=>'Items','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('base',array('placeholder'=>'Base','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('ceil',array('placeholder'=>'ceil','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('floor',array('placeholder'=>'floor','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('rule',array('placeholder'=>'rule','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('sigfig',array('placeholder'=>'sigfig','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						
+						<?php echo $this->Form->input('recordbook_id',array('type'=>'hidden','class'=>'span11'));?>
+						
 					</div>		
 				</div>
 			</div>
-			 <div class="modal-footer">
+			<div class="modal-footer">
 				<button class="btn btn-primary intent-save" type="submit">Save</button>
 				<button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
-			 </div>
+			</div>
 		</div>
 <?php echo $this->Form->end();?>
 <?php echo $this->Form->create('Measurable',array('action'=>'index',

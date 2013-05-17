@@ -1,138 +1,68 @@
-<?php echo $this->Html->css(array('recordbook/gradeentry'));?>
-<div class="actions-container row-fluid animate">
-	 <div id="profile-navigation" class="span12 nav-marginTop">		
-		<div class="row-fluid">
-			<div class="span2">
-				<div class="module">
-					<div class="module-wrap">
-						<div class="module-name rawScores">
-								<?php echo $this->Html->link( 'Grade Entry',
-										'javascript:void()'
-									);  ?>								
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="span4">
-				<div class="row-fluid">
-					<div class="span5">
-						<div class="btn-group">
-							<button class="btn btn-medium">SCHOOL YEAR</button>
-							<button class="btn btn-medium dropdown-toggle" data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li>
-									<div>
-										<span>SY:</span>
-										<select name="data[SY]" id="SY"  class="w80">
-											<option value="">select</option>
-											<option value="0">2012-2014</option>
-											<option value="1">2013-2014</option>
-										</select>
-									</div>
-								</li>
-								<li>
-									<div >
-										<span>QTR:</span>
-										<div class="btn-group" id="QTR">
-											<button class="btn">1</button>
-											<button class="btn">2</button>
-											<button class="btn">3</button>
-											<button class="btn">4</button>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="span4">						
-						<div class="btn-group">
-										<button class="btn btn-medium">SUBJECT</button>
-										<button class="btn btn-medium dropdown-toggle" data-toggle="dropdown">
-											<span class="caret"></span>
-										</button>
-							<ul class="dropdown-menu">
-								<li>
-									<!-- DROPDOWN -->
-									<li><a href="#"> English</a></li>								
-									<li><a href="#"> Math</a></li>	
-									<li class="divider"></li>
-									<li><a href="#"><i class="icon-plus"></i> Subject</a></li>
-								</li>
-								
-							</ul>
-						</div>
-					</div>
-						<div class="span3">
-							<div class="btn-group">
-								<button class="btn btn-medium">SECTION</button>
-								<button class="btn btn-medium dropdown-toggle" data-toggle="dropdown">
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li>
-										<!-- DROPDOWN -->	
-										<li><a href="#" class='btn'><i class="icon-plus"></i> SECTION</a></li>
-										<li><a>No section(s) find. Click to Add</a></li>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			<div class="pull-right text-right">
-				<div class="nav-collapse collapse navbar-responsive-collapse">
-						<a href="#" class=" btn dropdown-toggle" data-toggle="dropdown"><i class='icon-cog'></i> <b class="caret"></b></a>
-						<ul class="dropdown-menu pull-left text-left">
-								<li>
-									<div>
-										<span>SY:</span>
-										<select name="data[SY]" id="SY"  class="w80">
-											<option value="">select</option>
-											<option value="0">2012-2014</option>
-											<option value="1">2013-2014</option>
-										</select>
-									</div>
-								</li>
-								<li>
-									<div >
-										<span>QTR:</span>
-										<div class="btn-group" id="QTR">
-											<button class="btn">1</button>
-											<button class="btn">2</button>
-											<button class="btn">3</button>
-											<button class="btn">4</button>
-										</div>
-									</div>
-								</li>
-							</ul>
-					
-				</div>
-			</div>
-			<div class="pull-right text-right">
-				<div class="nav-collapse collapse navbar-responsive-collapse">
-						<a href="#" class=" btn dropdown-toggle" data-toggle="dropdown"><i class='icon-save'></i> <b class="caret"></b></a>
-						<!-- DROP DOWn -->
-					
-				</div>
-			</div>
-			<div class="pull-right text-right">
-				<div class="nav-collapse collapse navbar-responsive-collapse">
-						<a href="#" class=" btn dropdown-toggle" data-toggle="dropdown"><i class='icon-eye-open'></i> <b class="caret"></b></a>
-						<ul class="dropdown-menu pull-left text-left">
-								<li><a href="#"><input type='checkbox'>Raw Score</a></input></li>
-								<li><a href="#"><input type='checkbox'>Quivalent</a></input></li>
-								<li><a href="#"><input type='checkbox'>Summary</a></input></li>
-						</ul>
-						</li>
-					
-				</div>
-			</div>
 
-		</div>
+<div class="navbar actions-container">
+  <div class="navbar-inner">
+	<div class="container">
+	  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	  </a>
+	  <a class="brand" href="#">Grade Entry</a>
+	  <div class="nav-collapse collapse navbar-responsive-collapse">
+		<ul class="nav">
+		 <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-filter"></i> <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			   <li class="nav-header">
+				School Year
+			   </li>
+				<li><a href="#"><i class="icon icon-check"></i> 2012-2013</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i>  2013-2014</a></li>
+			   <li class="divider"></li>
+			   <li class="nav-header">Grading Period</li>
+			 <li><a href="#"><i class="icon icon-check"></i> First</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i>  Second</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i> Third</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i> Fourth</a></li>
+			</ul>
+		  </li>
+		   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-book"></i> <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li class="nav-header">Grade 5 Filipino</li>
+			  <li class="active"><a href="#">Justice</a></li>
+			  <li><a href="#">Hope</a></li>
+			  <li class="divider"></li>
+			  <li class="nav-header">Grade 6 Filipino</li>
+			  <li><a href="#">Diamond</a></li>
+			  <li><a href="#">Pearl</a></li>
+			  <li class="divider"></li>
+			  <li><a href="#"><i class="icon icon-plus"></i> Recordbook</a></li>
+			</ul>
+		  </li>
+		</ul>
+		<ul class="nav pull-right">
+		 
+		 
+		   <li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-eye-open"></i> <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			<li class="nav-header">Preview</li>
+			 <li><a href="#"><i class="icon icon-check"></i> Rawscore</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i>  Equivalent</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i> Summary</a></li>
+			  <li><a href="#"><i class="icon icon-check-empty"></i> Overall</a></li>
+			</ul>
+		  </li>
+		  
+		   <li><a href="#"><i class="icon icon-print"></i></a></li>
+		   <li><a href="#"><i class="icon icon-save"></i></a></li>
+		</ul>
+	  </div><!-- /.nav-collapse -->
 	</div>
+  </div><!-- /navbar-inner -->
 </div>
+
 
 <div class="row-fluid">
 	<div class="span12">
@@ -244,3 +174,5 @@
 	</div>
 </div>
 </div>
+<?php echo $this->Html->css(array('recordbook/gradeentry'));?>
+<?php echo $this->Html->script(array('biz/rawscores'),array('inline'=>false));?>
