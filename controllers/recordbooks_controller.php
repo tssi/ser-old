@@ -9,7 +9,7 @@ class RecordbooksController extends AppController {
 				$recordbooks = $this->api($_GET);
 			}
 		}else if($this->RequestHandler->isAjax()){	
-			$this->Recordbook->recursive = 1;
+			$this->Recordbook->recursive = 2;
 			$cond = array();
 			if(!empty($this->data)){
 				foreach($this->data['Recordbook'] as $field=>$value){
@@ -136,6 +136,9 @@ class RecordbooksController extends AppController {
 		}
 		$this->Session->setFlash(__('Recordbook was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	function grade_entry(){
+	
 	}
 	protected function api($params){
 		$schema = $this->Recordbook->schema();

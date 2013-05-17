@@ -16,7 +16,7 @@ class MeasurablesController extends AppController {
 					$cond['Measurable.'.$field]=$value;
 				}
 			}
-			$measurables  = $this->Measurable->find('all',array('conditions'=>$cond,'limit'=>10));
+			$measurables  = $this->Measurable->find('all',array('conditions'=>$cond));
 		}else{
 		$this->Measurable->recursive = 0;
 		$this->set('measurables', $this->paginate());
@@ -44,10 +44,26 @@ class MeasurablesController extends AppController {
 		if (!empty($this->data)) {
 			$this->Measurable->create();
 			if ($this->Measurable->save($this->data)) {
-				$this->Session->setFlash(__('The measurable has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<img src="../img/icons/tick.png" />&nbsp; Saving successful';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{ 
+					$this->Session->setFlash(__('The measurable has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The measurable could not be saved. Please, try again.', true));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = -1;
+					$response['msg'] = '<img src="../img/icons/exclamation.png" />&nbsp; The checklist could not be saved. Please, try again.';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{
+					$this->Session->setFlash(__('The measurable could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$recordbooks = $this->Measurable->Recordbook->find('list');
@@ -82,8 +98,16 @@ class MeasurablesController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->Measurable->delete($id)) {
-			$this->Session->setFlash(__('Measurable deleted', true));
-			$this->redirect(array('action'=>'index'));
+			if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; Delete successful';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+			}else{
+				$this->Session->setFlash(__('Measurable deleted', true));
+				$this->redirect(array('action'=>'index'));
+			}
 		}
 		$this->Session->setFlash(__('Measurable was not deleted', true));
 		$this->redirect(array('action' => 'index'));
@@ -131,7 +155,7 @@ class MeasurablesController extends AppController {
 				break;
 			}
 		}
-		$this->Measurable->recursive = 1;
+		$this->Measurable->recursive = 2;
 		return $this->Measurable->find('all',array('conditions'=>$conditions,'group'=>$group));
 	}
 }

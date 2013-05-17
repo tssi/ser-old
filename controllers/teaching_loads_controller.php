@@ -134,7 +134,7 @@ class TeachingLoadsController extends AppController {
 				break;
 			}
 		}
-		$this->TeachingLoad->recursive = 1;
+		$this->TeachingLoad->recursive = 2;
 		return $this->TeachingLoad->find('all',array('conditions'=>$conditions,'group'=>$group));
 	}
 }

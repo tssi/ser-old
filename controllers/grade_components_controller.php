@@ -16,7 +16,7 @@ class GradeComponentsController extends AppController {
 					$cond['GradeComponent.'.$field]=$value;
 				}
 			}
-			$grade_components  = $this->GradeComponent->find('all',array('conditions'=>$cond,'limit'=>15));
+			$grade_components  = $this->GradeComponent->find('all',array('conditions'=>$cond));
 		}else{
 		$this->GradeComponent->recursive = 0;
 		$this->set('gradeComponents', $this->paginate());
