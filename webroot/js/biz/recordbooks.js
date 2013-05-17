@@ -1,6 +1,6 @@
-
 $(document).ready(function(){
 	window.TEACH_LOAD={};
+	window.ACTIVE_ERB={};
 	$(document).on('click','#filter-recordbook',function(){
 		setTimeout(function(){
 			$('#action-filter').addClass('open');
@@ -20,7 +20,6 @@ $(document).ready(function(){
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
 		var employee = 17;
-		console.log(sy+' '+period);
 		if(sy!=undefined){
 			$.getJSON('/recordbook/teaching_loads.json?employee_id='+employee+'&esp='+sy, function(data){
 				//console.log(data);
@@ -95,8 +94,6 @@ $(document).ready(function(){
 		$('#section').html(htm);
 		$('#sy').val(sy+'.'+period+'0');
 		$('#subject_id').val(subject);
-		
-		
 	});
 	$(document).on('click','#add-grade-components',function(){
 		var sy = $('#recordbook_sy').find('option:selected').val();
@@ -131,6 +128,51 @@ $(document).ready(function(){
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
 		console.log(record);
+		ACTIVE_ERB = record;
 		$('#section').html('<option value="'+record.Section.id+'">'+record.Section.name+'</option>');
+	});
+	$(document).on('click','.action-add',function(){
+		console.log(ACTIVE_ERB);
+		var htm = '<option value="#">Select Component</option>';
+		$.each(ACTIVE_ERB.GradeComponent,function(i,e){
+			htm +='<option value="'+e.GeneralComponent.id+'">'+e.GeneralComponent.description+'</option>';
+		});
+		$('#MeasurableGeneralComponentId').html(htm);
+		$('#MeasurableRecordbookId,#load_recordbook').val(ACTIVE_ERB.Recordbook.id);
+	});
+	$(document).on('click','.action-edit',function(){	
+		var row =$(this).parents('tr:first');
+		var key  = row.attr('id');
+		var data = $('.RECORD').trigger('access',{'key':key});
+		var record =  window.RECORD.getActive();
+		console.log(record);
+		$('#MeasurableGeneralComponentId').html('<option value="'+record.GeneralComponent.id+'">'+record.GeneralComponent.description+'</option>');
+	});
+	//delete measurables
+	$(document).on('click','.action-delete',function(){
+		var row =$(this).parents('tr:first');
+		var key  = row.attr('id');
+		var data = $('.RECORD').trigger('access',{'key':key});
+		var record =  window.RECORD.getActive();
+		console.log(record);
+		var id = record.Measurable.id;
+		var col_count =  $('#MeasurableTable.RECORD tbody td').length;
+		var model =  'measurables';
+		$.ajax({
+			url:'/recordbook/'+model+'/delete/'+id,
+			method:'POST',
+			dataType:'json',
+			success:function(data){
+				var row_count = row.parent().find('tr').length;
+				console.log(row_count);
+				if(row_count  == 1){
+					$('#MeasurableTable.RECORD tbody').hide();
+					$('#MeasurableTable.RECORD tbody td span').empty();
+					$('#MeasurableTable.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"><div class="well text-center"><button class="btn  btn-medium" id="add-measurables" href="#measurables-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Measurables</button><div class="muted">No Measurables found, click to add.</div></div></td></tr>');	
+				}else{
+					row.remove();
+				}
+			}
+		});
 	});
 });
