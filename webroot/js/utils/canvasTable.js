@@ -63,6 +63,7 @@ $(document).ready(function(){
 		var record =  window.RECORD.getActive();
 		var modal =  $(this).attr('href');
 		var canvases =  $(modal).find('.canvasTable');
+		
 		$.each(canvases,function(a,c){
 			var canvas = '#'+($(c).attr('id'));
 			var model =  $(canvas).attr('model');
@@ -84,7 +85,10 @@ $(document).ready(function(){
 						}
 					}
 				}
-				$.each(content,function(fld,v){
+			});
+		});
+		$.each(record,function(mdl,content){
+			$.each(content,function(fld,v){
 	
 					if(v instanceof Object){
 						
@@ -98,7 +102,6 @@ $(document).ready(function(){
 						
 					}
 				});
-			});
 		});
 	});
 	$('.canvasTable').parents('form:first').bind('reset',function(){
