@@ -64,101 +64,54 @@
 					<?php endfor; ?>
 				</ul>
 			</div>
-	<div class="span9 record">
-	<div class='datasheet'>
-		<div class="datahead">
-			<table class="table table-striped table-bordered  table-condensed records">
-				<thead class="header">
-					<!--<tr>
-						<th class="text-center"><a>Head</a></th>
-						<th class="text-center"><a>Q2</a></th>
-						<th class="text-center"><a>Q3</a></th>
-						<th class="text-center"><a>Q4</a></th>
-						<th class="text-center"><a>Q5</a></th>
-						<th class="text-center"><a>Quiz (15%)</a></th>
-						<th class="text-center"><a>HW1</a></th>
-						<th class="text-center"><a>HW2</a></th>
-						<th class="text-center"><a>HW3</a></th>
-						<th class="text-center"><a>Homework (15%)</a></th>
-						<th class="text-center"><a>Exam</a></th>
-						<th class="text-center"><a>Exam (30%)</a></th>
-						<th class="text-center"><a>Project</a></th>
-						<th class="text-center"><a>Project (40%)</a></th>
-						<th class="text-center"><a>Total (100%)</a></th>
-					</tr>-->
-				</thead>
-				<tbody>
-					<?php for($i=1;$i<25;$i++): ?>
-					<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<?php endfor; ?>
-				</tbody>
-			</table>
-		</div>
-		<div class="datawrap">
-			<div class="databody">
-				<table class="table table-striped table-bordered  table-condensed records">
-					<thead class="header>
-						<!--<tr>
-							<th class="text-center"><a>Q1</a></th>
-							<th class="text-center"><a>Q2</a></th>
-							<th class="text-center"><a>Q3</a></th>
-							<th class="text-center"><a>Q4</a></th>
-							<th class="text-center"><a>Q5</a></th>
-							<th class="text-center"><a>Quiz (15%)</a></th>
-							<th class="text-center"><a>HW1</a></th>
-							<th class="text-center"><a>HW2</a></th>
-							<th class="text-center"><a>HW3</a></th>
-							<th class="text-center"><a>Homework (15%)</a></th>
-							<th class="text-center"><a>Exam</a></th>
-							<th class="text-center"><a>Exam (30%)</a></th>
-							<th class="text-center"><a>Project</a></th>
-							<th class="text-center"><a>Project (40%)</a></th>
-							<th class="text-center"><a>Total (100%)</a></th>
-						</tr>-->
-					</thead>
-					<tbody>
-						<?php for($i=1;$i<25;$i++): ?>
-						<tr>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>8</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-							<td>&nbsp;</td>
-						</tr>
-						<?php endfor; ?>
-					</tbody>
-				</table>
+			<div class="span9 record">
+				<div class=''>
+					<table id="recordbook" class="simple-sheet table table-striped table-bordered  table-condensed records">
+						<thead class="header">
+							<tr>
+								<th class="text-center"><a>Head</a></th>
+								<th class="text-center"><a>Q2</a></th>
+								<th class="text-center"><a>Q3</a></th>
+								<th class="text-center"><a>Q4</a></th>
+								<th class="text-center"><a>Q5</a></th>
+								<th class="text-center"><a>Quiz (15%)</a></th>
+								<th class="text-center"><a>HW1</a></th>
+								<th class="text-center"><a>HW2</a></th>
+								<th class="text-center"><a>HW3</a></th>
+								<th class="text-center"><a>Homework (15%)</a></th>
+								<th class="text-center"><a>Exam</a></th>
+								<th class="text-center"><a>Exam (30%)</a></th>
+								<th class="text-center"><a>Project</a></th>
+								<th class="text-center"><a>Project (40%)</a></th>
+								<th class="text-center"><a>Total (100%)</a></th>
+							</tr>
+						</thead>
+						<tbody id="recordbook_tbody">
+							<?php for($x=1;$x<=23;$x++):?>
+							<tr>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							<?php endfor;?>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>
-</div>
 </div>
 <?php echo $this->Html->css(array('recordbook/gradeentry'));?>
 <?php echo $this->Html->script(array('biz/gradeentry'),array('inline'=>false));?>

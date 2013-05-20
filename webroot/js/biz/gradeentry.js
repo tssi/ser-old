@@ -55,7 +55,17 @@ $(document).ready(function(){
 				htm +='<th class="text-center"><a>'+obj.Measurable.header+'</a></th>';
 			});
 			htm +='</tr>';
-			$('.header').html(htm);
+			$('.header').html(htm); //populate header
+			
+			var htm2 ='';
+			for(var x=1;x<=25;x++){
+				htm2 +='<tr>';
+				$.each(data.data[0]['Measurable'],function(a,b){
+					htm2 +='<td>&nbsp</td>';
+				});
+				htm2 +='</tr>';
+			}
+			$('#recordbook_tbody').html(htm2);
 		});
 	});
 });
