@@ -1,5 +1,5 @@
 <?php
-/* Classlists Test cases generated on: 2013-05-20 06:25:10 : 1369023910*/
+/* Classlists Test cases generated on: 2013-05-20 10:38:41 : 1369039121*/
 App::import('Controller', 'Classlists');
 
 class TestClasslistsController extends ClasslistsController {
