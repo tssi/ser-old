@@ -45,7 +45,6 @@ $(document).ready(function(){
 			});
 		}
 	});
-	
 	$(document).on('click','#subjects li',function(){
 		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');

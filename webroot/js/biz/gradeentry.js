@@ -39,6 +39,30 @@ $(document).ready(function(){
 			});
 		}
 	});
+	$(document).on('click','#pre-action li',function(){
+		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
+		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
+		var section = $('#subjects li').find('a').attr('data-value');
+		$('#pre-action li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
+		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+		console.log($(this).find('a').text());
+		if($(this).find('a').text()=='Rawscore'){
+			$.getJSON('/recordbook/classlists.json?section_id='+section+'&esp='+sy+'.'+period+'0', function(data){
+				console.log(data);
+				var htm='<li class="nav-header text-center">BOYS</li>';
+				var last_gen ='M';
+				$.each(data,function(i,student){
+					console.log(student);
+					if(last_gen!=student.Student.gender){
+						htm +='<li class="nav-header text-center">GIRLS</li>';
+					}
+					htm+='<li class="student">'+student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name+'</li>';
+					last_gen = student.Student.gender;
+				});
+				$('.classlist').html(htm);
+			});
+		}
+	});
 	$(document).on('click','#subjects li',function(){
 		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
