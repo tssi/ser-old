@@ -35,12 +35,12 @@
 				<ul class="nav pull-right">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-eye-open"></i> <b class="caret"></b></a>
-						<ul class="dropdown-menu" id="">
+						<ul class="dropdown-menu" id="pre-action">
 							<li class="nav-header">Preview</li>
-							<li><a href="#"><i class="icon icon-check"></i> Rawscore</a></li>
-							 <li><a href="#"><i class="icon icon-check-empty"></i>  Equivalent</a></li>
-							 <li><a href="#"><i class="icon icon-check-empty"></i> Summary</a></li>
-							 <li><a href="#"><i class="icon icon-check-empty"></i> Overall</a></li>
+							<li><a href="#"><i class="icon icon-check-empty"></i>Rawscore</a></li>
+							<li><a href="#"><i class="icon icon-check-empty"></i>Equivalent</a></li>
+							<li><a href="#"><i class="icon icon-check-empty"></i>Summary</a></li>
+							<li><a href="#"><i class="icon icon-check-empty"></i>Overall</a></li>
 						</ul>
 					</li>
 					<li><a href="#"><i class="icon icon-print"></i></a></li>
