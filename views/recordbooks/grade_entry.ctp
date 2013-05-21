@@ -114,4 +114,4 @@
 	</div>
 </div>
 <?php echo $this->Html->css(array('recordbook/gradeentry'));?>
-<?php echo $this->Html->script(array('biz/gradeentry'),array('inline'=>false));?>
+<?php echo $this->Html->script(array('biz/gradeentry','ser/ser'),array('inline'=>false));?>
