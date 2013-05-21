@@ -60,12 +60,12 @@
 				</div>
 				<ul class="classlist">
 					<?php for($i=1;$i<25;$i++): ?>
-					<li class="student">John Derick Ramilo</li>
+					<li class="student">Student Name</li>
 					<?php endfor; ?>
 				</ul>
 			</div>
 			<div class="span9 record">
-				<div class=''>
+				<div class='margin-top-3px'>
 					<table id="recordbook" class="simple-sheet table table-striped table-bordered  table-condensed records">
 						<thead class="header">
 							<tr>
@@ -89,21 +89,21 @@
 						<tbody id="recordbook_tbody">
 							<?php for($x=1;$x<=23;$x++):?>
 							<tr>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
+								<td><span class="cell"></span></td>
 							</tr>
 							<?php endfor;?>
 						</tbody>
