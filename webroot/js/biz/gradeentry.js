@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	var CELL='<input type="text" disabled="disabled" class="cell">';
 	$(document).on('click','#sy_period li',function(){
 		var a ='';
 		if($(this).hasClass('sy')){
@@ -61,34 +60,32 @@ $(document).ready(function(){
 		console.log(section,subject);
 		var rc;
 		$.getJSON('/recordbook/recordbooks.json?section_id='+section+'&subject_id='+subject+'&esp='+sy+'.'+period+'0', function(data){
-			rc = new SER.Recordbook(data.data[0].Recordbook);
 			console.log(data);
+			rc = new SER.Recordbook(data.data[0].Recordbook,$('#recordbook'));
 			var hdr='';
 			var dtl='';
 			$.each(data.data[0]['Measurable'],function(i,obj){
 				var mid = rc.setMeasurable({'id':obj.Measurable.id,'obj':obj.Measurable});
-				hdr +='<th class="text-center" id="'+mid+'"><a>'+obj.Measurable.header+'</a></th>';
-				dtl +='<td c='+i+'>'+CELL+'</td>';
-				
+				rc.addHeader({'id':mid,'header':obj.Measurable.header});
+				rc.addCell({'c':i});
 			});
-			$('.header').html('<tr>'+hdr+'</tr>'); //populate header
-			$('#recordbook_tbody').html('<tr>'+dtl+'</tr>');
 		});
 		
 		$.getJSON('/recordbook/classlists.json?section_id='+section+'&esp='+sy+'.'+period+'0', function(data){
 			console.log(data);
-			//var htm='<li class="nav-header text-center">BOYS</li>';
-			var htm='';
+			var htm='<li class="nav-header text-center">BOYS</li>';
 			var last_gen ='M';
+			rc.addSpacer();
 			$.each(data,function(i,student){
 				var sid = rc.setStudent({'id':student.Student.student_no,'obj':student.Student});
 				if(last_gen!=student.Student.gender){
-					//htm +='<li class="nav-header text-center">GIRLS</li>';
+					htm +='<li class="nav-header text-center">GIRLS</li>';
+					rc.addSpacer();
 				}
 				htm+='<li class="student" sid="'+sid+'">'+student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name+'</li>';
-				$('#recordbook_tbody tr:last td').attr('r',i);
+				rc.updateCells({'r':i,'g':student.Student.gender});
 				if(i<data.length-1){
-					$('#recordbook_tbody').append($('#recordbook_tbody tr:last').clone());
+					rc.cloneCells();
 				}
 				last_gen = student.Student.gender;
 			});
