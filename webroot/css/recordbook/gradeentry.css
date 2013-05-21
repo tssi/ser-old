@@ -52,8 +52,9 @@ ul.classlist>li {
 	height: 1.5em;
 	padding: 2px;
 	padding-left: 10px;
-	border: 1px dotted rgb(235, 235, 235)
-	
+	border: 1px dotted rgb(235, 235, 235);
+	height: 32px;
+	display:block;
 }
 ul.classlist>li:nth-child(odd) {
 	background-color: #f9f9f9;
@@ -117,4 +118,11 @@ input.cell{
 	width: 31px;
 	text-align: right;
 	margin:0;
+}
+span.cell{
+	height: 27px;
+	display: block;
+}
+.margin-top-3px{
+margin-top: 3px;
 }
