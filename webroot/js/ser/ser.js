@@ -14,7 +14,9 @@ SER.Recordbook = function(_rc,_elem){
 		var row = $(this).attr('r');
 		var col = $(this).attr('c');
 		if(e.which = 13){
+			col++;
 			console.log(row,col);
+			elem.find('input').attr()
 		}
 	});
 	function slugify(attr){
