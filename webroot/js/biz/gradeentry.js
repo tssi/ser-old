@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	var CELL='<input type="text" disabled="disabled" required="required" class="cell">';
 	$(document).on('click','#sy_period li',function(){
 		var a ='';
 		if($(this).hasClass('sy')){
@@ -42,25 +43,12 @@ $(document).ready(function(){
 	$(document).on('click','#pre-action li',function(){
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
-		var section = $('#subjects li').find('a').attr('data-value');
+		var section = $('#subjects li').find('i.icon-check').parent().attr('data-value');
 		$('#pre-action li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
 		console.log($(this).find('a').text());
 		if($(this).find('a').text()=='Rawscore'){
-			$.getJSON('/recordbook/classlists.json?section_id='+section+'&esp='+sy+'.'+period+'0', function(data){
-				console.log(data);
-				var htm='<li class="nav-header text-center">BOYS</li>';
-				var last_gen ='M';
-				$.each(data,function(i,student){
-					console.log(student);
-					if(last_gen!=student.Student.gender){
-						htm +='<li class="nav-header text-center">GIRLS</li>';
-					}
-					htm+='<li class="student">'+student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name+'</li>';
-					last_gen = student.Student.gender;
-				});
-				$('.classlist').html(htm);
-			});
+			$('#recordbook_tbody find:input').removeAttr('disabled');
 		}
 	});
 	$(document).on('click','#subjects li',function(){
@@ -74,22 +62,33 @@ $(document).ready(function(){
 		
 		$.getJSON('/recordbook/recordbooks.json?section_id='+section+'&subject_id='+subject+'&esp='+sy+'.'+period+'0', function(data){
 			console.log(data);
-			var htm='<tr>';
+			var hdr='';
+			var dtl='';
 			$.each(data.data[0]['Measurable'],function(i,obj){
-				htm +='<th class="text-center"><a>'+obj.Measurable.header+'</a></th>';
+				hdr +='<th class="text-center"><a>'+obj.Measurable.header+'</a></th>';
+				dtl +='<td c='+i+'>'+CELL+'</td>';
 			});
-			htm +='</tr>';
-			$('.header').html(htm); //populate header
-			
-			var htm2 ='';
-			for(var x=1;x<=25;x++){
-				htm2 +='<tr>';
-				$.each(data.data[0]['Measurable'],function(a,b){
-					htm2 +='<td>&nbsp</td>';
-				});
-				htm2 +='</tr>';
-			}
-			$('#recordbook_tbody').html(htm2);
+			$('.header').html('<tr>'+hdr+'</tr>'); //populate header
+			$('#recordbook_tbody').html('<tr>'+dtl+'</tr>');
+		});
+		
+		$.getJSON('/recordbook/classlists.json?section_id='+section+'&esp='+sy+'.'+period+'0', function(data){
+			console.log(data);
+			//var htm='<li class="nav-header text-center">BOYS</li>';
+			var htm='';
+			var last_gen ='M';
+			$.each(data,function(i,student){
+				if(last_gen!=student.Student.gender){
+					//htm +='<li class="nav-header text-center">GIRLS</li>';
+				}
+				htm+='<li class="student" sno="'+student.Student.student_no+'">'+student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name+'</li>';
+				$('#recordbook_tbody tr:last td').attr('r',i);
+				if(i<data.length-1){
+					$('#recordbook_tbody').append($('#recordbook_tbody tr:last').clone());
+				}
+				last_gen = student.Student.gender;
+			});
+			$('.classlist').html(htm);
 		});
 	});
 });
