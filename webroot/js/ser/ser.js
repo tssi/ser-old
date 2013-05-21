@@ -1,11 +1,11 @@
 var SER = {};
-SER.Recordbook = function(_id){
+SER.Recordbook = function(_rc){
 	var measurables = {};
 	var components = {};
 	var students = {};
 	var objctr=0;
 	return{
-		id:_id,
+		recordbook:_rc,
 		setMeasurable:function(obj){
 			var index = 'm-'+(objctr++);
 			measurables[index]=obj;
@@ -23,7 +23,7 @@ SER.Recordbook = function(_id){
 			return components[index];
 		},
 		setStudent:function(obj){
-			var index = 'c-'+(objctr++);
+			var index = 's-'+(objctr++);
 			students[index]=obj;
 			return index;
 		},
