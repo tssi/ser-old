@@ -131,6 +131,6 @@ class ClasslistsController extends AppController {
 			}
 		}
 		$this->Classlist->recursive = 1;
-		return $this->Classlist->find('all',array('conditions'=>$conditions,'group'=>$group,'fields'=>$fields,'order'=>array('Student.gender'=>'DESC')));
+		return $this->Classlist->find('all',array('conditions'=>$conditions,'group'=>$group,'fields'=>$fields,'order'=>array('Student.gender'=>'DESC','Student.last_name')));
 	}
 }
