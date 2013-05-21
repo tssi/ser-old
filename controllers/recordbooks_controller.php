@@ -142,7 +142,6 @@ class RecordbooksController extends AppController {
 	}
 	protected function api($params){
 		$schema = $this->Recordbook->schema();
-		//pr($schema);
 		$conditions = array();
 		$fields = array();
 		$group = array();
