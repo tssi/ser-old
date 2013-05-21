@@ -14,9 +14,15 @@ SER.Recordbook = function(_rc,_elem){
 		var row = $(this).attr('r');
 		var col = $(this).attr('c');
 		if(e.which = 13){
-			col++;
-			console.log(row,col);
-			elem.find('input').attr()
+			row++;
+			var n_input = elem.find('input[c='+col+'][r='+row+']');
+			if(n_input.lenght==0){
+				col++;
+				row=0;
+				n_input = elem.find('input[c='+col+'][r='+row+']');
+				console.log(row,col);
+			}
+			n_input.focus();
 		}
 	});
 	function slugify(attr){
@@ -54,9 +60,9 @@ SER.Recordbook = function(_rc,_elem){
 			return students[index];
 		},
 		addHeader:function(attr){
-			var id = attr.id;
+			var mid = attr.mid;
 			var header = attr.header;
-			elem.find('thead tr:first').append('<th id="'+id+'"><a>'+header+'</a></th>');
+			elem.find('thead tr:first').append('<th mid="'+mid+'"><a>'+header+'</a></th>');
 		},
 		addCell:function(attrs){
 			elem.find('tbody tr:first').append('<td><input type="text" class="cell" '+slugify(attrs)+'></td>');

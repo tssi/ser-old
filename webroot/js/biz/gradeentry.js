@@ -66,7 +66,7 @@ $(document).ready(function(){
 			var dtl='';
 			$.each(data.data[0]['Measurable'],function(i,obj){
 				var mid = rc.setMeasurable({'id':obj.Measurable.id,'obj':obj.Measurable});
-				rc.addHeader({'id':mid,'header':obj.Measurable.header});
+				rc.addHeader({'mid':mid,'header':obj.Measurable.header});
 				rc.addCell({'c':i});
 			});
 		});
