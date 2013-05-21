@@ -230,7 +230,7 @@ SER.Recordbook = function(_rc,_elem){
 		if(e.which = 13){
 			row++;
 			var n_input = elem.find('input[c='+col+'][r='+row+']');
-			if(n_input.lenght==0){
+			if(n_input.length==0){
 				col++;
 				row=0;
 				n_input = elem.find('input[c='+col+'][r='+row+']');
