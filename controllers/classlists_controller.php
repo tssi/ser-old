@@ -94,6 +94,9 @@ class ClasslistsController extends AppController {
 		$group = array();
 		foreach($params as $key => $val){
 			switch($key){
+				case 'esp':
+					$conditions['Classlist.'.$key.' <=']=$val;
+				break;
 				case 'fields':
 					foreach(explode(',',$val) as $f){
 						if(isset($schema[$f])){
