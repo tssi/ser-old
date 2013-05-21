@@ -57,13 +57,12 @@ $(document).ready(function(){
 		var section = $(this).find('a').attr('data-value');
 		var subject = $(this).find('a').attr('subject');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
-		console.log(section,subject);
 		var rc;
 		$.getJSON('/recordbook/recordbooks.json?section_id='+section+'&subject_id='+subject+'&esp='+sy+'.'+period+'0', function(data){
-			console.log(data);
 			rc = new SER.Recordbook(data.data[0].Recordbook,$('#recordbook'));
 			var hdr='';
 			var dtl='';
+			console.log(data);
 			$.each(data.data[0]['Measurable'],function(i,obj){
 				var mid = rc.setMeasurable({'id':obj.Measurable.id,'obj':obj.Measurable});
 				rc.addHeader({'mid':mid,'header':obj.Measurable.header});
