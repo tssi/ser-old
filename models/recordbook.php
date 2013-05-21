@@ -40,7 +40,7 @@ class Recordbook extends AppModel {
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
+			'order' => 'Measurable.order_index',
 			'limit' => '',
 			'offset' => '',
 			'exclusive' => '',
