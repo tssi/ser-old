@@ -27,10 +27,12 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 		var cell = $(this);
 		var row = cell.attr('r');
 		var col = cell.attr('c');
+		
 		if(e.which == 13){
+			col++;
 			//get students and measurables details
 			var rid =  $(this).attr('rid');
-			var mid = $('.header th:nth-child('+(col+1)+')').attr('mid');
+			var mid = $('.header th:nth-child('+(col)+')').attr('mid');
 			var sid;
 			row++;
 			$.each($('.classlist').find('li'),function(a,b){
@@ -40,8 +42,10 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 			});
 			var meas = _getMeasurable(mid);
 			var stud = _getStudent(sid);
-			console.log(rawscores);
-			raw = _getRawscore(rid)?_getRawscore(rid):{'id':null};
+		
+			var raw = _getRawscore(rid)?_getRawscore(rid):{'id':null};
+			console.log(mid);
+			console.log(measurables);
 			var score = $(this).val();
 			//end
 			//add score
@@ -49,7 +53,7 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 				'url':'/recordbook/rawscores/add',
 				'type':'POST',
 				'dataType':'json',
-				'data':{data:{'Rawscore':{id:raw.id,'student_id':stud.id,'measurable_id':meas.id,'score':score}}},
+				'data':{data:{'Rawscore':{'id':raw.id,'student_id':stud.id,'measurable_id':meas.id,'score':score}}},
 				'success':function(data){
 					if(data.status){
 						if(!raw.id){
@@ -60,6 +64,7 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 				}
 			});
 			//end
+			col = cell.attr('c');
 			var n_input = elem.find('input[c='+col+'][r='+row+']');
 			if(n_input.length==0){
 				col++;
@@ -112,10 +117,11 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 	function _setCell(rawscore){
 		console.log(registry);
 		console.log(rawscore.Student.id);
-		var c = registry['S'][rawscore.Student.id];
-		var r = registry['M'][rawscore.Measurable.id];
+		var r = registry['S'][rawscore.Student.id];
+		var c = registry['M'][rawscore.Measurable.id];
 		var cell = elem.find('.cell[c="'+c+'"][r="'+r+'"]');
 		var obj = {'id':rawscore.Rawscore.id,'obj':rawscore};
+		console.log(obj);
 		cell.val(rawscore.Rawscore.score);
 		cell.attr('rid',_setRawscore(obj));
 	}
@@ -142,7 +148,7 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 			elem.find('thead tr:first').append('<th mid="'+mid+'"><a>'+header+'</a></th>');
 	}
 	function _addCell(attrs){
-			elem.find('tbody tr:first').append('<td><input disabled="disabled" type="text" class="cell" '+slugify(attrs)+'></td>');
+			elem.find('tbody tr:first').append('<td><input type="text" class="cell" '+slugify(attrs)+'></td>');
 	}
 	var recordbook = {
 			setStudent:_setStudent,
