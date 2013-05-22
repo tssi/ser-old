@@ -40,11 +40,11 @@ ul.classlist{
 	border-left: 1px solid #ccc;
 	border-right: 1px solid #fff;
 	max-height: 650px;
-	overflow-y:hidden;
+	/*overflow-y:hidden;
 
 }
 ul.classlist:hover{
-		overflow-y: auto;
+		overflow-y: auto;*/
 }
 ul.classlist>li {
 	background-color: #fff;
