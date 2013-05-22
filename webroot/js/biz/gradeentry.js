@@ -57,38 +57,6 @@ $(document).ready(function(){
 		var section = $(this).find('a').attr('data-value');
 		var subject = $(this).find('a').attr('subject');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
-		var rc;
-		$.getJSON('/recordbook/recordbooks.json?section_id='+section+'&subject_id='+subject+'&esp='+sy+'.'+period+'0', function(data){
-			rc = new SER.Recordbook(data.data[0].Recordbook,$('#recordbook'));
-			var hdr='';
-			var dtl='';
-			console.log(data);
-			$.each(data.data[0]['Measurable'],function(i,obj){
-				var mid = rc.setMeasurable({'id':obj.Measurable.id,'obj':obj.Measurable});
-				rc.addHeader({'mid':mid,'header':obj.Measurable.header});
-				rc.addCell({'c':i});
-			});
-		});
-		
-		$.getJSON('/recordbook/classlists.json?section_id='+section+'&esp='+sy+'.'+period+'0', function(data){
-			console.log(data);
-			var htm='<li class="nav-header text-center">BOYS</li>';
-			var last_gen ='M';
-			rc.addSpacer();
-			$.each(data,function(i,student){
-				var sid = rc.setStudent({'id':student.Student.student_no,'obj':student.Student});
-				if(last_gen!=student.Student.gender){
-					htm +='<li class="nav-header text-center">GIRLS</li>';
-					rc.addSpacer();
-				}
-				htm+='<li class="student" sid="'+sid+'">'+student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name+'</li>';
-				rc.updateCells({'r':i,'g':student.Student.gender});
-				if(i<data.length-1){
-					rc.cloneCells();
-				}
-				last_gen = student.Student.gender;
-			});
-			$('.classlist').html(htm);
-		});
+		var rc = new SER.Recordbook($('#recordbook'), section,subject,sy,period);
 	});
 });
