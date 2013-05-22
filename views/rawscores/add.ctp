@@ -5,9 +5,9 @@
 				<div class="row-fluid">
 					<div class="span4 module">
 						<div class="module-wrap">
-							<div class="module-name rawScores">
+							<div class="module-name rawscores">
 							
-							 <?php echo $this->Html->link( 'Raw Scores',
+							 <?php echo $this->Html->link( 'Rawscores',
 														array('action' => 'index')
 													);  ?>							</div>
 						</div>
@@ -23,7 +23,9 @@
 					  </a>
 					  <ul class="dropdown-menu">
 						<!-- dropdown menu links -->
-											  </ul>
+								<li><?php echo $this->Html->link(__('Students', true), array('controller' => 'students', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Measurables', true), array('controller' => 'measurables', 'action' => 'index')); ?> </li>
+					  </ul>
 					</div>
 				</div>
 			</div>
@@ -35,18 +37,19 @@
  </div>
 
 <div class="row-fluid">
-<div class="rawScores form span6 offset3">
+<div class="rawscores form span6 offset3">
 
-<?php echo $this->Form->create('RawScore',array(	'class'=>'form-horizontal',
+<?php echo $this->Form->create('Rawscore',array(	'class'=>'form-horizontal',
 																	'inputDefaults' => array( 	'label'=>array('class'=>'control-label'),
 																								'div'=>array('class'=>'control-group')
 																							)
 																	)
 											);?>
 	<fieldset>
-		<legend><?php __('Edit Raw Score'); ?></legend>
-		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('name',array('placeholder'=>'Name','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<legend><?php __('Add Rawscore'); ?></legend>
+		<?php echo $this->Form->input('student_id',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('measurable_id',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('score',array('placeholder'=>'','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 	</fieldset>
 	<div class="control-group">
 		<div class="controls">
