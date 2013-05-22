@@ -12,11 +12,22 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 		$.getJSON('/recordbook/recordbooks.json?section_id='+section+'&subject_id='+subject+'&esp='+sy+'.'+period+'0', function(data){
 			var hdr='';
 			var dtl='';
+			var col_ctr = 0;
+			var gc = 0;
+			var grade_comps=data.data[0]['GradeComponent'];
 			_newSheet();
 			$.each(data.data[0]['Measurable'],function(i,obj){
-				var mid = _setMeasurable({'id':obj.Measurable.id,'obj':obj.Measurable,'col':i});
+				var mid = _setMeasurable({'id':obj.Measurable.id,'obj':obj.Measurable,'col':col_ctr});
+				if(obj.Measurable.general_component_id!=grade_comps[gc]['GradeComponent']['general_component_id']){
+					var gid = _setComponent({'id':obj.Measurable.id,'obj':obj.Measurable,'col':col_ctr});
+					_addHeader({'mid':gid,'header':grade_comps[gc]['GeneralComponent']['description']});
+					_addCell({'c':col_ctr});
+					gc++;
+					col_ctr++;
+				}
 				_addHeader({'mid':mid,'header':obj.Measurable.header});
-				_addCell({'c':i});
+				_addCell({'c':col_ctr});
+				col_ctr++;
 			});
 			new  SER.Classlist($('.classlist'), rc, section, sy, period);
 			new SER.Rawscore(rc, subject, section, sy, period);
