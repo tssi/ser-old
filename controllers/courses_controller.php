@@ -11,7 +11,6 @@ class CoursesController extends AppController {
 		}else if($this->RequestHandler->isAjax()){		
 			$this->Course->recursive = 1;
 			$courses = $this->Course->find('all');
-			pr($courses);
 			echo json_encode($courses);
 			exit;
 		}else{
