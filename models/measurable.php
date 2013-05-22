@@ -19,4 +19,21 @@ class Measurable extends AppModel {
 			'order' => ''
 		)
 	);
+
+	var $hasMany = array(
+		'Rawscore' => array(
+			'className' => 'Rawscore',
+			'foreignKey' => 'measurable_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
 }

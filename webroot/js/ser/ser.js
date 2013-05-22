@@ -13,14 +13,20 @@ SER.Recordbook = function(_rc,_elem){
 	elem.on('keyup','.cell',function(e){
 		var row = $(this).attr('r');
 		var col = $(this).attr('c');
-		
 		if(e.which = 13){
-			var sid = $('.classlist li.student:nth-child('+(row+1)+')').attr('sid');
+			//get students and measurables details
 			var mid = $('.header th:nth-child('+(col+1)+')').attr('mid');
-			var stud = students[sid];
-			var meas = measurables[mid];
-			console.log(stud,meas);
+			var sid;
 			row++;
+			$.each($('.classlist').find('li'),function(a,b){
+				if(a==row){
+					sid = $(b).attr('sid');
+				}
+			});
+			var meas = measurables[mid];
+			var stud = students[sid];
+			console.log(stud,meas);
+			//end
 			var n_input = elem.find('input[c='+col+'][r='+row+']');
 			if(n_input.length==0){
 				col++;
