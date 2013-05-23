@@ -51,17 +51,17 @@
 	</div><!-- /navbar-inner -->
 </div>
 
-<div class="row-fluid">
-	<div class="span12">
-		<div class="row-fluid">
-			<div class="span3">
+<div class="content">
+	<div id="recordbook" class="simple-sheet handsontable"></div>
+</div>
+			<!--<div class="span3">
 				<div class="wrapper">
 					<h4 class='studname'>Student Name</h4>
 				</div>
 				<ul class="classlist">
-					<?php for($i=1;$i<25;$i++): ?>
+					<?php //for($i=1;$i<25;$i++): ?>
 					<li class="student">Student Name</li>
-					<?php endfor; ?>
+					<?php //endfor; ?>
 				</ul>
 			</div>
 			<div class="span9 record">
@@ -87,7 +87,7 @@
 							</tr>
 						</thead>
 						<tbody id="recordbook_tbody">
-							<?php for($x=1;$x<=23;$x++):?>
+							<?php //for($x=1;$x<=23;$x++):?>
 							<tr>
 								<td><span class="cell"></span></td>
 								<td><span class="cell"></span></td>
@@ -105,13 +105,11 @@
 								<td><span class="cell"></span></td>
 								<td><span class="cell"></span></td>
 							</tr>
-							<?php endfor;?>
+							<?php //endfor;?>
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<?php echo $this->Html->css(array('recordbook/gradeentry'));?>
-<?php echo $this->Html->script(array('biz/gradeentry','ser/ser'),array('inline'=>false));?>
+			</div>-->
+		
+<?php echo $this->Html->css(array('recordbook/gradeentry','handsontable/jquery.handsontable.full'));?>
+<?php echo $this->Html->script(array('biz/gradeentry','ser/ser','handsontable/jquery.handsontable.full'),array('inline'=>false));?>
