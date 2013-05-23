@@ -1,0 +1,19 @@
+.simple-sheet col.rowHeader {
+  width: 100px;
+}
+.simple-sheet th {
+  background-color: #EEE;
+  color: #222;
+  text-align: left;
+  font-weight: normal;
+  white-space: nowrap;
+}
+.simple-sheet .dragdealer{
+	height:17px;
+}
+.simple-sheet .dragdealer .handle{
+	height:15px;
+}
+.navbar a>.icon{
+	font-size:1.8em;
+}
