@@ -104,7 +104,7 @@
 <div class="row-fluid">
 <div class="recordbooks form span12 form-canvas">
 		<?php  $school_yr = array('#'=>'School Year','2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
-		<?php echo $this->Form->input('id',array('placeholder'=>'Id','class'=>'span11'));?>
+		<?php echo $this->Form->input('id',array('placeholder'=>'Id','class'=>'span11','role'=>'primary-key'));?>
 		<div class="row-fuild">
 			<?php echo $this->Form->input('sy',array('div'=>false,'required'=>true,'id'=>'recordbook_sy','options'=>$school_yr,'class'=>'span2'));?>
 			<?php echo $this->Form->input('Subject.nomenclature',array('label'=>'Subject','div'=>false,'id'=>'subject','class'=>'span3'));?>
@@ -184,7 +184,7 @@
 					<tr class="no-details">
 						<td colspan="12">
 							<div class="well text-center">
-								<button class="btn  btn-medium"  id="add-measurables" href="#measurables-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Measurables</button>
+								<button class="btn  btn-medium action-btn"  id="add-measurables" href="#measurables-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Measurables</button>
 								<div class="muted">No Measurables found, click to add.</div>
 							</div>
 						</td>
@@ -326,7 +326,7 @@
 						<?php echo $this->Form->input('rule',array('placeholder'=>'rule','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('sigfig',array('placeholder'=>'sigfig','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						
-						<?php echo $this->Form->input('recordbook_id',array('type'=>'hidden','class'=>'span11'));?>
+						<?php echo $this->Form->input('recordbook_id',array('type'=>'hidden','role'=>'foreign-key'));?>
 						
 					</div>		
 				</div>
