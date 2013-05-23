@@ -99,7 +99,7 @@
 						<tr class="no-details">
 						<td colspan="6">
 							<div class="well text-center">
-								<button class="btn  btn-medium"  id="filter-template"><i class="icon icon-filter"></i> Templates</button>
+								<button class="btn  btn-medium action-btn"  id="filter-template"><i class="icon icon-filter"></i> Templates</button>
 								<div class="muted">No Templates found, click to filter.</div>
 							</div>
 						</td>
