@@ -1,3 +1,4 @@
+var BASE_URL ='/'+window.location.pathname.split('/')[1]+'/';
 $('document').ready(function(){
 	var COMMIT = 13;
 	$('#intent-create').click(function(e){	
@@ -5,7 +6,7 @@ $('document').ready(function(){
 			$('#intent-modal').modal('show');
 			var form = $('#intent-modal').parents('form:first');
 			var model = form.attr('model');
-			form.attr('action','../'+model+'/add');
+			form.attr('action',BASE_URL+model+'/add');
 			$('#intent-modal').find('input[name*="id"]').val(null); // Reset to id to null
 			form[0].reset();
 	});

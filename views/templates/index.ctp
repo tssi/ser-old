@@ -99,7 +99,7 @@
 						<tr class="no-details">
 						<td colspan="6">
 							<div class="well text-center">
-								<button class="btn  btn-medium"  id="filter-template"><i class="icon icon-filter"></i> Templates</button>
+								<button class="btn  btn-medium action-btn"  id="filter-template"><i class="icon icon-filter"></i> Templates</button>
 								<div class="muted">No Templates found, click to filter.</div>
 							</div>
 						</td>
@@ -174,7 +174,7 @@
 					<tr class="no-details">
 						<td colspan="6">
 							<div class="well text-center">
-								<button class="btn  btn-medium"  id="add-template-details" href="#template-details-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Template Details</button>
+								<button class="btn  btn-medium action-btn"  id="add-template-details" href="#template-details-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Template Details</button>
 								<div class="muted">No Template Details found, click to add.</div>
 							</div>
 						</td>
@@ -221,7 +221,7 @@
 					<div class="templateDetails form span12">
 						<?php //pr($templates);exit();?>
 						<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-						<?php echo $this->Form->input('template_id',array('type'=>'hidden'));?>
+						<?php echo $this->Form->input('template_id',array('type'=>'hidden','role'=>'foreign-key'));?>
 						<?php echo $this->Form->input('Template.name',array('id'=>'template_name','placeholder'=>'Template','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('general_component_id',array('options'=>array($generalComponents),'placeholder'=>'General Component Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('order_index',array('placeholder'=>'Order Index','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
