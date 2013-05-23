@@ -1,5 +1,5 @@
 
-<div class="navbar actions-container">
+<div class="navbar actions-container"  style="margin-bottom:0px">
 	<div class="navbar-inner">
 		<div class="container">
 			  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -51,7 +51,7 @@
 	</div><!-- /navbar-inner -->
 </div>
 
-<div class="content">
+<div class="content" style="padding:0px;">
 	<div id="recordbook" class="simple-sheet handsontable"></div>
 </div>
 <?php echo $this->Html->css(array('recordbook/gradeentry','handsontable/jquery.handsontable.full','recordbook/simple-sheet'));?>
