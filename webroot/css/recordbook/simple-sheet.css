@@ -1,5 +1,5 @@
 .simple-sheet col.rowHeader {
-  width: 200px;
+  width: 230px;
 }
 .simple-sheet th {
   background-color: #EEE;
@@ -8,13 +8,19 @@
   font-weight: normal;
   white-space: nowrap;
 }
+.relative span{
+    text-align: center;
+    padding-top: 10px;
+    color: rgb(155, 13, 13);
+    display: block;
+}
 .simple-sheet .dragdealer{
 	height:17px;
 }
 .simple-sheet .dragdealer .handle{
 	height:15px;
 }
-/* .simple-sheet tr th:first-child {
+.simple-sheet tr th:first-child ,.simple-sheet th td:first-child {
 	background-color: #fff;
 	font-size: 15px;
 	height: 1.5em;
@@ -44,7 +50,20 @@ background-repeat: repeat-x;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F8F8F8', endColorstr='#E9E9E9', GradientType=0);
 height: 3.5em !important;
 min-height: 3.5em !important;
-} */
+} 
+.handsontable th, .handsontable td {
+border-right: 1px solid #CCC;
+height: 22px;
+empty-cells: show;
+line-height: 21px;
+padding: 0 4px 0 4px;
+background-color: #FFF;
+border: 1px dotted rgb(235, 235, 235);
+font-size: 12px;
+vertical-align: top;
+overflow: hidden;
+outline-width: 0;
+}
 .navbar a>.icon{
 	font-size:1.8em;
 }

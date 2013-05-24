@@ -3,7 +3,7 @@
 	<head>
 		<?php echo $this->Html->charset(); ?>
 		<title>
-			<?php __('SAM'); ?>
+			<?php __('ERB'); ?>
 			<?php echo $title_for_layout; ?>
 		</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,33 +44,22 @@
 										$this->Html->tag('span', 'Home', array('class' => 'module-label')),
 										array('controller'=>'pages','plugin'=>null,'action'=>'home'), array('escape' => false)
 										);  ?>
-		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-th-large')).' '.
-										$this->Html->tag('span', 'Apps', array('class' => 'module-label')),
-										array('controller'=>'pages','plugin'=>null,'action'=>'apps'), array('escape' => false)
-										);  ?>	
+		<?php //echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-th-large')).' '.
+										//$this->Html->tag('span', 'Apps', array('class' => 'module-label')),
+										//array('controller'=>'pages','plugin'=>null,'action'=>'apps'), array('escape' => false)
+										//);  ?>	
 		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-cogs')).' '.
-										$this->Html->tag('span', 'Common Services', array('class' => 'module-label')),
-										array('controller'=>'pages','plugin'=>null,'action'=>'services'), array('escape' => false)
-										);  ?>										
-		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-certificate')).' '.
-										$this->Html->tag('span', 'Accounting and Finance', array('class' => 'module-label')),
-										array('controller'=>'pages','plugin'=>null,'action'=>'finance'), array('escape' => false)
-										);  ?>										
-		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-exchange')).' '.
-										$this->Html->tag('span', 'Disbursement', array('class' => 'module-label')),
-										array('controller'=>'pages','plugin'=>null,'action'=>'disbursement'), array('escape' => false)
-										);  ?>										
-		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-folder-open')).' '.
-										$this->Html->tag('span', 'File Management', array('class' => 'module-label')),
-										array('controller'=>'pages','plugin'=>null,'action'=>'filemgt'), array('escape' => false)
-										);  ?>										
-		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-building')).' '.
-										$this->Html->tag('span', 'Property Management', array('class' => 'module-label')),
-										array('controller'=>'pages','plugin'=>null,'action'=>'propertymgt'), array('escape' => false)
+										$this->Html->tag('span', 'Templates', array('class' => 'module-label')),
+										array('controller'=>'','plugin'=>null,'action'=>'templates'), array('escape' => false)
 										);  ?>	
-	
-
-		
+		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-book')).' '.
+										$this->Html->tag('span', 'RecordBooks', array('class' => 'module-label')),
+										array('controller'=>'','plugin'=>null,'action'=>'recordbooks'), array('escape' => false)
+										);  ?>	
+		<?php echo $this->Html->link( 	$this->Html->tag('i', '', array('class' => 'icon-building')).' '.
+										$this->Html->tag('span', 'Grade enrty', array('class' => 'module-label')),
+										array('controller'=>'recordbooks','plugin'=>null,'action'=>'grade_entry'), array('escape' => false)
+										);  ?>											
 	</nav>
 		<div class="page-wrap animate">
 			<!--Header-->

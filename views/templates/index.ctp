@@ -45,12 +45,13 @@
 						  
                         </ul>
                       </li>
-                    </ul>
+						<li class="dropdown" id="view-template">
+							<a href="#"><i class="icon icon-eye-open"></i></a>
+						</li>
+						  <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
+						</ul>
                     <ul class="nav pull-right">
-                      <li class="dropdown" id="view-template">
-                        <a href="#"><i class="icon icon-eye-open"></i></a>
-                      </li>
-					   <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
+					   <li><div id="simple-root"></div></li>
                     </ul>
                   </div><!-- /.nav-collapse -->
                 </div>
@@ -99,7 +100,7 @@
 						<tr class="no-details">
 						<td colspan="6">
 							<div class="well text-center">
-								<button class="btn  btn-medium action-btn"  id="filter-template"><i class="icon icon-filter"></i> Templates</button>
+								<button class="btn  btn-medium"  id="filter-template"><i class="icon icon-filter"></i> Templates</button>
 								<div class="muted">No Templates found, click to filter.</div>
 							</div>
 						</td>
@@ -136,6 +137,7 @@
 			<?php echo $this->Form->input('scope',array('type'=>'hidden','id'=>'subject_scope','value'=>'D','class'=>'span3'));?>
 			<?php echo $this->Form->input('limit',array('type'=>'hidden','id'=>'subject_limit','class'=>'span3'));?>
 			<?php echo $this->Form->input('subject_id',array('type'=>'hidden','id'=>'subject_id','class'=>'span3'));?>
+			<?php echo $this->Form->input('created_by',array('type'=>'hidden','id'=>'user','class'=>'span3'));?>
 	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
 				<caption class="caption-bordered">Template Details</caption>
 				<thead>

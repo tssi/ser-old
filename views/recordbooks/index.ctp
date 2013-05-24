@@ -30,12 +30,14 @@
 			<ul class="dropdown-menu" id="subjects">
 			</ul>
 		  </li>
-		</ul>
-		<ul class="nav pull-right">
 		  <li class="dropdown" id="view-loads">
 			<a href="#"><i class="icon icon-eye-open"></i></a>
 		  </li>
 		   <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
+		</ul>
+		<ul class="nav pull-right">
+		 <li><div id="simple-root"></div></li>
+		  
 		</ul>
 	  </div><!-- /.nav-collapse -->
 	</div>
@@ -211,6 +213,7 @@
 														)
 											);?>
 <?php echo $this->Form->input('subject_id',array('id'=>'load_subjects','type'=>'hidden','value'=>null)); ?>
+<?php echo $this->Form->input('section_id',array('id'=>'load_section','type'=>'hidden','value'=>null)); ?>
 <?php echo $this->Form->input('esp',array('id'=>'load_esp','type'=>'hidden','value'=>null)); ?>
 <?php echo $this->Form->end();?>
 
