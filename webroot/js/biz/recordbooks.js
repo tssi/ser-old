@@ -19,10 +19,10 @@ $(document).ready(function(){
 		$(this).addClass('selected');
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
-		var employee = 17;
+		var employee = user.id;
 		if(sy!=undefined){
 			$.getJSON('/recordbook/teaching_loads.json?employee_id='+employee+'&esp='+sy, function(data){
-				//console.log(data);
+				console.log(data.data);
 				TEACH_LOAD={};
 				var htm='';
 				$.each(data.data,function(i,e){
@@ -58,6 +58,13 @@ $(document).ready(function(){
 			$('#RecordbookTable').trigger('preload');
 			$('#load_subjects').val(subject);
 			$('#load_esp').val(sy+'.'+period+'0');
+			console.log(TEACH_LOAD[subject]['sections'][0]['id']);
+			var sections =[];
+			$.each(TEACH_LOAD[subject]['sections'],function(i,e){
+				sections.push(e.id);
+			});
+			console.log(sections);
+			$('#load_section').val(sections);
 			$('#RecordbookCanvasForm').trigger('request_content');
 		}
 		if(sy==undefined||period==undefined||subject==undefined){
@@ -80,7 +87,7 @@ $(document).ready(function(){
 		}
 	});
 	$(document).on('click','#intent-create',function(){
-		$('#GradeComponentTable,#MeasurableTable').trigger('emptyRecord');
+		//$('#GradeComponentTable,#MeasurableTable').trigger('emptyRecord');
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
 		var subject = $('#subjects li').find('i.icon-check').parent().attr('data-value');

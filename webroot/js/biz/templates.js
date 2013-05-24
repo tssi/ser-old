@@ -75,6 +75,7 @@ $(document).ready(function(){
 		$('#subject_limit').val(level_id);
 		$('#subject_status').val('S');
 		$('#sy').val(sy);
+		$('#user').val(user.full_name);
 	});
 	
 	$(document).on('change','#template_sy',function(){

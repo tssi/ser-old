@@ -12,7 +12,7 @@ $(document).ready(function(){
 		$(this).addClass('selected');
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
-		var employee = 17;
+		var employee = user.id;
 		if(sy!=undefined&period!=undefined){
 			$.getJSON('/recordbook/teaching_loads.json?employee_id='+employee+'&esp='+sy, function(data){
 				TEACH_LOAD={};
