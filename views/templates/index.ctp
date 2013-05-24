@@ -123,7 +123,7 @@
 <div class="row-fluid">
 <div class="templates form span12 form-canvas">
 			<?php  $school_yr = array('#'=>'School Year','2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
-			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11','role'=>'primary-key'));?>
 			<div class="row-fuild">
 				<label for="TemplateSy" class="control-label">Effective SY</label>
 				<?php echo $this->Form->input('sy',array('label'=>false,'required'=>true,'id'=>'template_sy','div'=>false,'options'=>$school_yr,'class'=>'span3'));?>
