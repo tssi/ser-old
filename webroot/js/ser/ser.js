@@ -12,6 +12,7 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 		var cl =  new  SER.Classlist(section, sy, period);
 		var ms;
 		var rs;
+		
 		cl.bind('success',function(){
 			ms =  new  SER.Measurable(section,subject,sy,period);
 			ms.bind('success',function(){
@@ -19,23 +20,17 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 				var students =cl.getClasslist();
 				var row_hdr=[];
 				var col_hdr=[];
-					/*
-				$(elem).handsontable({
-					rowHeaders:row_hdr,
-					colHeaders:col_hdr,
-					data:records,
-					afterChange: function (change, source) {
-						
-						if (source === 'loadData') {
-							return; //don't save this change
-						}
-						console.log(source);
-						console.log(change);
-					}
-				}); var recordbook = elem.handsontable('getInstance');*/
 				rs =  new  SER.Rawscore(subject,section,sy,period);
+				var maxed =false;
+				var $window =$(window);
+				var calculateSize = function () {
+					  var offset = elem.offset();
+					  availableWidth = $window.width() - offset.left + $window.scrollLeft();
+					  availableHeight = $window.height() - offset.top + $window.scrollTop();
+				};
+				$window.on('resize', calculateSize);
+				
 				rs.bind('success',function(){
-					
 					$.each(rs.getRawscore(),function(i,score){
 						if(!registry['RS'][score.student_id]){
 							registry['RS'][score.student_id]={};
@@ -77,7 +72,6 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 					columns: _columns,
 					data:records,
 					afterChange: function (change, source) {
-						
 						if (source === 'loadData') {
 							return; //don't save this change
 						}
@@ -93,6 +87,18 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 						//ajax
 						rs.save(_cell.id,_sid,_mid,_score);
 						
+					},
+					width: function () {
+						if (maxed && availableWidth === void 0) {
+						  calculateSize();
+						}
+						return maxed ? availableWidth : $window.width();
+					},
+					height: function () {
+						if (maxed && availableHeight === void 0) {
+						  calculateSize();
+						}
+						return maxed ? availableHeight : $window.height()-70;
 					}
 				});
 				rs.bind('saved',function(evt,args){
