@@ -51,7 +51,7 @@ class OauthAppController extends AppController {
 	
 	function index(){
 		if(!isset($_GET['usr_id'])){
-			$callback_uri = rawurlencode('http://'. $_SERVER['HTTP_HOST'].'/accounting/oauth');
+			$callback_uri = rawurlencode('http://'. $_SERVER['HTTP_HOST'].'/'.APP_DIR.'/oauth');
 			$uri = USER_URL.'?callback='.$callback_uri;
 			$this->redirect($uri);
 		}
@@ -76,7 +76,7 @@ class OauthAppController extends AppController {
 		// Obtain a request token from the server
 		try{
 			$token = OAuthRequester::requestRequestToken(CONSUMER_KEY, $user_id);
-			$callback_uri = 'http://'. $_SERVER['HTTP_HOST'].'/accounting/oauth/callback?consumer_key='.rawurlencode(CONSUMER_KEY).'&usr_id='.intval($user_id);
+			$callback_uri = 'http://'. $_SERVER['HTTP_HOST'].'/'.APP_DIR.'/oauth/callback?consumer_key='.rawurlencode(CONSUMER_KEY).'&usr_id='.intval($user_id);
 			$this->redirect(AUTHORIZE_URL.'?oauth_token='. $token['token'].'&oauth_callback='.rawurlencode($callback_uri));
 			
 		}catch(OAuthException2 $e){
