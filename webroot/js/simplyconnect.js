@@ -1,6 +1,6 @@
-
+var BASE_URL ='/'+window.location.pathname.split('/')[1]+'/';
 var OAUTH_HOST = window.location.origin+'/profile/oauth/user';
-var OAUTH_BASE = window.location.origin+'/accounting/';
+var OAUTH_BASE = window.location.origin+BASE_URL;
 var OAUTH_SUFFIX='oauth/';
 var OAUTH_SIGNED='signreq';
 function callback(data){
