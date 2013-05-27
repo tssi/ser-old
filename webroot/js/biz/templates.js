@@ -105,7 +105,7 @@ $(document).ready(function(){
 		var col_count =  $('#TemplateTable.RECORD tbody td').length;
 		var model =  'templates';
 		$.ajax({
-			url:'../'+model+'/delete/'+id,
+			url:'/recordbook/'+model+'/delete/'+id,
 			method:'POST',
 			dataType:'json',
 			success:function(data){
@@ -132,7 +132,7 @@ $(document).ready(function(){
 		var col_count =  $('#TemplateDetailTable.RECORD tbody td').length;
 		var model =  'template_details';
 		$.ajax({
-			url:'../'+model+'/delete/'+id,
+			url:'/recordbook/'+model+'/delete/'+id,
 			method:'POST',
 			dataType:'json',
 			success:function(data){
