@@ -88,7 +88,8 @@
 										<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 										<ul class="dropdown-menu">
 											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details"><i class="icon-eye-open"></i> Template Details</a></li>						 
-											<li><a href="#" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
+											<!--<li><a href="#" class="action-edit"><i class="icon-edit"></i> Edit</a></li>-->
+											<li><a  href="#intent-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
 											<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
 										</ul>
 									</div>
@@ -123,7 +124,7 @@
   <div class="modal-body">
 <div class="row-fluid">
 <div class="templates form span12 form-canvas">
-			<?php  $school_yr = array('#'=>'School Year','2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
+			<?php  $school_yr = array('2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11','role'=>'primary-key'));?>
 			<div class="row-fuild">
 				<label for="TemplateSy" class="control-label">Effective SY</label>
