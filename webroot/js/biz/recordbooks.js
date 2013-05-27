@@ -140,6 +140,9 @@ $(document).ready(function(){
 	});
 	$(document).on('click','.action-add',function(){
 		console.log(ACTIVE_ERB);
+		var modal =  $(this).attr('href');
+		var form = $(modal).parents('form:first');
+		form[0].reset();
 		var htm = '<option value="#">Select Component</option>';
 		$.each(ACTIVE_ERB.GradeComponent,function(i,e){
 			htm +='<option value="'+e.GeneralComponent.id+'">'+e.GeneralComponent.description+'</option>';
@@ -148,12 +151,19 @@ $(document).ready(function(){
 		$('#MeasurableRecordbookId,#load_recordbook').val(ACTIVE_ERB.Recordbook.id);
 	});
 	$(document).on('click','.action-edit',function(){	
+		//populate general components
+		var htm = '<option value="#">Select Component</option>';
+		$.each(ACTIVE_ERB.GradeComponent,function(i,e){
+			htm +='<option value="'+e.GeneralComponent.id+'">'+e.GeneralComponent.description+'</option>';
+		});
+		$('#MeasurableGeneralComponentId').html(htm);
+		//end
 		var row =$(this).parents('tr:first');
 		var key  = row.attr('id');
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
 		console.log(record);
-		$('#MeasurableGeneralComponentId').html('<option value="'+record.GeneralComponent.id+'">'+record.GeneralComponent.description+'</option>');
+		$('#MeasurableGeneralComponentId').val(record.GeneralComponent.id);
 	});
 	//delete measurables
 	$(document).on('click','.action-delete',function(){
