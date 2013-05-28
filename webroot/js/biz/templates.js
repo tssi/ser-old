@@ -11,13 +11,24 @@ $(document).ready(function(){
 		var TemplateName =  $('#TemplateName').val();
 		var modal =  $(this).attr('href');
 		var form = $(modal).parents('form:first');
+		var percentage=0;
 		form[0].reset();
 		$('#load_tmplt').val('');
 		$('input[role="foreign-key"]').val(TemplateId);
 		$(form).find('[name="data[Template][name]"]').val(TemplateName);
 		$(form).find('[name="data[TemplateDetail][template_id]"]').val(TemplateId);
+		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
+		$.each(percent_spans,function(i,e){
+			console.log(e);
+			percentage += parseFloat($(e).text());
+		});
+		if(percentage >= 100){
+			$('.alert').show();
+		}
 	});
-	
+	$(document).on('click','.intent-save,.intent-cancel',function(){
+		$('.alert').hide();
+	});
 	$('#dept').button('toggle');
 	//populate subjects
 	$(document).on('click','#dept li',function(){
@@ -69,7 +80,6 @@ $(document).ready(function(){
 		var subject_id = $('#subjects li').find('i.icon-check').parent().attr('ids');
 		var subject = $('#subjects li').find('i.icon-check').parent().text();
 		var sy = $('#template_sy').find('option:selected').val();
-		console.log(level+' '+subject_id+' '+subject+' '+level_id);
 		$('#yrlvl').val(level);
 		$('#subject_name').val(subject);
 		$('#subject_id').val(subject_id);
@@ -88,11 +98,9 @@ $(document).ready(function(){
 	$(document).on('click','.action-add,#add-template-details',function(){
 		var temp_id = $('#TemplateId').val();
 		var temp_name = $('#TemplateName').val();
-		console.log(temp_id);
 		$('#TemplateDetailTemplateId').val(temp_id);
 		$('#template_name').val(temp_name);
 		$('input[role="foreign-key"]').val(temp_id);
-		$(form).find('[name="data[TemplateDetail][template_id]"]').val(temp_id);
 	});
 	
 	//Delete template
