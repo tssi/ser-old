@@ -143,19 +143,20 @@
 				<caption class="caption-bordered">Template Details</caption>
 				<thead>
 				<tr>
-						<th><?php __('Template Id'); ?></th>
-		<th><?php __('General Component Id'); ?></th>
-		<th><?php __('Order Index'); ?></th>
-		<th><?php __('Percentage'); ?></th>
-		<th><?php __('Under'); ?></th>
+					<th><?php __('Row'); ?></th>
+					<th><?php __('General Component Id'); ?></th>
+					<th><?php __('Description'); ?></th>
+					<th><?php __('Percentage'); ?></th>
+					<th><?php __('Under'); ?></th>
 					<th class="actions">Actions</th>
 				</tr>
 				</thead>
 				<tbody class="hide">
 					<tr>
-						<td><span data-field='TemplateDetail.template_id'></span></td>
-						<td><span data-field='TemplateDetail.general_component_id'></span></td>
+						<!--<td><span data-field='TemplateDetail.template_id'></span></td>-->
 						<td><span data-field='TemplateDetail.order_index'></span></td>
+						<td><span data-field='TemplateDetail.general_component_id'></span></td>
+						<td><span data-field='GeneralComponent.description'></span></td>
 						<td><span data-field='TemplateDetail.percentage'></span></td>
 						<td><span data-field='TemplateDetail.under'></span></td>
 						<td>
@@ -221,6 +222,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="row-fluid">
+					<div class="alert span4" style="display:none"><strong>Warning!</strong> Excess percentage</div>
 					<div class="templateDetails form span12">
 						<?php //pr($templates);exit();?>
 						<?php echo $this->Form->input('id',array('placeholder'=>'Id','id'=>'load_tmplt','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
