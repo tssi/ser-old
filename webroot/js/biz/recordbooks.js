@@ -147,6 +147,7 @@ $(document).ready(function(){
 		$.each(ACTIVE_ERB.GradeComponent,function(i,e){
 			htm +='<option value="'+e.GeneralComponent.id+'">'+e.GeneralComponent.description+'</option>';
 		});
+		$('#MeasurableId').val('');
 		$('#MeasurableGeneralComponentId').html(htm);
 		$('#MeasurableRecordbookId,#load_recordbook').val(ACTIVE_ERB.Recordbook.id);
 	});
