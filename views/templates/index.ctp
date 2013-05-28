@@ -223,7 +223,7 @@
 				<div class="row-fluid">
 					<div class="templateDetails form span12">
 						<?php //pr($templates);exit();?>
-						<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+						<?php echo $this->Form->input('id',array('placeholder'=>'Id','id'=>'load_tmplt','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('template_id',array('type'=>'hidden','role'=>'foreign-key'));?>
 						<?php echo $this->Form->input('Template.name',array('id'=>'template_name','placeholder'=>'Template','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 						<?php echo $this->Form->input('general_component_id',array('options'=>array($generalComponents),'placeholder'=>'General Component Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
