@@ -12,6 +12,7 @@ $(document).ready(function(){
 		var modal =  $(this).attr('href');
 		var form = $(modal).parents('form:first');
 		form[0].reset();
+		$('#load_tmplt').val('');
 		$('input[role="foreign-key"]').val(TemplateId);
 		$(form).find('[name="data[Template][name]"]').val(TemplateName);
 		$(form).find('[name="data[TemplateDetail][template_id]"]').val(TemplateId);
