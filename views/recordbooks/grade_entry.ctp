@@ -31,9 +31,7 @@
 					<ul class="dropdown-menu" id="subjects">
 					</ul>
 				  </li>
-				</ul>
-				<ul class="nav pull-right">
-					<li class="dropdown">
+				  <li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-eye-open"></i> <b class="caret"></b></a>
 						<ul class="dropdown-menu" id="pre-action">
 							<li class="nav-header">Preview</li>
@@ -45,6 +43,9 @@
 					</li>
 					<li><a href="#"><i class="icon icon-print"></i></a></li>
 					<li><a href="#"><i class="icon icon-save"></i></a></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li><div id="simple-root"></div></li>
 				</ul>
 		  </div><!-- /.nav-collapse -->
 		</div>

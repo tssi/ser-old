@@ -37,7 +37,6 @@
 		</ul>
 		<ul class="nav pull-right">
 		 <li><div id="simple-root"></div></li>
-		  
 		</ul>
 	  </div><!-- /.nav-collapse -->
 	</div>
