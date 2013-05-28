@@ -20,6 +20,7 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 				var students =cl.getClasslist();
 				var row_hdr=[];
 				var col_hdr=[];
+				var readonly=[];
 				rs =  new  SER.Rawscore(subject,section,sy,period);
 				var maxed =false;
 				var $window =$(window);
@@ -37,73 +38,87 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 						}
 						registry['RS'][score.student_id][score.measurable_id]={'id':score.id,'score':score.score};
 					});	
+					
 					for(var r=0;r<(students.length);r++){
-					var record ={};
-					var sid = students[r]['id'];
-					registry['S'][sid]=r;
-					registry['SI'][r]=sid; // StudendId index
-					row_hdr.push(students[r]['fullname']);
-					$.each(ms.getMeasurable(),function(c,meas){
-						record[meas.id]={'id':null,'score':null};
-						if(!registry['RS'][sid]){
-							registry['RS'][sid]={};
+						var record ={};
+						var sid = students[r]['id'];
+						registry['S'][sid]=r;
+						registry['SI'][r]=sid; // StudendId index
+						row_hdr.push(students[r]['fullname']);
+						$.each(ms.getMeasurable(),function(c,meas){
+							record[meas.id]={'id':null,'score':null};
+							if(!registry['RS'][sid]){
+								registry['RS'][sid]={};
+							}
+							if(registry['RS'][sid][meas.id]){
+								record[meas.id]=registry['RS'][sid][meas.id];
+							}
+							if(r==0){
+								registry['M'][meas.id]=c;
+								col_hdr.push(meas.header);
+							}
+						});
+						if(students[r]['readonly']){
+							readonly.push(r);
 						}
-						if(registry['RS'][sid][meas.id]){
-							record[meas.id]=registry['RS'][sid][meas.id];
-						}
-						if(r==0){
-							registry['M'][meas.id]=c;
-							col_hdr.push(meas.header);
+						records.push({'sid':sid, 'scores':record});
+					}
+					var _schema={'sid':null, 'scores':{}};
+					var _columns=[];
+					$.each(records[0]['scores'],function(key,value){
+						_schema['scores'][key]={'id':null,'score':null};
+						_columns.push({data:'scores.'+key+'.score'});
+					});
+				
+					$(elem).handsontable({
+						rowHeaders:row_hdr,
+						colHeaders:col_hdr,
+						dataSchema: _schema,
+						columns: _columns,
+						cells: function (row, col, prop) {
+							var cellProperties = {}
+							$.each(readonly,function(i,r){
+								if(row === r) {
+									cellProperties.readOnly = true;
+								}
+							});
+							return cellProperties;
+						},
+						data:records,
+						afterChange: function (change, source) {
+							if (source === 'loadData') {
+								return; //don't save this change
+							}
+							var _row =  change[0][0];
+							var _col =  change[0][1];
+							var _score =  change[0][3];
+							var _mid = _col.split('.')[1];
+							var _sid = registry['SI'][_row];
+							var _cell = registry['RS'][_sid][_mid];
+							if(_cell==undefined){
+								_cell = registry['RS'][_sid][_mid]={'id':null,'score':null}
+							}
+							//ajax
+							rs.save(_cell.id,_sid,_mid,_score);
+							
+						},
+						width: function () {
+							if (maxed && availableWidth === void 0) {
+							  calculateSize();
+							}
+							return maxed ? availableWidth : $window.width();
+						},
+						height: function () {
+							if (maxed && availableHeight === void 0) {
+							  calculateSize();
+							}
+							return maxed ? availableHeight : $window.height()-90;
 						}
 					});
-					records.push({'sid':sid, 'scores':record});
-				}
-				var _schema={'sid':null, 'scores':{}};
-				var _columns=[];
-				$.each(records[0]['scores'],function(key,value){
-					_schema['scores'][key]={'id':null,'score':null};
-					_columns.push({data:'scores.'+key+'.score'});
-				});
-				
-				$(elem).handsontable({
-					rowHeaders:row_hdr,
-					colHeaders:col_hdr,
-					dataSchema: _schema,
-					columns: _columns,
-					data:records,
-					afterChange: function (change, source) {
-						if (source === 'loadData') {
-							return; //don't save this change
-						}
-						var _row =  change[0][0];
-						var _col =  change[0][1];
-						var _score =  change[0][3];
-						var _mid = _col.split('.')[1];
-						var _sid = registry['SI'][_row];
-						var _cell = registry['RS'][_sid][_mid];
-						if(_cell==undefined){
-							_cell = registry['RS'][_sid][_mid]={'id':null,'score':null}
-						}
-						//ajax
-						rs.save(_cell.id,_sid,_mid,_score);
-						
-					},
-					width: function () {
-						if (maxed && availableWidth === void 0) {
-						  calculateSize();
-						}
-						return maxed ? availableWidth : $window.width();
-					},
-					height: function () {
-						if (maxed && availableHeight === void 0) {
-						  calculateSize();
-						}
-						return maxed ? availableHeight : $window.height()-70;
-					}
-				});
-				rs.bind('saved',function(evt,args){
-					registry['RS'][args.data.sid][args.data.mid]={'id':args.data.id,'score':args.data.score}
-				});
+					//$(elem).handsontable('alter','insert_row',index:1);
+					rs.bind('saved',function(evt,args){
+						registry['RS'][args.data.sid][args.data.mid]={'id':args.data.id,'score':args.data.score}
+					});
 				});
 				
 				
@@ -214,8 +229,14 @@ SER.Classlist =  function(section, sy, period){
 		var self = $(this);
 		$.getJSON('/recordbook/classlists.json?section_id='+section+'&esp='+sy+'.'+period+'0', function(data){
 			_classlists = [];
+			var last_gen = 'M';
+			_classlists.push({'id':null,'fullname':'BOYS','readonly':true});
 			$.each(data,function(i,student){
-				_classlists.push({'id':student.Student.id,'fullname':student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name});
+				if(last_gen!=student.Student.gender){
+					_classlists.push({'id':null,'fullname':'GIRLS','readonly':true});
+				} 
+				last_gen=student.Student.gender;
+				_classlists.push({'id':student.Student.id,'fullname':student.Student.last_name+', '+student.Student.first_name+' '+student.Student.middle_name,'readonly':false});
 			});
 			self.trigger('success');
 		});
