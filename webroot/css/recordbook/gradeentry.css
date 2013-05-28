@@ -58,7 +58,6 @@ ul.classlist>li {
 }
 ul.classlist>li:nth-child(odd) {
 	background-color: #f9f9f9;
-	
 }
 
 table.records, .records thead:first-child tr:first-child th:first-child{
