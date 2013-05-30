@@ -151,6 +151,21 @@ $(document).ready(function(){
 		$('#MeasurableGeneralComponentId').html(htm);
 		$('#MeasurableRecordbookId,#load_recordbook').val(ACTIVE_ERB.Recordbook.id);
 	});
+	$('.validate-save').hover(function(){
+		var gradecomps=[];
+		var measurables=[];
+		
+		$.each($('#MeasurableTable').find('[data-field="Measurable.general_component_id"]'),function(a,b){
+			measurables.push($(b).text());
+		});	
+		$.each($('#GradeComponentTable').find('[data-field="GradeComponent.general_component_id"]'),function(i,e){
+			console.log($(e).text(),measurables,$.inArray($(e).text(),measurables));
+			if(($.inArray($(e).text(),measurables)==-1)){
+				alert('Warning! all grade components required atleast one measurable.');
+				return;
+			}
+		});
+	});
 	$(document).on('click','.action-edit',function(){	
 		//populate general components
 		var htm = '<option value="#">Select Component</option>';

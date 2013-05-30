@@ -26,12 +26,50 @@ $(document).ready(function(){
 			$('.alert').show();
 		}
 	});
+	
+	$(document).on('click','.action-validation',function(){
+		var percentage=0;
+		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
+		$.each(percent_spans,function(i,e){
+			console.log(e);
+			percentage += parseFloat($(e).text());
+		});
+		if(percentage >= 100){
+			alert('Warning! You exceed the maximum percentage.');
+		}else{
+			$(this).attr('href','#template-details-modal');
+			$(this).removeClass('action-validation').addClass('action-add').click();
+		}
+	});
+	$('.validate-save').hover(function(){
+		var percentage=0;
+		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
+		$.each(percent_spans,function(i,e){
+			console.log(e);
+			percentage += parseFloat($(e).text());
+		});
+		console.log(percentage);
+		percentage +=parseFloat($('#TemplateDetailPercentage').val());
+		console.log(percentage);
+		if(percentage > 100){
+			alert('Warning! You exceed the maximum percentage.');
+		}else{
+			$(this).removeClass('intent-validation').addClass('intent-save');
+		}
+	});
+	
+	
 	$(document).on('click','.intent-save,.intent-cancel',function(){
 		$('.alert').hide();
 	});
 	$('#dept').button('toggle');
 	//populate subjects
 	$(document).on('click','#dept li',function(){
+		/* if($(this).find('i').hasClass('icon-check')){
+			$(this).find('i').removeClass('icon-check').addClass('icon-check-empty');
+		}else{
+			$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+		} */ // multi selection of grade level
 		$('#dept li').find('i').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
 		var level = $(this).find('a').attr('data-value');
@@ -46,6 +84,7 @@ $(document).ready(function(){
 			$('#subjects').html(htm);
 		}); 
 	});
+	
 	$(document).on('click','#subjects li',function(){
 		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
