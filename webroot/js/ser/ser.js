@@ -123,6 +123,11 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 							return maxed ? availableHeight : $window.height()-90;
 						}
 					});
+					$.each($(elem).find(' th div>span'),function(i,o){
+						var txt = $(o).text();
+						$(o).html('<a>'+txt+'</a>');
+					
+					});
 					//$(elem).handsontable('alter','insert_row',index:1);
 					rs.bind('saved',function(evt,args){
 						registry['RS'][args.data.sid][args.data.mid]={'id':args.data.id,'score':args.data.score}

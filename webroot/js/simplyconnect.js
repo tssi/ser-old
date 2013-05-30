@@ -58,7 +58,7 @@ $(document).ready(function(){
 					ntf+='		<button class="btn"><i class="icon-group"></i> <sup class="badge badge-warning"></sup></button>';
 					ntf+='		<button class="btn"><i class="icon-bullhorn"></i> <sup class="badge badge-warning"></sup></button>';
 					ntf+='		<button class="btn"><i class="icon-envelope-alt"></i> <sup class="badge badge-warning"></sup></button>';
-					ntf+='		<button class="btn"><a href="http://localhost/profile/users/logout"><i class="icon-off"></i></a></button>';
+					ntf+='		<button class="btn"><a href="/profile/users/logout"><i class="icon-off"></i></a></button>';
 					ntf+='	</div>';
 					ntf+='</div>';
 					$('#simple-root').removeClass('overflowHidden').css({'width':'100%','overflow':'none'});
