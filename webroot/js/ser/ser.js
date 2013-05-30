@@ -45,15 +45,16 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 						registry['SI'][r]=sid; // StudendId index
 						row_hdr.push(students[r]['fullname']);
 						$.each(ms.getMeasurable(),function(c,meas){
-							record[meas.id]={'id':null,'score':null};
+							record[c+'-'+meas.id]={'id':null,'score':null};
 							if(!registry['RS'][sid]){
 								registry['RS'][sid]={};
 							}
 							if(registry['RS'][sid][meas.id]){
-								record[meas.id]=registry['RS'][sid][meas.id];
+								console.log(registry['RS'][sid][meas.id]);
+								record[c+'-'+meas.id]=registry['RS'][sid][meas.id];
 							}
 							if(r==0){
-								registry['M'][meas.id]=c;
+								registry['M'][c+'-'+meas.id]=c;
 								col_hdr.push(meas.header);
 							}
 						});
@@ -62,14 +63,13 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 						}
 						records.push({'sid':sid, 'scores':record});
 					}
-					console.log(ms.getMeasurable(),registry,records);
 					var _schema={'sid':null, 'scores':{}};
 					var _columns=[];
 					$.each(records[0]['scores'],function(key,value){
 						_schema['scores'][key]={'id':null,'score':null};
 						_columns.push({data:'scores.'+key+'.score'});
 					});
-				
+					console.log(_schema);
 					$(elem).handsontable({
 						rowHeaders:row_hdr,
 						colHeaders:col_hdr,
@@ -91,17 +91,18 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 							}
 							var _row =  change[0][0];
 							var _col =  change[0][1];
-							var _score =  change[0][3];
+							var _score =  parseInt(change[0][3]);
 							var _mid = _col.split('.')[1];
 							var _sid = registry['SI'][_row];
 							var _cell = registry['RS'][_sid][_mid];
 							if(_cell==undefined){
 								_cell = registry['RS'][_sid][_mid]={'id':null,'score':null}
 							}
+							console.log(_col);
 							var meas_items = ms.getMeasurable();
-							meas_items = meas_items[registry['M'][_mid]]['items'];
-							console.log(_mid,_row,registry['M'][_mid],registry['M']);
-							console.log($(elem).handsontable('getCell',_row,registry['M'][_mid]));
+							meas_items = parseInt(meas_items[registry['M'][_mid]]['items']);
+							//console.log($(elem).handsontable('getCell',_row,registry['M'][_mid]));
+							console.log(change,_score,meas_items);
 							if(_score>meas_items){
 								alert('Encode should not be graterthan perfect score!');
 							}else{
