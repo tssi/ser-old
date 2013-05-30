@@ -197,7 +197,7 @@
 	
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary intent-save" type="submit">Save</button>
+    <button class="btn btn-primary intent-save validate-save" type="submit">Save</button>
     <button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
   </div>
   

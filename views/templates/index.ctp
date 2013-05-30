@@ -124,12 +124,12 @@
   <div class="modal-body">
 <div class="row-fluid">
 <div class="templates form span12 form-canvas">
-			<?php  $school_yr = array('2011'=>'2011-2012','2012'=>'2012-2013','2013'=>'2013-2014');?>
+			<?php  $school_yr = array('2012'=>'2012-2013','2013'=>'2013-2014');?>
 			<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11','role'=>'primary-key'));?>
 			<div class="row-fuild">
 				<label for="TemplateSy" class="control-label">Effective SY</label>
 				<?php echo $this->Form->input('sy',array('label'=>false,'required'=>true,'id'=>'template_sy','div'=>false,'options'=>$school_yr,'class'=>'span3'));?>
-				<?php echo $this->Form->input('limit',array('div'=>false,'placeholder'=>'level','id'=>'yrlvl','readonly'=>'readonly','class'=>'span3'));?>
+				<?php echo $this->Form->input('limit',array('label'=>'Year Level','div'=>false,'placeholder'=>'level','id'=>'yrlvl','readonly'=>'readonly','class'=>'span3'));?>
 				<?php echo $this->Form->input('Subject.description',array('div'=>false,'label'=>'Subject','type'=>'text','placeholder'=>'subject','id'=>'subject_name','disabled'=>'disabled','class'=>'span3'));?>
 				<?php echo $this->Form->input('name',array('div'=>false,'required'=>true,'placeholder'=>'Template name','div'=>false,'class'=>'span3'));?>
 			</div>
@@ -147,7 +147,6 @@
 					<th><?php __('General Component Id'); ?></th>
 					<th><?php __('Description'); ?></th>
 					<th><?php __('Percentage'); ?></th>
-					<th><?php __('Under'); ?></th>
 					<th class="actions">Actions</th>
 				</tr>
 				</thead>
@@ -158,13 +157,13 @@
 						<td><span data-field='TemplateDetail.general_component_id'></span></td>
 						<td><span data-field='GeneralComponent.description'></span></td>
 						<td><span data-field='TemplateDetail.percentage'></span></td>
-						<td><span data-field='TemplateDetail.under'></span></td>
+						<!--<td><span data-field='TemplateDetail.under'></span></td>-->
 						<td>
 							<div class="btn-group">
 								<div class="btn-group btn-center">
 									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										  <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
+										  <li><a  href="#" data-toggle="modal" data-dismiss="modal" class="action-validation"><i class="icon-plus"></i> Add</a></li>
 										 <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
 										 <li><a href="#" class="action-delete-template-dtl"><i class="icon-remove"></i> Delete</a></li>
 									</ul>
@@ -236,7 +235,7 @@
 				</div>
 			</div>
 			 <div class="modal-footer">
-				<button class="btn btn-primary intent-save" type="submit">Save</button>
+				<button class="btn btn-primary intent-save validate-save" type="submit">Save</button>
 				<button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
 			 </div>
 		</div>

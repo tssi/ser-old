@@ -38,7 +38,6 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 						}
 						registry['RS'][score.student_id][score.measurable_id]={'id':score.id,'score':score.score};
 					});	
-					
 					for(var r=0;r<(students.length);r++){
 						var record ={};
 						var sid = students[r]['id'];
@@ -63,6 +62,7 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 						}
 						records.push({'sid':sid, 'scores':record});
 					}
+					console.log(ms.getMeasurable(),registry,records);
 					var _schema={'sid':null, 'scores':{}};
 					var _columns=[];
 					$.each(records[0]['scores'],function(key,value){
@@ -98,9 +98,16 @@ SER.Recordbook = function(_elem,section,subject,sy,period){
 							if(_cell==undefined){
 								_cell = registry['RS'][_sid][_mid]={'id':null,'score':null}
 							}
-							//ajax
-							rs.save(_cell.id,_sid,_mid,_score);
-							
+							var meas_items = ms.getMeasurable();
+							meas_items = meas_items[registry['M'][_mid]]['items'];
+							console.log(_mid,_row,registry['M'][_mid],registry['M']);
+							console.log($(elem).handsontable('getCell',_row,registry['M'][_mid]));
+							if(_score>meas_items){
+								alert('Encode should not be graterthan perfect score!');
+							}else{
+								//ajax
+								rs.save(_cell.id,_sid,_mid,_score);
+							}
 						},
 						width: function () {
 							if (maxed && availableWidth === void 0) {
@@ -252,7 +259,7 @@ SER.Measurable =  function(section,subject,sy,period){
 		$.getJSON('/recordbook/recordbooks.json?section_id='+section+'&subject_id='+subject+'&esp='+sy+'.'+period+'0', function(data){
 			_measurables = [];
 			$.each(data.data[0]['Measurable'],function(i,obj){
-				_measurables.push({'id':obj.Measurable.id,'gid':obj.Measurable.general_component_id,'header':obj.Measurable.header});
+				_measurables.push({'id':obj.Measurable.id,'gid':obj.Measurable.general_component_id,'header':obj.Measurable.header,'items':obj.Measurable.items});
 			});
 			self.trigger('success');
 		});
