@@ -64,7 +64,7 @@ $(document).ready(function(){
 	});
 	$('#dept').button('toggle');
 	//populate subjects
-	$(document).on('click','#dept li',function(){
+	$(document).on('click','#dept li',function(event){
 		/* if($(this).find('i').hasClass('icon-check')){
 			$(this).find('i').removeClass('icon-check').addClass('icon-check-empty');
 		}else{
@@ -83,11 +83,15 @@ $(document).ready(function(){
 			htm +='<li><a href="#"><i class="icon icon-plus"></i> Subject</a></li>';
 			$('#subjects').html(htm);
 		}); 
+		event.stopPropagation;
+		return false;
 	});
 	
-	$(document).on('click','#subjects li',function(){
+	$(document).on('click','#subjects li',function(event){
 		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+		event.stopPropagation;
+		return false;
 	});
 
 	$(document).on('click','#view-template',function(){

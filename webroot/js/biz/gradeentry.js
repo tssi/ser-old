@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(document).on('click','#sy_period li',function(){
+	$(document).on('click','#sy_period li',function(event){
 		var a ='';
 		if($(this).hasClass('sy')){
 			a ='sy';
@@ -38,6 +38,8 @@ $(document).ready(function(){
 				$('#subjects').html(htm);
 			});
 		}
+		event.stopPropagation;
+		return false;
 	});
 	$(document).on('click','#pre-action li',function(){
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
