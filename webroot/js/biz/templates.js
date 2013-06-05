@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	window.databank = [];//initialize data bank
 	$(document).on('click','#filter-template',function(){

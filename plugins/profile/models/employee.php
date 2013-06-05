@@ -1,7 +1,7 @@
 <?php
-class Employee extends AppModel {
+class Employee extends profileAppModel {
 	var $name = 'Employee';
-	var $virtualFields = array('full_name'=>'CONCAT(Employee.first_name," ",Employee.last_name)');
+	var $virtualFields = array('full_name'=>'CONCAT(Employee.last_name,", ",Employee.first_name," ",Employee.middle_name)');
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $hasMany = array(

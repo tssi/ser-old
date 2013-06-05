@@ -1,5 +1,5 @@
 <?php
-class EmployeesController extends AppController {
+class EmployeesController extends profileAppController {
 
 	var $name = 'Employees';
 	var $uses =  array('Profile.Employee','Profile.SystemCounter');
@@ -119,36 +119,4 @@ class EmployeesController extends AppController {
 		$this->Session->setFlash(__('Employee was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
-	function confirm(){
-	
-		if(!empty($this->data)){
-			$response = array();
-			$response['actor'] = $actor  = $this->Session->read('Actor');
-			$this->data['Employee']['id'] = $actor;
-			if($this->Employee->save($this->data)){
-				$response['status'] ="OK";
-				$response['message'] ="Employee account confirmed.";
-			}else{
-				$response['status'] ="ERROR";
-				$response['message'] ="Unable to confirm account!";
-			}
-			if ($this->RequestHandler->isAjax()) {
-				echo json_encode($response);
-				Configure::write('debug', 0);
-				exit;
-			}
-		}
-	}
-	function getEmployeeDetails() {
-		if ($this->Rest->isActive()) {
-			$full_name = '%'.$this->data['Employee']['full_name'].'%';
-			
-		
-			$data = $this->Employee->find('first',array('recursive'=>2,'conditions'=>array('Employee.full_name LIKE'=>$full_name)));
-		
-			$this->set('data',$data);
-			
-		}
-	}
-	
 }

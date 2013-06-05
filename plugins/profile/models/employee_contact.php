@@ -1,5 +1,5 @@
 <?php
-class EmployeeContact extends AppModel {
+class EmployeeContact extends profileAppModel {
 	var $name = 'EmployeeContact';
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 

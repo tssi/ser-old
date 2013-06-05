@@ -51,13 +51,14 @@
 						  </div>
                         </ul>
                       </li>
-					   <li class="dropdown">
+						<input type="hidden" id="all_sections" value='<?php echo json_encode($sections); ?>'>
+					   <li class="dropdown" id="sec_dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon icon-book"></i> <b class="caret"></b></a>
-                        <ul class="dropdown-menu" id="subjects">
+                        <ul class="dropdown-menu" id="sections">
 						  
                         </ul>
                       </li>
-						<li class="dropdown" id="view-template">
+						<li class="dropdown" id="view-loads">
 							<a href="#"><i class="icon icon-eye-open"></i></a>
 						</li>
 						  <li><a href="#" id='intent-create'><i class="icon icon-plus"></i></a></li>
@@ -86,9 +87,9 @@
 			</thead>
 			<tbody>
 					<td>
-			<span data-field='Employee.id'></span></td>
+			<span data-field='Employee.full_name'></span></td>
 		<td>
-			<span data-field='Subject.id'></span></td>
+			<span data-field='Subject.description'></span></td>
 		<td>
 			<span data-field='Section.name'></span></td>
 		<td><span data-field='TeachingLoad.class_type'></span></td>
@@ -112,6 +113,16 @@
 						</td>
 	</tr>
 			</tbody>
+			<tfoot>
+				<tr class="no-details">
+					<td colspan="6">
+						<div class="well text-center">
+							<button class="btn  btn-medium"  id="filter-load"><i class="icon icon-filter"></i> Teaching Loads</button>
+							<div class="muted">No Teaching Loads found, click to filter.</div>
+						</div>
+					</td>
+				</tr>
+			</tfoot>
 			</table>
 			
 						</div>
@@ -135,9 +146,8 @@
 
 <div class="row-fluid">
 <div class="teachingLoads form span12">
-
 		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('employee_id',array('placeholder'=>'Employee Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('employee_id',array('placeholder'=>'Employee Id','options'=>$employees,'between'=>'<div class="controls">','after'=>'</div>','class'=>'span3'));?>
 		<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('section_id',array('placeholder'=>'Section Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 		<?php echo $this->Form->input('class_type',array('placeholder'=>'Class Type','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
@@ -161,6 +171,8 @@
 															'canvas'=>'#TeachingLoadTable'
 														)
 											);?>
+<?php echo $this->Form->input('esp',array('type'=>'hidden','id'=>'load_esp','value'=>null)); ?>
+<?php echo $this->Form->input('section_id',array('type'=>'hidden','id'=>'load_sec','value'=>null)); ?>
 <?php echo $this->Form->end();?>
 
 <?php echo $this->Html->css('recordbook/gradeentry'); ?>
