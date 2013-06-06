@@ -102,13 +102,10 @@ $(document).ready(function(){
 			success:function(data){
 				//Notify when no records found
 				if(!data.length){
-					$('.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"> <i class="icon-alert"></i> No record(s) found</td></tr>');
-					$('.RECORD tbody td span').empty();
+					$('.RECORD').trigger('emptyRecord');
 				}else{
 					$('.RECORD').trigger('populate', {'data':data,'append':false});
-					$('.RECORD tbody').fadeIn();
-					$('.RECORD tfoot').fadeOut().empty();
-					
+					$('.RECORD').trigger('showRecord');
 				}
 				//Update RECORD active
 				var lookup =  RECORD.getLookUp();

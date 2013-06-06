@@ -7,7 +7,7 @@ $(document).ready(function(){
 			dot_count = 0;
 		}
 		var key = e.which;
-		console.log(e.which);
+		//console.log(e.which);
 		if(e.shiftKey){
 		e.preventDefault();
 		}

@@ -1,26 +1,4 @@
 $(document).ready(function(){
-	$(document).on('click','.canvasTable .action-btn',function(evt,args){
-		var href = $(this).attr('href');
-		var form = $(this).parents('form:first');
-		var formName = form.attr('name');
-		console.log(href,form,formName);
-		var canvasForm =  form.attr('canvas');
-		var model = $(canvasForm).attr('model');
-		var self =  $(this);
-		if(document[formName+''].checkValidity()){
-			form.ajaxSubmit({
-				dataType:'json',
-				beforeSend:function(){
-					self.attr("disabled","disabled");
-				},
-				success:function(formReturn){
-					var key =  formReturn['data'][model]['id'];
-					form.find('input[role="primary-key"]').val(key);
-					$('input[role="foreign-key"]').val(key);
-				}
-			});
-		}
-	});
 	$('.canvasForm').bind('request_content',function(evt,args){
 		var form =  $(this);
 		var model = form.attr('model');
@@ -62,20 +40,18 @@ $(document).ready(function(){
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
 		var modal =  $(this).attr('href');
-		var canvases =  $(modal).find('.canvasTable');
-		
-		$.each(canvases,function(a,c){
-			var canvas = '#'+($(c).attr('id'));
-			var model =  $(canvas).attr('model');
-			var form  = $('form[canvas="'+canvas+'"]');
-			$(canvas).trigger('preload');
-			console.log(record);
-			$.each(record,function(mdl,content){
+		var canvas =  '#'+$(modal).find('.canvasTable').attr('id');
+		var advancedtable = $(canvas).hasClass('advancedTable');
+		var model =  $(canvas).attr('model');
+		var form  = $('form[canvas="'+canvas+'"]');
+		$(canvas).trigger('preload');
+		$.each(record,function(mdl,content){
 				if(mdl==model){
+					console.log(record[mdl]);
 					if(record[mdl].length){
 						RECORD.setModel(mdl);
 						$(canvas).trigger('populate', {'data':record[mdl],'append':false});
-						$(canvas).trigger('showRecord');
+						$(canvas).trigger('showRecord',{'advancedtable':advancedtable});
 					}else{
 						if(form.attr('template')){
 							var template = $.parseJSON(form.attr('template'));
@@ -85,13 +61,14 @@ $(document).ready(function(){
 						}
 					}
 				}
-			});
-		});
-		$.each(record,function(mdl,content){
-			$.each(content,function(fld,v){
+				$.each(content,function(fld,v){
 	
 					if(v instanceof Object){
+						$.each(v,function(vf,vv){
+							$(modal).find('input[name*="['+mdl+']['+fld+']['+vf+']"],select[name*="['+mdl+']['+fld+']['+vf+']"]').val(vv);
+						});
 						
+						//fieldIt($(modal),mdl,fld,[],v);
 					}else{
 						//Display content regular
 						$(modal).find('input[name*="['+mdl+']['+fld+']"],select[name*="['+mdl+']['+fld+']"]').val(v);
@@ -99,11 +76,23 @@ $(document).ready(function(){
 						//Populate foreign key						
 						//console.log(('input[name*="['+mdl+']['+fld+']",role="foreign-key"]'));
 						$('.canvasForm').find('input[name*="['+mdl+']['+fld+']"]').val(v);
-						
 					}
+						
+					
 				});
-		});
+			});
 	});
+	function fieldIt(target,mdl,fld,path,v){
+		
+		if(v instanceof Object){
+			$.each(v,function(vf,vv){
+				fieldIt(target,mdl,vf,path+'['+vf+']',vv);
+			});
+		}else{
+			target.find('input[name*="'+path+'"],select[name*="'+path+'"]').val(v);
+		}
+						
+	}
 	$('.canvasTable').parents('form:first').bind('reset',function(){
 		var canvas = '#'+$(this).find('.canvasTable').attr('id');
 		var form  = $('form[canvas="'+canvas+'"]');
@@ -114,7 +103,38 @@ $(document).ready(function(){
 			$(canvas).trigger('emptyRecord');
 		}
 		$(canvas).find('tbody').hide();
-		//$(canvas).find('.action-btn').attr('disabled','disabled');
+	});
+	$(document).on('click','form .intent-cancel',function(evt,args){
+		var form =  $($(this).parents('form:first').attr('canvas'));
+		var canvas = form.attr('canvas');
+		//console.log(canvas);
+		//console.log(form);
+		var in_modal = $(canvas).parents('.modal:first');
+		if(in_modal){
+			in_modal.modal('show');
+		}
+	});
+	$(document).on('click','.canvasTable .action-btn',function(evt,args){
+		var href = $(this).attr('href');
+		var form = $(this).parents('form:first');
+		var formName = form.attr('name');
+		//console.log(href,form,formName);
+		var canvasForm =  form.attr('canvas');
+		var model = $(canvasForm).attr('model');
+		var self =  $(this);
+		if(document[formName+''].checkValidity()){
+			form.ajaxSubmit({
+				dataType:'json',
+				beforeSend:function(){
+					self.attr("disabled","disabled");
+				},
+				success:function(formReturn){
+					var key =  formReturn['data'][model]['id'];
+					form.find('input[role="primary-key"]').val(key);
+					$('input[role="foreign-key"]').val(key);
+				}
+			});
+		}
 	});
 	//Initialize page
 	$('.canvasForm').trigger('request_content',{'init':true});

@@ -9,10 +9,23 @@ $('document').ready(function(){
 			form.attr('action',BASE_URL+model+'/add');
 			$('#intent-modal').find('input[name*="id"]').val(null); // Reset to id to null
 			form[0].reset();
+			$('#intent-modal .modal-header').find('.intent-text,.intent-object').show();
+			$('.detail-modal .modal-header').find('.intent-text,.intent-object').show();
+			$('#intent-modal .modal-header .intent-notify').html('');
+			$('.detail-modal .modal-header .intent-notify').html('');
+			//Data Text for intent-save
+			var text = $('#intent-modal .intent-save').attr('data-text');
+			if(!text) $('#intent-modal .intent-save').attr('data-text', $('#intent-modal .intent-save').text());
+			$('#intent-modal .intent-save').text($('#intent-modal .intent-save').attr('data-text')).show();
+			//Data Text for intent-text
+			var text = $('#intent-modal .intent-text').attr('data-text');
+			if(!text) $('#intent-modal .intent-text').attr('data-text', $('#intent-modal .intent-text').text());
+			$('#intent-modal .intent-text').text($('#intent-modal .intent-text').attr('data-text'));
+			$('#intent-modal .intent-delete').hide();
+			$('#intent-modal .modal-body').find('input,select,button,.btn').removeAttr('disabled');
+			
 	});
-	
-	$('.intent-save').bind('click', function(e){
-		e.preventDefault();
+	$(document).on('click','.intent-save',function(e){
 		var form = $(this).parents('form:first');
 		var formName = form.attr('name');
 		var canvasForm =  form.attr('canvas');
@@ -32,7 +45,7 @@ $('document').ready(function(){
 						self.parents('.modal:first').modal('hide');
 						self.removeAttr("disabled");
 						$(document).trigger('request_tree',{'refresh':true});
-						$(document).trigger('request_content');
+						$(document).trigger('request_content',{'source':form,'data':formReturn.data});
 						$(canvasForm).trigger('request_content',{data:formReturn.data, action:actionIs});
 						
 					}else{
@@ -45,14 +58,69 @@ $('document').ready(function(){
 
 	});	
 	
+	$('.intent-delete').click(function(e){	
+		$('#intent-modal .modal-header').find('.intent-text,.intent-object').show();
+		$('.detail-modal .modal-header').find('.intent-text,.intent-object').show();
+		$('#intent-modal .modal-header .intent-notify').html('');
+		$('.detail-modal .modal-header .intent-notify').html('');
+		$('.intent-save').show();
+		$('.intent-delete').hide();
+	});
+	$(document).on('click','.intent-remove',function(){
+		var table =$(this).parents('table:first');
+		var model = table.attr('model');
+		var row =$(this).parents('tr:first');
+		row.find('.intent-view').click();
+		var record =  window.RECORD.getActive();
+		var id = record[model]['id'];
+		var modal =  $(row.find('.intent-view').attr('href'));
+		var form = modal.parents('form:first');
+		var model = form.attr('model');
+		form.attr('action',BASE_URL+model+'/delete/'+id);
+		//Data text for intent-save
+		var text = modal.find('.intent-save').attr('data-text');
+		if(!text) modal.find('.intent-save').attr('data-text',modal.find('.intent-save').text());
+		modal.find('.intent-save').text('Delete');
+		//Data text for intent-text
+		var text = modal.find('.intent-text').attr('data-text');
+		if(!text) modal.find('.intent-text').attr('data-text', modal.find('.intent-text').text());
+		modal.find('.intent-text').text('Delete ');
+		modal.find('.modal-body').find('input,select,button,.btn').attr('disabled','disabled');		
+	});
+	$(document).on('click','.intent-view',function(){
+		//Data Text for intent-save
+		var modal =   $($(this).attr('href'));
+		var form = modal.parents('form:first');
+		var model = form.attr('model');
+		form.attr('action',BASE_URL+model+'/add');
+		var text = modal.find('.intent-save').attr('data-text');
+		if(!text) modal.find('.intent-save').attr('data-text', modal.find('.intent-save').text());
+		modal.find('.intent-save').text(modal.find('.intent-save').attr('data-text')).show();
+		//Data Text for intent-text
+		var text = modal.find('.intent-text').attr('data-text');
+		if(!text)  modal.find('.intent-text').attr('data-text', modal.find('.intent-text').text());
+		modal.find('.intent-text').text('Edit ');
+		modal.find('.modal-body').find('input,select,button,.btn').removeAttr('disabled','disabled');	
+	});
+	$(document).on('click','.intent-add',function(){
+		//Data Text for intent-save
+		var modal =   $($(this).attr('href'));
+		var form = modal.parents('form:first');
+		var model = form.attr('model');
+		form.attr('action',BASE_URL+model+'/add');
+		var text = modal.find('.intent-save').attr('data-text');
+		if(!text) modal.find('.intent-save').attr('data-text', modal.find('.intent-save').text());
+		modal.find('.intent-save').text(modal.find('.intent-save').attr('data-text')).show();
+		//Data Text for intent-text
+		var text = modal.find('.intent-text').attr('data-text');
+		if(!text)  modal.find('.intent-text').attr('data-text', modal.find('.intent-text').text());
+		modal.find('.intent-text').text(modal.find('.intent-text').attr('data-text'));
+		modal.find('.modal-body').find('input,select,button,.btn').removeAttr('disabled','disabled');	
+	});
 	$('.intent-cancel').bind('click', function(){
 		var form = $(this).parents('form:first');
 		form[0].reset();
 	});
-	
-	
-	//Date Picker
-	$('.datepicker').datepicker();
 	
 	//TypeAhead on Table
 	var intentAutoBox;
@@ -126,9 +194,6 @@ $('document').ready(function(){
 	$('#warning .warning-no').click(function(){
 		$('#warning').modal('hide');
 		$('#warnig').trigger('no');
-	})
-
-	
-	
+	});	
 });
 			

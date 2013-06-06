@@ -10,6 +10,7 @@ $(document).ready(function(){
 		var record_prfx = 'RCRD';
 		var record_mdl = null;
 		this.setModel = function(model){
+			//console.log(model);
 			record_mdl = model;
 		}
 		this.getTemplate = function(){
@@ -51,6 +52,7 @@ $(document).ready(function(){
 		}
 		var clone =TABLE.find('tr:nth(1)').clone();
 		clone.removeAttr('style').find('td').removeClass('negative');
+		clone.find('.money').removeAttr('data-mbid').removeAttr('data-value').removeAttr('attr-text');
 		RECORD.setTemplate(clone);
 	}).bind('populate',function(event,data){
 		var RECORD =  window.RECORD;
@@ -64,20 +66,20 @@ $(document).ready(function(){
 			TABLE.trigger('clear');		
 		}
 		if(!model){
-			for(var index=0;index<ToPOPU.length; index++){
-				$.each(ToPOPU[index], function(ctr,obj){
-					$.each(obj, function(ctra,obja){
+			for(var i=0;i<ToPOPU.length; i++){
+				$.each(ToPOPU[i], function(c,o){
+					$.each(o, function(ctra,obja){
 						try{
-							fieldIt(RECORD.getTemplate(),ctr,ctra, ToPOPU[index][ctr][ctra],index);
+							fieldIt(RECORD.getTemplate(),c,ctra, ToPOPU[i][c][ctra],i);
 						}catch(err){
 							console.log(err);
 						}
 					});
 				});
 				var RECID = RECORD.getPrefix()+RECORD.getIndex();
-				RECORD.register(RECID,ToPOPU[index]);
+				RECORD.register(RECID,ToPOPU[i]);
 				$(RECORD.getTemplate()).clone().attr("id",RECID).appendTo(TABLE);
-				$(RECORD.getTemplate()).find('span[data-field]').html('');
+				$(RECORD.getTemplate()).find('span[data-field]>input,span[data-field]>select')?$(RECORD.getTemplate()).find('span[data-field]>input,span[data-field]>select').val(''):$(RECORD.getTemplate()).find('span[data-field]').html('');
 			}
 		}else{
 			var modelIs={};
@@ -94,7 +96,7 @@ $(document).ready(function(){
 				var RECID = RECORD.getPrefix()+"DTL"+RECORD.getIndex();
 				RECORD.register(RECID,modelIs);
 				$(RECORD.getTemplate()).clone().attr("id",RECID).appendTo(TABLE);
-				$(RECORD.getTemplate()).find('span[data-field]').html('');
+				$(RECORD.getTemplate()).find('span[data-field]>input,span[data-field]>select')?$(RECORD.getTemplate()).find('span[data-field]>input,span[data-field]>select').val(''):$(RECORD.getTemplate()).find('span[data-field]').html('');
 			}
 		
 		}	
@@ -115,20 +117,33 @@ $(document).ready(function(){
 		var col_count =  $(canvas).find('tbody td').length;
 		var args =  args||{'html':'<tr><td colspan="'+col_count+'" class="text-center"> <i class="icon-alert"></i> No record(s) found</td></tr>'};
 		$(canvas).find('tfoot').fadeIn().html(args.html);
-		$(canvas).find('tbody td span').empty();
+		if($(canvas).find('tbody td span').find('inpunt,select')){
+			$(canvas).find('tbody td span').find('inpunt,select').val('');
+		}else{
+			$(canvas).find('tbody td span').empty();
+		}
 				
 	}).bind('showRecord',function(evt,args){
 		var canvas = this;
-		$(canvas).find(' tbody').fadeIn();
-		$(canvas).find(' tfoot').fadeOut().empty();
+		var advancedtable = args?args.advancedtable:true;
+		$(canvas).find('tbody').fadeIn();
+		if(advancedtable){
+			$(this).advancedtable({searchField:'#search-box'});
+		}else{
+			$(canvas).find('tfoot').fadeOut();
+		}
 	});
 	$('.RECORD').trigger('init');
 	
 	function fieldIt(row,model,field,rowData,index){
+		if(rowData instanceof Object){
+			$.each(rowData,function(fld,rd){
+				fieldIt(row,model,field+'.'+fld,rd,index);
+			});
+		}
 		var field = $(row).find('*[data-field="'+model+'.'+field+'"]');
 		var rowData = rowData;
 		var inputExist = field.find('input');
-	
 		var inputExist = inputExist.length;
 		var selectExist = field.find('select');
 		var selectExist = selectExist.length;
