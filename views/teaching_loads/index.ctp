@@ -7,7 +7,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </a>
-                  <a class="brand" href="#">Template</a>
+                  <a class="brand" href="#">Teaching Loads</a>
                   <div class="nav-collapse collapse navbar-responsive-collapse" >
                     <ul class="nav">
                      <li class="dropdown" id="action-filter" >
@@ -77,11 +77,11 @@
 						<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="TeachingLoadTable" model="TeachingLoad">
 			<thead>
 				<tr>
-					<th class="w10 text-center"><a >Employee Id</a></th>
-					<th class="w10 text-center"><a >Subject Id</a></th>
-					<th class="w10 text-center"><a >Section Id</a></th>
-					<th class="w10 text-center"><a >Class Type</a></th>
-					<th class="w10 text-center"><a >Esp</a></th>
+					<th class="w10 text-center"><a >Teacher</a></th>
+					<th class="w10 text-center"><a >Subject</a></th>
+					<th class="w10 text-center"><a >Section</a></th>
+					<!--<th class="w10 text-center"><a >Class Type</a></th>-->
+					<!--<th class="w10 text-center"><a >School Year</a></th>-->
 					<th class="actions w5"><a >Actions</a></th>
 				</tr>
 			</thead>
@@ -92,21 +92,15 @@
 			<span data-field='Subject.description'></span></td>
 		<td>
 			<span data-field='Section.name'></span></td>
-		<td><span data-field='TeachingLoad.class_type'></span></td>
-		<td><span data-field='TeachingLoad.esp'></span></td>
+		<!--<td><span data-field='TeachingLoad.class_type'></span></td>-->
+		<!--<td><span data-field='TeachingLoad.sy_tb'></span></td>-->
 		<td class="actions">
 					<div class="btn-group">
 						<div class="btn-group btn-center">
 							<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 							<ul class="dropdown-menu">
-									
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-employees"><i class="icon-eye-open"></i> Employees</a></li>
-											
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-subjects"><i class="icon-eye-open"></i> Subjects</a></li>
-											
-											 <li><a href="#intent-modal" data-toggle="modal"  class="action-view view-sections"><i class="icon-eye-open"></i> Sections</a></li>
-																	 
-							  <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+								<li><a href="#intent-modal" data-toggle="modal"  class="action-edit intent-view"><i class="icon-edit"></i> Edit</a></li>								 
+								<li><a href="#" class="intent-remove"><i class="icon-remove"></i> Delete</a></li>
 							</ul>
 						</div>
 					</div>
@@ -147,17 +141,19 @@
 <div class="row-fluid">
 <div class="teachingLoads form span12">
 		<?php echo $this->Form->input('id',array('placeholder'=>'Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('employee_id',array('placeholder'=>'Employee Id','options'=>$employees,'between'=>'<div class="controls">','after'=>'</div>','class'=>'span3'));?>
-		<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('section_id',array('placeholder'=>'Section Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('class_type',array('placeholder'=>'Class Type','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
-		<?php echo $this->Form->input('esp',array('placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('Section.name',array('label'=>'Section','disabled'=>true,'type'=>'text','placeholder'=>'Section','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span5'));?>
+		<?php echo $this->Form->input('subject_id',array('placeholder'=>'Subject Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span5'));?>
+		<?php echo $this->Form->input('employee_id',array('placeholder'=>'Employee Id','options'=>$employees,'between'=>'<div class="controls">','after'=>'</div>','class'=>'span5'));?>
+		
+		<?php echo $this->Form->input('section_id',array('type'=>'hidden','placeholder'=>'Section Id','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('class_type',array('type'=>'hidden','placeholder'=>'Class Type','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
+		<?php echo $this->Form->input('esp',array('type'=>'hidden','placeholder'=>'Esp','between'=>'<div class="controls">','after'=>'</div>' ,'class'=>'span11'));?>
 </div>
 </div>
 	
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary intent-save" type="submit">Save</button>
+    <button class="btn btn-primary" type="button">Save</button>
     <button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
   </div>
   

@@ -48,10 +48,26 @@ class TeachingLoadsController extends AppController {
 		if (!empty($this->data)) {
 			$this->TeachingLoad->create();
 			if ($this->TeachingLoad->save($this->data)) {
-				$this->Session->setFlash(__('The teaching load has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = 1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; Saving successful';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{
+					$this->Session->setFlash(__('The teaching load has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The teaching load could not be saved. Please, try again.', true));
+				if($this->RequestHandler->isAjax()){
+					$response['status'] = -1;
+					$response['msg'] = '<i class="icon-search"></i>&nbsp; The teaching load could not be saved. Please, try again.';
+					$response['data'] = $this->data;
+					echo json_encode($response);
+					exit();
+				}else{ 
+					$this->Session->setFlash(__('The teaching load could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$employees = $this->TeachingLoad->Employee->find('list');
@@ -88,8 +104,16 @@ class TeachingLoadsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->TeachingLoad->delete($id)) {
-			$this->Session->setFlash(__('Teaching load deleted', true));
-			$this->redirect(array('action'=>'index'));
+			if($this->RequestHandler->isAjax()){
+				$response['status'] = 1;
+				$response['msg'] = '<i class="icon-search"></i>&nbsp; Delete successful';
+				$response['data'] = $this->data;
+				echo json_encode($response);
+				exit();
+			}else{
+				$this->Session->setFlash(__('Teaching load deleted', true));
+				$this->redirect(array('action'=>'index'));
+			}
 		}
 		$this->Session->setFlash(__('Teaching load was not deleted', true));
 		$this->redirect(array('action' => 'index'));

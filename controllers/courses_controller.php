@@ -99,8 +99,10 @@ class CoursesController extends AppController {
 					}
 				break;
 				case 'subjects':
-					//$schema = $this->Course->schema();
 					$conditions['Course.level_id']=$val;
+				break;
+				case 'curriculum_id':
+					$conditions['Course.curriculum_id']=$val;
 				break;
 				case 'group':
 					foreach(explode(',',$val) as $f){
