@@ -5,7 +5,7 @@ class TeachingLoad extends AppModel {
 
 	var $belongsTo = array(
 		'Employee' => array(
-			'className' => 'Employee',
+			'className' => 'Profile.Employee',
 			'foreignKey' => 'employee_id',
 			'conditions' => '',
 			'fields' => '',

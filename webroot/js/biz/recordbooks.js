@@ -6,7 +6,7 @@ $(document).ready(function(){
 			$('#action-filter').addClass('open');
 		},0);
 	});
-	$(document).on('click','#sy_period li',function(){
+	$(document).on('click','#sy_period li',function(event){
 		var a ='';
 		if($(this).hasClass('sy')){
 			a ='sy';
@@ -36,24 +36,33 @@ $(document).ready(function(){
 					}
 					TEACH_LOAD[e.Subject.id]['sections'].push({'id':e.Section.id,'name':e.Section.name});
 				});
+				console.log(TEACH_LOAD);
 				$.each(TEACH_LOAD,function(a,b){
-					htm += '<li><a href="#" data-value="'+b.subject_id+'"><i class="icon icon-check-empty"></i>'+b.subject_name+'</a></li>';
+					htm +='<li class="nav-header">'+b.level+' '+b.subject_name+'</li>';
+					$.each(b.sections,function(i,section){
+						htm += '<li><a href="#" data-value="'+b.subject_id+'"><i class="icon icon-check-empty"></i>'+section.name+'</a></li>';
+					});
 				});
 				htm +='<li class="divider"></li>';
 				htm +='<li><a href="#"><i class="icon icon-plus"></i> Subject</a></li>';
 				$('#subjects').html(htm);
 			});
 		}
+		event.stopPropagation;
+		return false;
 	});
-	$(document).on('click','#subjects li',function(){
+	$(document).on('click','#subjects li',function(event){
 		$('#subjects li').find('i').not('.icon-plus').removeClass('icon-check').addClass('icon-check-empty');
 		$(this).find('i').removeClass('icon-check-empty').addClass('icon-check');
+		event.stopPropagation;
+		return false;
 	});
 	
 	$(document).on('click','#view-loads',function(){
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
 		var subject = $('#subjects li').find('i.icon-check').parent().attr('data-value');
+		console.log(subject,'asdsad');
 		if(sy!=undefined&&period!=undefined&&subject!=undefined){
 			$('#RecordbookTable').trigger('preload');
 			$('#load_subjects').val(subject);

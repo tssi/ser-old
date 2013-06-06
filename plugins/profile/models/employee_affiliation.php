@@ -1,17 +1,15 @@
 <?php
-class MenuItem extends inventoryAppModel {
-	var $name = 'MenuItem';
-	var $displayField = 'name';
+class EmployeeAffiliation extends profileAppModel {
+	var $name = 'EmployeeAffiliation';
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $belongsTo = array(
-		'Unit' => array(
-			'className' => 'Inventory.Unit',
-			'foreignKey' => 'unit_id',
+		'Employee' => array(
+			'className' => 'Profile.Employee',
+			'foreignKey' => 'employee_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		)
 	);
-
 }

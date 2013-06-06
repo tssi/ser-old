@@ -2,7 +2,8 @@
 class TeachingLoadsController extends AppController {
 
 	var $name = 'TeachingLoads';
-
+	var $uses = array('TeachingLoad','Profile.Employee','Section');
+	
 	function index() {
 		if($this->Rest->isActive()){
 			if(isset($_GET)){
@@ -18,8 +19,11 @@ class TeachingLoadsController extends AppController {
 			}
 			$teaching_loads  = $this->TeachingLoad->find('all',array('conditions'=>$cond));
 		}else{
-		$this->TeachingLoad->recursive = 0;
-		$this->set('teachingLoads', $this->paginate());
+			$this->TeachingLoad->recursive = 0;
+			$this->Section->recursive = 1;
+			$this->set('employees',$this->Employee->find('list',array('fields'=>array('id','Employee.full_name'))));
+			$this->set('sections',$this->Section->find('all',array('fields'=>array('Section.id','Section.level_id','Section.name'))));
+			$this->set('teachingLoads', $this->paginate());
 		}
 		if($this->Rest->isActive()||$this->RequestHandler->isAjax()){
 			//Sanitize data
@@ -135,6 +139,6 @@ class TeachingLoadsController extends AppController {
 			}
 		}
 		$this->TeachingLoad->recursive = 2;
-		return $this->TeachingLoad->find('all',array('conditions'=>$conditions,'group'=>$group));
+		return $this->TeachingLoad->find('all',array('conditions'=>$conditions,'group'=>$group,'fields'=>$fields));
 	}
 }
