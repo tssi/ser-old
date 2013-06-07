@@ -29,9 +29,23 @@ $(document).ready(function(){
 	$(document).on('click','.validate-save',function(){
 		var percentage=0;
 		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
+		var id = $('#load_tmplt').val();
+		
+		var row;
+		var key;
+		var data;
+		var record;
+		
 		$.each(percent_spans,function(i,e){
 			console.log(e);
-			percentage += parseFloat($(e).text());
+			row =$(this).parents('tr:first');
+			key  = row.attr('id');
+			data = $('.RECORD').trigger('access',{'key':key});
+			record =  window.RECORD.getActive();
+			console.log(record);
+			if(id!=record.TemplateDetail.id){
+				percentage += parseFloat($(e).text());
+			}
 		});
 		console.log(percentage);
 		percentage +=parseFloat($('#TemplateDetailPercentage').val());
