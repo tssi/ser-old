@@ -17,6 +17,7 @@
 		<?php
 			echo $this->Html->meta('icon');
 			echo $this->Html->css(array('bootstrap','pccr','simple','template','font-awesome','jquery_ui'));
+			echo $this->Html->css(array('bootstrap-responsive'));
 			echo '<!--[if IE 7]>';
 			echo $this->Html->css(array('font-awesome-ie7.min'));
 			echo '<![endif]-->';
@@ -24,6 +25,7 @@
 			echo $this->Html->css(array('card/info_card','effects/index'));
 			echo $this->Html->css(array('ss/ssMetrics','ss/ssInterface'));
 			echo $this->Html->css(array('joyride/joyride-2.0.3'));
+			echo $this->Html->css(array('advancedTable'));
 			echo $this->Html->css(array('dataTable'));
 			echo $this->Html->script(array('jquery','jquery.dataTables'));
 
@@ -82,7 +84,7 @@
 					//echo $this->element('sql_dump'); 
 					echo $this->Html->script(array('jquery_ui','bootstrap','jqueryForm','navigation','intents','utils/money','utils/util' ));
 					echo $this->Html->script(array('joyride/jquery.joyride-2.0.3'));
-					echo $this->Html->script(array('ui/uiInputNumeric'));
+					echo $this->Html->script(array('ui/uiInputNumeric','utils/advancedtable'));
 
 					echo $scripts_for_layout;
 				?>

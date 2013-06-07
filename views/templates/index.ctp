@@ -62,7 +62,7 @@
 	<div class="w90 center">
 		<div class="row-fluid">
 			<div class="w90 center">
-				<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="TemplateTable" model="Template">
+				<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable advancedTable" id="TemplateTable" model="Template">
 					<thead>
 						<tr>
 							<!--<th class="w5 text-center"><a >ID</a></th>-->
@@ -87,10 +87,10 @@
 									<div class="btn-group btn-center">
 										<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 										<ul class="dropdown-menu">
-											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details"><i class="icon-eye-open"></i> Template Details</a></li>						 
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-template_details intent-view"><i class="icon-eye-open"></i> Template Details</a></li>						 
 											<!--<li><a href="#" class="action-edit"><i class="icon-edit"></i> Edit</a></li>-->
-											<li><a  href="#intent-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-											<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+											<li><a  href="#intent-modal" data-toggle="modal" data-dismiss="modal" class="action-edit intent-edit"><i class="icon-edit"></i> Edit</a></li>
+											<li><a href="#" class="action-delete intent-remove"><i class="icon-remove"></i> Delete</a></li>
 										</ul>
 									</div>
 								</div>
@@ -139,7 +139,7 @@
 			<?php echo $this->Form->input('limit',array('type'=>'hidden','id'=>'subject_limit','class'=>'span3'));?>
 			<?php echo $this->Form->input('subject_id',array('type'=>'hidden','id'=>'subject_id','class'=>'span3'));?>
 			<?php echo $this->Form->input('created_by',array('type'=>'hidden','id'=>'user','class'=>'span3'));?>
-	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="TemplateDetailTable" model="TemplateDetail">
+	<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable advancedTable" id="TemplateDetailTable" model="TemplateDetail">
 				<caption class="caption-bordered">Template Details</caption>
 				<thead>
 				<tr>
@@ -163,9 +163,9 @@
 								<div class="btn-group btn-center">
 									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										  <li><a  href="#" data-toggle="modal" data-dismiss="modal" class="action-validation"><i class="icon-plus"></i> Add</a></li>
-										 <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-										 <li><a href="#" class="action-delete-template-dtl"><i class="icon-remove"></i> Delete</a></li>
+										  <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-add intent-add"><i class="icon-plus"></i> Add</a></li>
+										 <li><a  href="#template-details-modal" data-toggle="modal" data-dismiss="modal" class="action-edit intent-view"><i class="icon-edit"></i> Edit</a></li>
+										 <li><a href="#" class="action-delete-template-dtl intent-remove"><i class="icon-remove"></i> Delete</a></li>
 									</ul>
 								</div>
 							</div>
@@ -235,7 +235,7 @@
 				</div>
 			</div>
 			 <div class="modal-footer">
-				<button class="btn btn-primary intent-save validate-save" type="submit">Save</button>
+				<button class="btn btn-primary intent-save" type="button">Save</button>
 				<button class="btn intent-cancel" data-dismiss="modal" aria-hidden="true" type="submit">Cancel</button>
 			 </div>
 		</div>

@@ -26,21 +26,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$(document).on('click','.action-validation',function(){
-		var percentage=0;
-		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
-		$.each(percent_spans,function(i,e){
-			console.log(e);
-			percentage += parseFloat($(e).text());
-		});
-		if(percentage >= 100){
-			alert('Warning! You exceed the maximum percentage.');
-		}else{
-			$(this).attr('href','#template-details-modal');
-			$(this).removeClass('action-validation').addClass('action-add').click();
-		}
-	});
-	$('.validate-save').hover(function(){
+	$(document).on('click','.validate-save',function(){
 		var percentage=0;
 		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
 		$.each(percent_spans,function(i,e){
@@ -53,45 +39,23 @@ $(document).ready(function(){
 		if(percentage > 100){
 			alert('Warning! You exceed the maximum percentage.');
 		}else{
-			$(this).removeClass('intent-validation').addClass('intent-save');
+			$(this).removeClass('validate-save').addClass('intent-save').attr('type','submit').click();
 		}
 	});
-	
-	
-	$(document).on('click','.action-validation',function(){
-		var percentage=0;
-		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
-		$.each(percent_spans,function(i,e){
-			console.log(e);
-			percentage += parseFloat($(e).text());
-		});
-		if(percentage >= 100){
-			alert('Warning! You exceed the maximum percentage.');
-		}else{
-			$(this).attr('href','#template-details-modal');
-			$(this).removeClass('action-validation').addClass('action-add').click();
-		}
+	$(document).on('click','.intent-cancel',function(){
+		$('.btn-primary').addClass('intent-save').removeClass('validate-save').attr('type','button');//remove class if cancel click
 	});
-	$('.validate-save').hover(function(){
-		var percentage=0;
-		var percent_spans = $('#TemplateDetailTable').find('[data-field="TemplateDetail.percentage"]');
-		$.each(percent_spans,function(i,e){
-			console.log(e);
-			percentage += parseFloat($(e).text());
-		});
-		console.log(percentage);
-		percentage +=parseFloat($('#TemplateDetailPercentage').val());
-		console.log(percentage);
-		if(percentage > 100){
-			alert('Warning! You exceed the maximum percentage.');
-		}else{
-			$(this).removeClass('intent-validation').addClass('intent-save');
-		}
+	$(document).on('click','.intent-remove',function(){
+		$('.btn-primary').removeClass('validate-save').addClass('intent-save').attr('type','submit');//remove class if cancel click
 	});
-	
-	
+	$(document).on('click','.action-edit,.action-add',function(){
+		$('.btn-primary').removeClass('intent-save').addClass('validate-save').attr('type','button');//add class for validation
+	});
 	$(document).on('click','.intent-save,.intent-cancel',function(){
 		$('.alert').hide();
+	});
+	$(document).on('click','.intent-remove',function(){
+		$('.intent-save').text('delete');
 	});
 	$('#dept').button('toggle');
 	//populate subjects
@@ -169,66 +133,4 @@ $(document).ready(function(){
 		$('#sy').val(sy);
 	});
 	
-	$(document).on('click','.action-add,#add-template-details',function(){
-		var temp_id = $('#TemplateId').val();
-		var temp_name = $('#TemplateName').val();
-		$('#TemplateDetailTemplateId').val(temp_id);
-		$('#template_name').val(temp_name);
-		$('input[role="foreign-key"]').val(temp_id);
-	});
-	
-	//Delete template
-	$(document).on('click','.action-delete',function(){
-		var row =$(this).parents('tr:first');
-		var key  = row.attr('id');
-		var data = $('.RECORD').trigger('access',{'key':key});
-		var record =  window.RECORD.getActive();
-		//console.log(record);
-		var id = record.Template.id;
-		var col_count =  $('#TemplateTable.RECORD tbody td').length;
-		var model =  'templates';
-		$.ajax({
-			url:'/recordbook/'+model+'/delete/'+id,
-			method:'POST',
-			dataType:'json',
-			success:function(data){
-				var row_count = row.parent().find('tr').length;
-				console.log(row_count);
-				if(row_count  == 1){
-					$('#TemplateTable.RECORD tbody').hide();
-					$('#TemplateTable.RECORD tbody td span').empty();
-					$('#TemplateTable.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"><div class="well text-center"><button class="btn  btn-medium" id="filter-template"><i class="icon icon-filter"></i> Templates</button><div class="muted">No Templates found, click to filter.</div></div></td></tr>');	
-				}else{
-					row.remove();
-				}
-			}
-		});
-	});
-	
-	//Delete template details
-	$(document).on('click','.action-delete-template-dtl',function(){
-		var row =$(this).parents('tr:first');
-		var key  = row.attr('id');
-		var data = $('.RECORD').trigger('access',{'key':key});
-		var record =  window.RECORD.getActive();
-		var id = record.TemplateDetail.id;
-		var col_count =  $('#TemplateDetailTable.RECORD tbody td').length;
-		var model =  'template_details';
-		$.ajax({
-			url:'/recordbook/'+model+'/delete/'+id,
-			method:'POST',
-			dataType:'json',
-			success:function(data){
-				var row_count = row.parent().find('tr').length;
-				console.log(row_count);
-				if(row_count  == 1){
-					$('#TemplateDetailTable.RECORD tbody').hide();
-					$('#TemplateDetailTable.RECORD tbody td span').empty();
-					$('#TemplateDetailTable.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"><div class="well text-center"><button class="btn  btn-medium" id="add-template-details" href="#template-details-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Template Details</button><div class="muted">No Template Details found, click to add.</div></div></td></tr>');	
-				}else{
-					row.remove();
-				}
-			}
-		});
-	});
 });

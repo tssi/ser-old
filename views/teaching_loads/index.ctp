@@ -74,7 +74,7 @@
 	<div class="w90 center">
 		<div class="row-fluid">
 			<div class="w90 center">
-						<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="TeachingLoadTable" model="TeachingLoad">
+						<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable advancedTable" id="TeachingLoadTable" model="TeachingLoad">
 			<thead>
 				<tr>
 					<th class="w10 text-center"><a >Teacher</a></th>
