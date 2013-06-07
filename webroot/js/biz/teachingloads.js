@@ -71,21 +71,24 @@ $(document).ready(function(){
 	$(document).on('click','.validation',function(){
 		var section = $('#TeachingLoadSectionId').val();
 		var sy = $('#TeachingLoadEsp').val();
+		var id = $('#TeachingLoadId').val();
 		var subject = $('#TeachingLoadSubjectId').val();
-		$.getJSON('/recordbook/teaching_loads.json?section_id='+section+'&esp='+sy+'&subject_id='+subject, function(data){
+		$.getJSON('/recordbook/teaching_loads.json?section_id='+section+'&esp='+sy+'&subject_id='+subject+'&id='+id, function(data){
 			if(data.data.length>0){
 				alert('Subject already loaded');
 			}else{
-				alert('Subject Loaded');
 				$('.validation').removeClass('validation').addClass('intent-save').attr('type','submit').click();//remove class for validation
 			}
 		});
 	});
 	$(document).on('click','.intent-cancel',function(){
-		$('.btn-primary').removeClass('validation').attr('type','button');//remove class if cancel click
+		$('.btn-primary').removeClass('validation').addClass('intent-save').attr('type','button');//remove class if cancel click
+	});
+	$(document).on('click','.intent-remove',function(){
+		$('.btn-primary').addClass('intent-save').attr('type','submit').removeClass('validation');//remove class if cancel click
 	});
 	$(document).on('click','.action-edit',function(){
-		$('.btn-primary').addClass('intent-save').attr('type','submit');//add class for validation
+		$('.btn-primary').addClass('validation').removeClass('intent-save').attr('type','button');//add validation
 	});
 	$(document).on('click','#view-loads',function(){
 		var sy = $('#sy_dept li.sy.selected').find('a').attr('data-value');
@@ -110,32 +113,6 @@ $(document).ready(function(){
 			}
 		}
 	}); 
-	$(document).on('click','.action-delete',function(){
-		var row =$(this).parents('tr:first');
-		var key  = row.attr('id');
-		var data = $('.RECORD').trigger('access',{'key':key});
-		var record =  window.RECORD.getActive();
-		//console.log(record);
-		var id = record.TeachingLoad.id;
-		var col_count =  $('#TeachingLoadTable.RECORD tbody td').length;
-		var model =  'teaching_loads';
-		$.ajax({
-			url:'/recordbook/'+model+'/delete/'+id,
-			method:'POST',
-			dataType:'json',
-			success:function(data){
-				var row_count = row.parent().find('tr').length;
-				console.log(row_count);
-				if(row_count  == 1){
-					$('#TeachingLoadTable.RECORD tbody').hide();
-					$('#TeachingLoadTable.RECORD tbody td span').empty();
-					$('#TeachingLoadTable.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"><div class="well text-center"><button class="btn  btn-medium" id="filter-load"><i class="icon icon-filter"></i> Teaching Loads</button><div class="muted">No Teaching Loads found, click to filter.</div></div></td></tr>');	
-				}else{
-					row.remove();
-				}
-			}
-		});
-	});
 	$(document).on('click','#intent-create',function(){
 		var sy = $('#sy_dept li.sy.selected').find('a').attr('data-value');
 		var section = $('#sections li').find('i.icon-check').parent().attr('data-value');
@@ -143,7 +120,7 @@ $(document).ready(function(){
 		$('#TeachingLoadSectionId').val(section);
 		$('#TeachingLoadEsp').val(sy+'.00');
 		$('#SectionName').val(section_name);
-		$('.btn-primary').addClass('validation').removeClass('intent-save').removeAttr('type','submit');//add class to button save for validate
+		$('.btn-primary').addClass('validation').removeClass('intent-save').attr('type','button');//add class to button save for validate
 	});
 	$(document).on('click','.action-edit',function(){
 		var section = $('#sections li').find('i.icon-check').parent().attr('data-value');

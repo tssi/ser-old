@@ -135,6 +135,9 @@ class TeachingLoadsController extends AppController {
 						}
 					}
 				break;
+				case 'id':
+					$conditions['TeachingLoad.'.$key.' != ']=$val==''?'a':$val;
+				break;
 				case 'group':
 					foreach(explode(',',$val) as $f){
 						if(isset($schema[$f])){
