@@ -40,12 +40,14 @@ $(document).ready(function(){
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
 		var modal =  $(this).attr('href');
-		var canvas =  '#'+$(modal).find('.canvasTable').attr('id');
-		var advancedtable = $(canvas).hasClass('advancedTable');
-		var model =  $(canvas).attr('model');
-		var form  = $('form[canvas="'+canvas+'"]');
-		$(canvas).trigger('preload');
-		$.each(record,function(mdl,content){
+		var canvases =  $(modal).find('.canvasTable');
+		 $.each(canvases,function(a,c){
+			var canvas = '#'+($(c).attr('id'));
+			var model =  $(canvas).attr('model');
+			var form  = $('form[canvas="'+canvas+'"]');
+			var advancedtable = $(canvas).hasClass('advancedTable');
+			$(canvas).trigger('preload');
+			$.each(record,function(mdl,content){
 				if(mdl==model){
 					console.log(record[mdl]);
 					if(record[mdl].length){
@@ -62,25 +64,20 @@ $(document).ready(function(){
 					}
 				}
 				$.each(content,function(fld,v){
-	
 					if(v instanceof Object){
 						$.each(v,function(vf,vv){
 							$(modal).find('input[name*="['+mdl+']['+fld+']['+vf+']"],select[name*="['+mdl+']['+fld+']['+vf+']"]').val(vv);
 						});
-						
-						//fieldIt($(modal),mdl,fld,[],v);
 					}else{
 						//Display content regular
 						$(modal).find('input[name*="['+mdl+']['+fld+']"],select[name*="['+mdl+']['+fld+']"]').val(v);
 						$(modal).find('span.uneditable-input[data-field="'+mdl+'.'+fld+'"]').text(v);
-						//Populate foreign key						
-						//console.log(('input[name*="['+mdl+']['+fld+']",role="foreign-key"]'));
+						//Populate foreign key	
 						$('.canvasForm').find('input[name*="['+mdl+']['+fld+']"]').val(v);
 					}
-						
-					
 				});
 			});
+		});
 	});
 	function fieldIt(target,mdl,fld,path,v){
 		
