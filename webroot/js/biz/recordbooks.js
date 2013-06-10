@@ -143,9 +143,10 @@ $(document).ready(function(){
 		var key  = row.attr('id');
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
-		console.log(record);
 		ACTIVE_ERB = record;
 		$('#section').html('<option value="'+record.Section.id+'">'+record.Section.name+'</option>');
+		$('#load_recordbook').val(record.Recordbook.id);
+		$('#MeasurableCanvasForm').trigger('request_content');
 	});
 	$(document).on('click','.action-add',function(){
 		console.log(ACTIVE_ERB);
@@ -187,46 +188,16 @@ $(document).ready(function(){
 		var key  = row.attr('id');
 		var data = $('.RECORD').trigger('access',{'key':key});
 		var record =  window.RECORD.getActive();
-		console.log(record);
 		$('#MeasurableGeneralComponentId').val(record.GeneralComponent.id);
 	});
-	//delete measurables
-	/* $(document).on('click','.action-delete',function(){
-		var row =$(this).parents('tr:first');
-		var key  = row.attr('id');
-		var data = $('.RECORD').trigger('access',{'key':key});
-		var record =  window.RECORD.getActive();
-		console.log(record);
-		var id = record.Measurable.id;
-		var col_count =  $('#MeasurableTable.RECORD tbody td').length;
-		var model =  'measurables';
-		$.ajax({
-			url:'/recordbook/'+model+'/delete/'+id,
-			method:'POST',
-			dataType:'json',
-			success:function(data){
-				var row_count = row.parent().find('tr').length;
-				console.log(row_count);
-				if(row_count  == 1){
-					$('#MeasurableTable.RECORD tbody').hide();
-					$('#MeasurableTable.RECORD tbody td span').empty();
-					$('#MeasurableTable.RECORD tfoot').fadeIn().html('<tr><td colspan="'+col_count+'" class="text-center"><div class="well text-center"><button class="btn  btn-medium action-btn" id="add-measurables" href="#measurables-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Measurables</button><div class="muted">No Measurables found, click to add.</div></div></td></tr>');	
-				}else{
-					row.remove();
-				}
-			}
-		});
-	}); */
 	//Populate measurables
 	$('#GradeComponentTable').bind('afterPOPU',function(evt,args){
 		if($('#GradeComponentTable tbody tr').length){
 			$('#add-measurables').removeAttr('disabled');
 			var htm='';
 			$.each($('#GradeComponentTable tbody tr'),function(i,e){
-				console.log($(e).find('td span[data-field="GradeComponent.general_component_id"]'));
 				var gc_id = $(e).find('td span[data-field="GradeComponent.general_component_id"]').text();
 				var gc_desc = $(e).find('td span[data-field="GeneralComponent.description"]').text();
-				console.log(gc_id,gc_desc);
 				htm +='<option value="'+gc_id+'">'+gc_desc+'</option>';
 			});
 			$('#MeasurableGeneralComponentId').html(htm);

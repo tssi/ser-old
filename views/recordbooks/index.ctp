@@ -69,8 +69,8 @@
 									<div class="btn-group btn-center">
 										<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 										<ul class="dropdown-menu">
-											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-grade_components"><i class="icon-eye-open"></i> Grade Components</a></li>
-											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-measurables"><i class="icon-eye-open"></i> Measurables</a></li>			 
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-grade_components intent-view"><i class="icon-eye-open"></i> Grade Components</a></li>
+											<li><a href="#intent-modal" data-toggle="modal"  class="action-view view-measurables intent-view"><i class="icon-eye-open"></i> Measurables</a></li>			 
 											<!--<li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>-->
 										</ul>
 									</div>
@@ -173,7 +173,7 @@
 									<ul class="dropdown-menu">
 										  <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-add intent-add"><i class="icon-plus"></i> Add</a></li>
 										 <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-edit intent-edit intent-view"><i class="icon-edit"></i> Edit</a></li>
-										 <li><a href="#" class="action-delete"><i class="icon-remove intent-remove"></i> Delete</a></li>
+										 <li><a href="#" class="action-delete intent-remove"><i class="icon-remove"></i> Delete</a></li>
 									</ul>
 								</div>
 							</div>
