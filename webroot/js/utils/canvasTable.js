@@ -63,19 +63,21 @@ $(document).ready(function(){
 						}
 					}
 				}
-				$.each(content,function(fld,v){
-					if(v instanceof Object){
-						$.each(v,function(vf,vv){
-							$(modal).find('input[name*="['+mdl+']['+fld+']['+vf+']"],select[name*="['+mdl+']['+fld+']['+vf+']"]').val(vv);
-						});
-					}else{
-						//Display content regular
-						$(modal).find('input[name*="['+mdl+']['+fld+']"],select[name*="['+mdl+']['+fld+']"]').val(v);
-						$(modal).find('span.uneditable-input[data-field="'+mdl+'.'+fld+'"]').text(v);
-						//Populate foreign key	
-						$('.canvasForm').find('input[name*="['+mdl+']['+fld+']"]').val(v);
-					}
-				});
+			});
+		});
+		$.each(record,function(mdl,content){
+			$.each(content,function(fld,v){
+				if(v instanceof Object){
+					$.each(v,function(vf,vv){
+						$(modal).find('input[name*="['+mdl+']['+fld+']['+vf+']"],select[name*="['+mdl+']['+fld+']['+vf+']"]').val(vv);
+					});
+				}else{
+					//Display content regular
+					$(modal).find('input[name*="['+mdl+']['+fld+']"],select[name*="['+mdl+']['+fld+']"]').val(v);
+					$(modal).find('span.uneditable-input[data-field="'+mdl+'.'+fld+'"]').text(v);
+					//Populate foreign key	
+					$('.canvasForm').find('input[name*="['+mdl+']['+fld+']"]').val(v);
+				}
 			});
 		});
 	});
