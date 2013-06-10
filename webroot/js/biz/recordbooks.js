@@ -191,7 +191,7 @@ $(document).ready(function(){
 		$('#MeasurableGeneralComponentId').val(record.GeneralComponent.id);
 	});
 	//delete measurables
-	$(document).on('click','.action-delete',function(){
+	/* $(document).on('click','.action-delete',function(){
 		var row =$(this).parents('tr:first');
 		var key  = row.attr('id');
 		var data = $('.RECORD').trigger('access',{'key':key});
@@ -216,7 +216,7 @@ $(document).ready(function(){
 				}
 			}
 		});
-	});
+	}); */
 	//Populate measurables
 	$('#GradeComponentTable').bind('afterPOPU',function(evt,args){
 		if($('#GradeComponentTable tbody tr').length){

@@ -46,7 +46,7 @@
 	<div class="w90 center">
 		<div class="row-fluid">
 			<div class="w90 center">
-				<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable" id="RecordbookTable" model="Recordbook">
+				<table class="table table table-striped table-bordered  table-condensed RECORD tablesorter canvasTable advancedTable" id="RecordbookTable" model="Recordbook">
 					<thead>
 						<tr>
 							<th class="w10 text-center"><a >Section Id</a></th>
@@ -145,7 +145,7 @@
 				</tr>
 			</tfoot>
 		</table>
-				<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable" id="MeasurableTable" model="Measurable">
+				<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered table-condensed RECORD tablesorter canvasTable advancedTable" id="MeasurableTable" model="Measurable">
 				<caption class="caption-bordered">Measurables</caption>
 				<thead>
 				<tr>
@@ -171,9 +171,9 @@
 								<div class="btn-group btn-center">
 									<button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i><span class="caret"></span></button>
 									<ul class="dropdown-menu">
-										  <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-add"><i class="icon-plus"></i> Add</a></li>
-										 <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-edit"><i class="icon-edit"></i> Edit</a></li>
-										 <li><a href="#" class="action-delete"><i class="icon-remove"></i> Delete</a></li>
+										  <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-add intent-add"><i class="icon-plus"></i> Add</a></li>
+										 <li><a  href="#measurables-modal" data-toggle="modal" data-dismiss="modal" class="action-edit intent-edit intent-view"><i class="icon-edit"></i> Edit</a></li>
+										 <li><a href="#" class="action-delete"><i class="icon-remove intent-remove"></i> Delete</a></li>
 									</ul>
 								</div>
 							</div>
@@ -185,7 +185,7 @@
 					<tr class="no-details">
 						<td colspan="12">
 							<div class="well text-center">
-								<button class="btn  btn-medium action-btn"  id="add-measurables" href="#measurables-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Measurables</button>
+								<button class="btn  btn-medium action-btn intent-add"  id="add-measurables" href="#measurables-modal" data-toggle="modal" data-dismiss="modal"><i class="icon-plus"></i> Measurables</button>
 								<div class="muted">No Measurables found, click to add.</div>
 							</div>
 						</td>
