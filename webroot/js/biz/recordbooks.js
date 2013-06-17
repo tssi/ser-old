@@ -96,7 +96,9 @@ $(document).ready(function(){
 		}
 	});
 	$(document).on('click','#intent-create',function(){
-		//$('#GradeComponentTable,#MeasurableTable').trigger('emptyRecord');
+		$('#load_recordbook').val(0);
+		$('#MeasurableCanvasForm').trigger('request_content');
+		
 		var sy = $('#sy_period li.sy.selected').find('a').attr('data-value');
 		var period = $('#sy_period li.period.selected').find('a').attr('data-value');
 		var subject = $('#subjects li').find('i.icon-check').parent().attr('data-value');
@@ -130,7 +132,7 @@ $(document).ready(function(){
 	//populate grade components
 	$(document).on('change','#GradeComponentTemplates',function(){
 		var template = $(this).find('option:selected').val();
-		console
+		console.log(template);
 		$('#template-id').val(template);
 		$('#TemplateDetailCanvasForm').trigger('request_content');
 	});

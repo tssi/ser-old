@@ -237,7 +237,6 @@
 							<caption class="caption-bordered">Grade Components</caption>
 							<thead>
 								<tr>
-									<th><?php __('Recordbook Id'); ?></th>
 									<th><?php __('General Component Id'); ?></th>
 									<th><?php __('Order Index'); ?></th>
 									<th><?php __('Percentage'); ?></th>
@@ -246,20 +245,20 @@
 							</thead>
 							<tbody class="hide">
 								<tr>
-									<td>
-										<input type="text" readonly="readonly" vname="data[GradeComponent][%][recordbook_id]" role="foreign-key">
+									<td style="display:none">
+										<input type="text" class="span12" readonly="readonly" vname="data[GradeComponent][%][recordbook_id]" role="foreign-key">
 									</td>
 									<td data-field='TemplateDetail.general_component_id'>
-										<input type="text" readonly="readonly" vname="data[GradeComponent][%][general_component_id]">
+										<input type="text" class="span12" readonly="readonly" vname="data[GradeComponent][%][general_component_id]">
 									</td>
 									<td data-field='TemplateDetail.order_index'>
-										<input type="text" readonly="readonly" vname="data[GradeComponent][%][order_index]">
+										<input type="text" class="span12" readonly="readonly" vname="data[GradeComponent][%][order_index]">
 									</td>
 									<td data-field='TemplateDetail.percentage'>
-										<input type="text" readonly="readonly" vname="data[GradeComponent][%][percentage]">
+										<input type="text" class="span12" readonly="readonly" vname="data[GradeComponent][%][percentage]">
 									</td>
 									<td data-field='TemplateDetail.under'>
-										<input type="text" readonly="readonly" vname="data[GradeComponent][%][under]">
+										<input type="text" class="span12" readonly="readonly" vname="data[GradeComponent][%][under]">
 									</td>
 								</tr>
 							</tbody>
