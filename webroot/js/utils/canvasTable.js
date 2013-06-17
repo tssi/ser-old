@@ -16,6 +16,7 @@ $(document).ready(function(){
 				$(canvas).trigger('preload');
 			},
 			success:function(data){
+				var advancedtable = $(canvas).hasClass('advancedTable');
 				if(!data.length){
 					if(form.attr('template')){
 						var template = $.parseJSON(form.attr('template'));
@@ -27,7 +28,7 @@ $(document).ready(function(){
 				}else{
 					RECORD.setModel(model);
 					$(canvas).trigger('populate', {'data':data,'append':false});
-					$(canvas).trigger('showRecord');
+					$(canvas).trigger('showRecord',{'advancedtable':advancedtable});
 					
 				}
 				if(in_modal&&!args.init){
